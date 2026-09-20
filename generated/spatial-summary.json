@@ -1,0 +1,59 @@
+[
+  {
+    "side": 32,
+    "nodes": 32768,
+    "edges": 797816,
+    "boundary_fraction": 0.0625,
+    "sent_bytes": 131072,
+    "single_ms": [
+      4.065077,
+      5.690417
+    ],
+    "serialized_ms": 7.160794,
+    "automatic_ms": 10.387917,
+    "host_phases_ms": [
+      0.164212,
+      1.016824,
+      3.141871,
+      6.06501
+    ]
+  },
+  {
+    "side": 64,
+    "nodes": 262144,
+    "edges": 6596856,
+    "boundary_fraction": 0.03125,
+    "sent_bytes": 524288,
+    "single_ms": [
+      9.248271,
+      21.907868
+    ],
+    "serialized_ms": 17.88056,
+    "automatic_ms": 19.866341,
+    "host_phases_ms": [
+      0.450716,
+      1.7094,
+      11.098924,
+      6.607301
+    ]
+  },
+  {
+    "side": 96,
+    "nodes": 884736,
+    "edges": 22508920,
+    "boundary_fraction": 0.020833333333333332,
+    "sent_bytes": 1179648,
+    "single_ms": [
+      23.004748,
+      89.745749
+    ],
+    "serialized_ms": 44.222053,
+    "automatic_ms": 51.609677,
+    "host_phases_ms": [
+      0.916332,
+      15.867799,
+      29.29479,
+      5.530756
+    ]
+  }
+]

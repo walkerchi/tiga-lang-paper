@@ -1,0 +1,27 @@
+\section{Limitations and next steps}
+The implementation has the following scope limits:
+\begin{itemize}
+\item Native and Torch paths have different operator, dtype and gradient coverage.
+Traced modules support a guarded subset; structured reverse loops and general
+higher-order differentiation remain incomplete.
+\item Generated exact kNN supports a bounded FP32, small-k envelope. Larger-k
+scratch, general metric lowering and generated backward require further work.
+\item Implicit block composition, automatic heterogeneous out-of-core execution
+and additional vendor backends remain incomplete.
+\item Distributed execution uses fixed ownership. Compute-aware partitioning,
+partition-local topology capacity, RCCL and failure recovery remain open.
+\item Gaussian and volume rendering use host geometry work and are not differentiable.
+\item Evaluation measures FP32 forward workloads. Sustained out-of-core training
+and beyond-host-RAM graphs require additional measurement.
+\end{itemize}
+
+\section{Conclusion}
+Tiga retains relations, reducer algebra, gradients and execution constraints as
+a compiler-level contract. Generated relations can avoid costly materialization;
+this improves radius and exact kNN latency and allocation on the measured
+workloads. Paging permits a fully checked billion-edge
+forward evaluation on one 16 GiB GPU, while profiling exposes substantial host
+staging cost. Two-host execution works but does not beat the faster single GPU
+under the measured equal-row schedule. The resulting priorities are concrete:
+reduce dynamic dispatch cost, reduce staging copies, and make distributed
+scheduling sensitive to compute imbalance and halo traffic.

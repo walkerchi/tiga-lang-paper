@@ -1,0 +1,229 @@
+% Superseded by evaluation-questions.tex; retained as historical source, not compiled.
+\section{Benchmarks, capacity and reproducibility}
+\label{sec:evaluation}
+\subsection{Two kinds of evidence}
+This revision includes fresh local scaling measurements as well as historical
+performance records. Tests establish outputs, gradients and guards for explicit
+cases. Archived timings describe the recorded implementation and environment;
+rerendering a figure is not rerunning an experiment. Some old records lack full
+source revision, seed or environment metadata. Attaching the current environment
+does not repair that missing provenance.
+
+The implementation archive contains 50 hashed JSON inputs, including 44 registered
+benchmark cases and supporting measurements. The documentation publishes an input
+index and a downloadable archive. Plot generators preserve the provider, phase,
+shape, precision and cache-state boundaries. A ratio is defined by
+$$
+ \text{speedup}=\frac{\text{matched baseline latency}}{\text{candidate latency}}.
+$$
+Ratios below one indicate a slower candidate. Different topology, feature width,
+precision, output semantics or build/reuse scope cannot be silently grouped as
+one comparison. Median latency, sampling confidence interval, correctness checks
+and release readiness are separate facts.
+
+\subsection{Fresh experiment setup and questions}
+The September 19 experiments address (Q1) forward latency versus graph size on
+the ordinary Torch input path, (Q2) executable capacity under controlled native
+allocation budgets, and (Q3) billion-edge execution when a full working set
+exceeds physical GPU capacity. The host has an AMD Ryzen 7 255 (8 cores, 16 logical
+CPUs), about 44 GiB of RAM and an NVIDIA RTX 5070 Ti with 16 GiB device memory.
+The GPU driver is 595.84, Torch is 2.11.0+cu128 and Triton is 3.6.0. Runs use a
+local dirty checkout, not an immutable release. Command lines, dependency
+versions, timestamps, source-diff hashes and untracked-source hashes accompany
+the data. This was not a dedicated, clock-locked benchmark machine; intervals
+describe within-run sampling, not reproducibility across hosts.
+
+The GPU sweep contains 8,192, 32,768, 131,072 and 524,288 nodes, at feature widths
+16 and 64. Each row has a seeded degree uniformly selected from 8 through 24,
+with random source IDs, FP32 weights/features and int32 CSR indices. Duplicate
+edges are retained. The fixed seed is 20260919. All three implementations receive
+the same graph and values; topology construction, CSR wrapper creation and index
+conversion are outside timing. Inputs do not require gradients.
+
+Five warmup calls precede 20 CUDA-event samples per implementation and
+configuration, with provider order randomized each round. Outputs are checked
+against an explicit gather--multiply--scatter oracle at relative and absolute
+tolerances of $3\cdot10^{-4}$ before timing. The public ordinary Tiga call is
+measured, not prepared execution. Diagnostics record a compiler-emitted bounded
+ragged weighted-sum route. First-call host wall time is retained separately;
+the warm curves exclude first compilation, transfers and backward. CUDA events
+may include device idle time between host submissions; these are not isolated
+instruction-throughput measurements.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/gpu-latency.pdf}
+\caption{Fresh ordinary-Torch forward latency on the RTX 5070 Ti. Both panels
+use the same graph-size sweep; feature widths remain separate. Lower is better.
+The logarithmic time axes expose both small and large workloads.}
+\label{fig:gpu-latency}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{figures/gpu-speedup.pdf}
+\caption{Fresh Tiga ordinary-call speedup against the fixed Torch sparse peer.
+The dotted line is parity. Shading is a pointwise 95\% paired bootstrap interval
+of the median-latency ratio (5,000 resamples of the 20 interleaved rounds,
+seed 20260919), not a cross-machine confidence claim.}
+\label{fig:gpu-speedup}
+\end{figure}
+
+Figures~\ref{fig:gpu-latency}--\ref{fig:gpu-speedup} expose the dependence on
+graph size and feature width rather than collapsing all shapes into a single
+number. Across these four sizes, the median-latency ratio against Torch sparse
+ranges from 1.56 to 3.69 at width 16 and from 1.18 to 1.41 at width 64.
+These ranges describe the measured points, not a bound for arbitrary graphs.
+The gather--scatter baseline is deliberately labeled as one
+implementation; the sparse-library baseline is also shown. These are forward
+operator results, not end-to-end training, generalized PyG performance or
+compiled-backward speedups. The full numerical samples and per-case dispatch
+diagnostics are included in \code{data/gpu-scaling.json}.
+\FloatBarrier
+
+\subsection{Capacity under an 8 MiB native RAM budget}
+The CPU experiment uses a periodic one-dimensional graph with 16 source-neighbor
+offsets per destination and a scalar source field $x_i=i\bmod97$. Each output is
+the mean of its 16 neighbors. This is a controlled regular-local graph, not a
+power-law dataset or an irregular-feature IO stress test. The topology and source
+field are persisted before execution. Ingest is outside the question of
+executing an existing stored graph and is not included in the curves.
+
+Three execution choices are compared: full materialization through the public
+API, paging 1,024 destination rows, and paging 8,192 rows. Prefetch is disabled to
+isolate the page-size/capacity tradeoff. All use the same 8 MiB \emph{native-buffer}
+budget. Each of three trials runs in a fresh process and performs one forward
+evaluation. Time includes loading the chosen representation and its first
+execution, including needed JIT work; process startup, ingest and the independent
+NumPy oracle are excluded. Repeated unchanged-input calls are deliberately not
+used as an execution-latency proxy for the lazy native path. The OS page cache
+is not forcibly cleared, so this is not a cold-NVMe bandwidth experiment.
+
+Every completed output is compared elementwise against an independently computed
+periodic-stencil oracle; all successful trials have zero maximum absolute error.
+The output remains resident, so paging does not make memory independent of
+node count. Disk-backed field handles, bounded staging, output assembly,
+Python/compiler allocations and OS file caching have distinct accounting rules.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/memory-capacity.pdf}
+\caption{Fresh CPU capacity experiment. Left: maximum tracked RAM across three
+fresh processes, with the 8 MiB native budget. Crosses mark rejected resident
+configurations, not measured allocations of exactly 8 MiB. Right: maximum
+process RSS, including rejected materialization attempts. RSS is not limited
+by the native budget.}
+\label{fig:memory-capacity}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{figures/memory-time.pdf}
+\caption{Load plus first forward execution, including JIT, on CPU. Lines show
+the median of three fresh processes and shading the observed minimum--maximum
+range. Missing resident points are budget rejection, not zero latency.}
+\label{fig:memory-time}
+\end{figure}
+
+At 131,072 nodes the resident path is rejected while both paging choices finish.
+At 524,288 nodes (8,388,608 edges), the stored topology and field occupy about
+70 MiB, but paging completes under the 8 MiB native budget. The 1k-row and
+8k-row choices peak at approximately 6.01 and 6.03 MiB of tracked native RAM;
+maximum process RSS is approximately 104.5 and 124.9 MiB. Their median load-plus-
+first-execution times are about 6.18 and 6.40 seconds, respectively. Thus the
+capacity result is not ``a graph ran using only 8 MiB of total machine memory.''
+
+The rejected resident materialization at the largest size still reaches about
+1.63 GiB RSS because Python index materialization precedes the managed native
+allocation check. This is a concrete limitation of the current loader and
+accounting boundary, not evidence of a hard process-memory cap. The relative
+first-execution times at smaller sizes also include loading and JIT differences;
+they cannot be relabeled steady-state kernel speedups. The useful result is that
+paging extends the executable graph range under the stated resource policy.
+
+This earlier CPU experiment does not establish GPU-to-NVMe streaming, graphs larger
+than host physical RAM, a byte-budget-derived automatic page-size optimizer,
+training throughput, or arbitrary repeated multi-step execution at this budget.
+Those require separate sweeps with physical resource enforcement, IO statistics,
+graph skew, feature width, backward state and sustained iterations. This
+single-invocation CPU experiment does not establish iterative execution support.
+The following experiments measure two-host execution and a separate ten-step
+CUDA paging workload, with their own configurations and source records.
+\FloatBarrier
+
+\input{sections/runtime-experiments}
+
+\subsection{Illustrative archived CSR measurements}
+Table~\ref{tab:weighted} retains every registered hot-cache weighted-aggregation
+configuration for a fixed pair: \code{tiga.prepared\_auto} and
+\code{torch.sparse.mm}. These measurements are attributed to the archived RTX
+5070 Ti suite, not to a new experiment for this draft. Values are FP32 with
+131,072 nodes; index width and feature count are listed separately. Topology
+distributions and locality vary. Preparation, first compilation and graph
+construction are outside the candidate's prepared timing boundary.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/weighted-table}
+\caption{Historical hot-cache neighbor aggregation, milliseconds. All 11
+registered topology/feature configurations for the fixed provider pair are shown.
+This is not end-to-end latency of today's ordinary Torch call.}
+\label{tab:weighted}
+\end{table}
+
+The table illustrates sensitivity to relation structure and feature width, not a
+framework ranking. The broader suite also contains cold-data-cache and nonprepared
+paths, with different boundaries and relative outcomes. ``Cold cache'' here means
+perturbed data-cache contents, not first-time JIT compilation. PyG has fused sparse
+aggregation paths as well as gather--scatter; measuring one particular PyG operator
+cannot support a claim about the entire framework.
+
+\subsection{Workload coverage and remaining experiments}
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Question & Evidence in this report & What is not measured here \\
+\midrule
+CSR forward scaling & Fresh 4-size, 2-width GPU curves & Complete GNN training or arbitrary degree skew \\
+Graph capacity & Billion-edge CUDA forward beyond full-residency GPU capacity; controlled-budget CPU/CUDA checks & Beyond-host-RAM graphs, billion-edge recurrence and CUDA paged backward \\
+Topology sensitivity & All 11 historical matched hot CSR configurations & New timings for every archived topology \\
+Edge-NN forward/VJP & Archived suite and separate correctness gates & New whole-training scaling in this revision \\
+Attention / dynamic relations & Existing exact/pruned and builder benchmarks in the implementation archive & One universal speedup across these different contracts \\
+Multi-device execution & Two-host TCP scaling; two-host NCCL forward/VJP gate & NCCL/RCCL scaling and device-profiler overlap \\
+\bottomrule
+\end{tabularx}
+\caption{A benchmark coverage map prevents a small set of curves from standing
+in for all features of the project. Unmeasured claims remain unmeasured.}
+\end{table}
+
+\subsection{Reproducing and extending the evidence}
+The paper's export script verifies input checksums, matches dimensions and
+providers, and derives table entries from raw JSON. Its generated provenance lists
+the files and hashes used. A missing or ambiguous row fails generation rather
+than selecting an arbitrary fastest result. The checked-in table permits a
+standalone PDF build; regenerating it requires the implementation archive.
+The new \code{tools/build\_results.py} imports fresh raw samples, validates every
+configuration, checks the IR snapshots against the compiler, and generates all
+four scaling figures. Its data index records input and benchmark-source hashes.
+Run provenance includes exact commands; the paper README gives the reproduction
+workflow. The billion-edge validator additionally checks all nine independent
+trials, complete elementwise oracle coverage, source identity, capacity arithmetic
+and allocation limits before generating its figure. Exploratory trials do not
+enter the reported curves.
+
+Fresh release experiments must bind to a clean source revision and record
+hardware, driver, provider versions, seed, effective arguments, warmup, sample
+order, synchronization and timing boundaries. Include numerical correctness and
+gradient checks before timing. Separate first-call latency, warm execution,
+preparation and transfers. The implementation's \code{tools/run\_benchmark.py}
+records command/environment/source information for new runs. Historical metadata
+gaps remain disclosed until replaced by fresh measurements.
+
+Independent validation should also cover repeated backward after parameter
+updates, non-contiguous layouts, empty rows, isolated entities, duplicates,
+malformed snapshots, unsupported combinations and multi-rank failure handling.
+Clean installed-wheel tests must run outside the source checkout, without compiler
+path overrides. Passing an editable-source test can otherwise conceal missing
+wheel libraries. The base installation must be tested without Torch, not merely
+with Torch present but unused.

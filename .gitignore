@@ -1,0 +1,18 @@
+build/
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+__pycache__/
+AGENTS.md
+LOCAL_REVIEW.md
+.pytest_cache/
+VALIDATION.md
+.DS_Store
+# Benchmark logs are evidence, not LaTeX build output.
+!data/**/*.log

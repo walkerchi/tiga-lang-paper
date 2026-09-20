@@ -1,0 +1,132 @@
+\section{Introduction}
+Message passing can be a general programming model, not merely an interface for
+graph neural networks. Computation is organized as entities with state, relations
+that determine which entities interact, local message functions, and successive
+state updates. The graph need not be the input problem: it can represent the
+structure of the computation itself. Tensor contractions, convolutions, particle
+interactions, iterative solvers, attention and graph algorithms can all be viewed
+through this lens. General message-passing models have a long history, including
+the actor formalism~\cite{actors}; Tiga explores a compiler-oriented realization
+of this idea for numerical and parallel programs.
+
+The long-term goal is a common programming substrate for dense, sparse and
+dynamically generated computation, rather than a collection of unrelated
+operator-specific interfaces. Relations describe interaction, messages describe
+local computation, reducers describe combination, and composition with control
+flow describes how state evolves. A compiler can then choose how these programs
+execute across kernels, memory tiers and devices while preserving their meaning.
+Generality concerns what can be expressed; it does not imply that every problem
+admits an efficient parallel encoding or that every encoding is supported by the
+current implementation. Section~\ref{sec:general-message-passing} makes this
+distinction precise.
+
+This common form does not imply a common optimal implementation. A sparse CSR
+relation needs an indexed traversal; a dense relation may need no edge array;
+a generated radius relation may profit from a spatial directory. Feature width,
+degree skew, gradient requirements and data residency change the suitable plan.
+
+Tiga retains relations and reducer algebra as compiler-visible information.
+It is not a model library, optimizer package or replacement for PyTorch.
+Ordinary applications retain \code{torch.Tensor} and Torch autograd. Torch is
+not a base installation dependency: a standalone native path supplies CPU
+computation, message passing and gradients without it. Native tensors also
+expose compiler/storage functionality not uniformly available through Torch.
+This split is an explicit interoperability boundary, not a claim that both
+interfaces support all operations identically.
+
+Three practical costs motivate this design. First, explicitly expanding a
+radius or nearest-neighbor relation can create indices, geometry and messages
+that are consumed only once. Second, a graph larger than GPU memory requires
+bounded storage movement even when its arithmetic is simple. Third, dividing
+a graph across devices introduces halo traffic and rank imbalance; doubling
+the GPU count need not reduce completion time.
+
+The report develops a compiler representation that retains relation and reducer
+semantics until traversal/kernel selection, a runtime that separates values
+from residence and rank ownership, and an evaluation of the resulting execution paths.
+The experiments compare time and allocation with matched Torch/PyG paths,
+execute one billion explicit edges on a 16 GiB GPU, and measure the cost of
+two-host NCCL graph partitioning. The results show that
+generated radius traversal and exact kNN improve latency and allocation on the
+measured workloads; paging extends executable capacity; and the current
+equal-row two-GPU schedule is slower than the faster GPU alone. This connects
+each mechanism to a measured benefit or cost rather than assuming that one
+execution strategy is efficient for every relation and interconnect.
+
+\input{sections/background}
+
+\section{Programming model}
+\label{sec:programming-model}
+\subsection{Relations, fields and messages}
+Let source entities and destination entities be distinct finite sets. A relation
+is an ordered collection of edges with source and destination maps. Duplicate
+edges remain separate messages. For a destination, the computation is
+$$
+ m_e = f(x_{s(e)}, z_{d(e)}, a_e;\theta),\qquad
+ y_i = g\!\left(z_i,\operatorname{finalize}\left(
+       \bigoplus_{e:d(e)=i}\operatorname{lift}(m_e)\right);\theta\right).
+$$
+The reducer supplies its identity, lift, combine and finalize behavior.
+An empty row starts from the identity; finalization determines the resulting
+empty-row convention. This convention is reducer-specific. Declaring a reducer
+does not define which edge-local values enter it: the edge function does.
+Simple sum messages return a tensor directly. A structured streaming reducer
+such as online softmax currently packages a score and value using an explicit
+reducer call inside the edge function. That call does not execute an aggregation
+once per edge; it binds the message inputs for capture.
+
+CSR is destination-oriented: row boundaries enumerate destinations and column
+indices identify sources. The example below has two edges into destination 0,
+one into destination 1, and none into destination 2. A self edge is ordinary;
+there is no automatic reverse edge.
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python]
+import torch
+import tiga as tg
+
+class WeightedSum(tg.MessagePassing):
+    reducer = tg.sum()
+    def edge(self, src, dst, edge):
+        return src.x * edge.w
+
+graph = tg.Graph.from_csr(
+    torch.tensor([0, 2, 3, 3]), torch.tensor([0, 1, 1]),
+    num_src=2, validate="full")
+x = torch.tensor([2., 3.], requires_grad=True)
+w = torch.tensor([4., 5., 2.], requires_grad=True)
+y = WeightedSum()(graph=graph, src={"x": x}, dst={}, edge={"w": w})
+dx, dw = torch.autograd.grad(y.sum(), (x, w))
+# y=[23,6,0], dx=[4,7], dw=[2,3,3]
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Stealth, every node/.style={font=\small}]
+\node[draw,circle] (s0) at (0,1.0) {source 0};
+\node[draw,circle] (s1) at (0,-1.0) {source 1};
+\node[draw,circle,very thick,draw=tigateal] (d0) at (5,0) {destination 0};
+\draw[->,thick,color=tigateal] (s0) -- node[above,sloped] {$2\times4=8$} (d0);
+\draw[->,thick,color=tigateal] (s1) -- node[below,sloped] {$3\times5=15$} (d0);
+\node[right=0.5cm of d0,text=tigateal] {$8+15=23$};
+\end{tikzpicture}
+\caption{One destination row: two edge messages become one result. Other
+destinations are intentionally omitted.}
+\end{figure}
+
+\subsection{Composition and topology}
+Dense and triangular constructors describe relation structure, while
+\code{Graph.cat} forms disjoint blocks by offsetting source and destination
+IDs independently. For example, concatenating triangular graphs of sizes two
+and three represents independent causal sequences. It introduces no cross-block
+edges and currently materializes CSR; generic composition is not yet an
+implicit-storage optimization. Cumulative sequence boundaries remain a
+compatibility constructor and must start at zero.
+
+Radius and nearest-neighbor builders depend on coordinates. Their relation
+realization may differ by execution path. Topology selection is discrete;
+the selected graph is a fixed snapshot for derivative semantics. In-place
+mutation of captured indices is not a supported topology-update mechanism.
+Transpose and composition can reorder edges, so explicit edge fields require
+matching reordering. A constructor accepting an input does not certify every
+consumer, provider or gradient combination.

@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,tabularx,graphicx,placeins}
+\usepackage{xcolor,listings,tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[hidelinks]{hyperref}
+\definecolor{tigateal}{HTML}{087F76}
+\input{listings}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlength{\emergencystretch}{2em}
+\title{\includegraphics[width=38mm]{figures/tiga-logo.pdf}\\[6pt]
+Tiga: Graph Message-Passing Programs Across\\Semantics, Differentiation, and Execution}
+\author{walkerchi\\Independent Developer\\\href{mailto:walker.chi.000@gmail.com}{\texttt{walker.chi.000@gmail.com}}}
+\date{Technical report --- September 20, 2026}
+\hypersetup{pdfauthor={walkerchi},pdftitle={Tiga: Graph Message-Passing Programs Across Semantics, Differentiation, and Execution}}
+\begin{document}
+\maketitle
+\begin{abstract}
+Message passing offers a common programming abstraction for numerical and
+parallel computation beyond graph neural networks: entities carry state,
+relations describe interactions, and local messages and reductions update that
+state. Tiga explores this abstraction as a compiler substrate for dense, sparse
+and dynamically generated computations. Expressing these parts only as gathers
+and scatters can obscure
+structure useful for traversal selection, fusion and differentiation. Tiga is
+an alpha just-in-time compiler that retains this structure while exposing a
+Python message-passing interface. It accepts ordinary PyTorch tensors for common
+application paths and includes a Torch-independent native runtime for standalone
+execution and advanced storage and distribution mechanisms. This report defines
+the programming contract, explains the Domain, Iter, Kernel and Task/Storage
+representations, and distinguishes compiled derivatives from adapter replay.
+It describes implemented CPU and NVIDIA execution slices alongside their
+limitations. The evaluation compares speed and memory against Torch sparse
+and PyTorch Geometric, single-GPU offload capacity, and heterogeneous distributed
+graph partitioning. Generated radius execution improves both latency and
+allocation on the measured workloads. Exact kNN through 131,072 points is
+2.28--12.06 times faster than the measured PyG builder/aggregation peer while
+using less allocated device memory. A billion-edge, 32-feature graph executes in about
+414 seconds on a 16 GiB GPU with a 10.27 GiB native allocation peak, although
+its complete CSR, input and output require 22.82 GiB. A separate billion-edge profile
+identifies host staging as the dominant cost. Real two-host NCCL measurements
+evaluate spatial mesh partitions whose halo grows with interface area rather
+than volume. Despite the small halo, equal-row partitioning does not beat the
+faster GPU alone on the heterogeneous pair. The measurements identify distinct
+optimization opportunities in traversal fusion, host staging and partitioning.
+\end{abstract}
+\input{sections/model}
+\input{sections/compiler}
+\input{sections/differentiation}
+\input{sections/runtime}
+\input{sections/evaluation-questions}
+\clearpage
+\input{sections/limitations}
+\clearpage
+\appendix
+\input{sections/appendix-edge-nn}
+\bibliographystyle{plain}
+\begingroup
+\small
+\bibliography{references}
+\endgroup
+\end{document}

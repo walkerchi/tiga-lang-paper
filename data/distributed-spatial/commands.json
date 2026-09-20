@@ -1,0 +1,45 @@
+{
+  "local": [
+    "/home/walkerchi/Code/ComfyUI/.venv/bin/python",
+    "-m",
+    "benchmarks.distributed.paper_scaling",
+    "--host",
+    "10.203.77.1",
+    "--port",
+    "29745",
+    "--transport",
+    "nccl",
+    "--topology",
+    "mesh",
+    "--mesh-sides",
+    "32,64,96",
+    "--features",
+    "16",
+    "--warmup",
+    "2",
+    "--repeats",
+    "5",
+    "--rank",
+    "0",
+    "--output",
+    "/home/walkerchi/Code/graphforgev2/output/paper-three-questions/distributed-spatial/mesh-rank0.json"
+  ],
+  "remote": [
+    "ssh",
+    "-o",
+    "BatchMode=yes",
+    "4070ti",
+    "wsl -d Ubuntu -u root -e bash -lc \"(ip link show tiga-wg0 >/dev/null 2>&1 || bash /var/lib/tiga-bench-network/tiga-wg-restore.sh remote) && cd /home/walker/tiga-three-questions.G4uUUs && runuser -u walker -- env PYTHONPATH=python:/home/walker/tiga-sanity.NOxT0L/deps TIGA_TENSOR_BACKEND=native OMP_NUM_THREADS=1 TIGA_OPT=/home/walker/tiga-three-questions.G4uUUs/gf-opt TIGA_TRANSLATE=/home/walker/tiga-three-questions.G4uUUs/gf-translate TIGA_NCCL_LIBRARY=/home/walker/tiga-paper-20260919.Axi0tf/libnccl.so.2 NCCL_SOCKET_IFNAME=tiga-wg0 NCCL_SOCKET_FAMILY=AF_INET NCCL_IB_DISABLE=1 timeout 1200 /home/walker/venvs/tilelang/bin/python -m benchmarks.distributed.paper_scaling --host 10.203.77.1 --port 29745 --transport nccl --topology mesh --mesh-sides 32,64,96 --features 16 --warmup 2 --repeats 5 --rank 1 --output /home/walker/tiga-three-questions.G4uUUs/output/mesh-rank1.json\""
+  ],
+  "env": {
+    "PYTHONPATH": "python:.",
+    "TIGA_TENSOR_BACKEND": "native",
+    "OMP_NUM_THREADS": "1",
+    "TIGA_OPT": "/tmp/tiga-docs-review/compiler/bin/gf-opt",
+    "TIGA_TRANSLATE": "/tmp/tiga-docs-review/compiler/bin/gf-translate",
+    "TIGA_NCCL_LIBRARY": "/home/walkerchi/Code/ComfyUI/.venv/lib/python3.12/site-packages/nvidia/nccl/lib/libnccl.so.2",
+    "NCCL_SOCKET_IFNAME": "tiga-wg0",
+    "NCCL_SOCKET_FAMILY": "AF_INET",
+    "NCCL_IB_DISABLE": "1"
+  }
+}

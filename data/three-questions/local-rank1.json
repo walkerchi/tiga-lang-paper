@@ -1,0 +1,1006 @@
+{
+  "schema": "tiga.two-host-scaling.v1",
+  "rank": 1,
+  "hostname": "walkerchi-PC",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "gpu": "NVIDIA GeForce RTX 4070 Ti SUPER, 610.74, 12825 MiB, 16376 MiB",
+  "transport": "nccl-socket",
+  "features": 16,
+  "degree": 16,
+  "boundary_every": 0,
+  "boundary_fraction": null,
+  "warmup": 2,
+  "repeats": 5,
+  "nccl_version": 22809,
+  "nccl_library_sha256": "1792291e26d2b27fe51e59cf4dbd361dbfa84cbfe8ee8196c087c7ebf5146d48",
+  "command": [
+    "/home/walker/tiga-three-questions.G4uUUs/benchmarks/distributed/paper_scaling.py",
+    "--host",
+    "10.203.77.1",
+    "--port",
+    "29732",
+    "--transport",
+    "nccl",
+    "--sizes",
+    "32768,131072,524288",
+    "--features",
+    "16",
+    "--boundary-every",
+    "0",
+    "--warmup",
+    "2",
+    "--repeats",
+    "5",
+    "--rank",
+    "1",
+    "--output",
+    "/home/walker/tiga-three-questions.G4uUUs/output/local-rank1.json"
+  ],
+  "timestamp_utc": "2026-09-19T12:21:05Z",
+  "versions": {
+    "numpy": "2.4.4",
+    "triton": "3.6.0"
+  },
+  "python": "3.12.3",
+  "compiler_hashes": {
+    "TIGA_OPT": "31330ce800144d8c1b70e1c24fb5d29962ed793b704b0c502eae6b29e41a2ccb",
+    "TIGA_TRANSLATE": "4087f9b8ed3b19584dfdcee95fd958a3bfa9693cc019db5f0d1afcaab27cf634"
+  },
+  "source_hashes": {
+    "python/tiga/__init__.py": "fc2d3f26d3a814c47ea43efb4fb40367e43609510a78191643cf41368d3c943f",
+    "python/tiga/__main__.py": "f279911a25fc92f58fe40a1e9915038022dac345e4b784338e6620c4ae29be1e",
+    "python/tiga/_version.py": "d5771e52a6d5354ae7074dbc2fa6ef676a0e09af557080b7c6ae0629458c0cbc",
+    "python/tiga/autograd/__init__.py": "03a17ecc6738369a9800e5105f7717a5ab20717bc3dcaa75b7730d75d40eadd3",
+    "python/tiga/codegen/__init__.py": "1ebfa0d00dab321968853a9f42c3b10d0e673a8e10b41ec2576adfe971d1e9c9",
+    "python/tiga/codegen/compile_worker.py": "71cde2ea70fb8f0bdc2e15dbf1cbad90b150d318c9c0dfef49de15b88fac6bbf",
+    "python/tiga/codegen/provider.py": "00b651cd486ec0c5004ba4cd588ef263601f11176224f17733d4e28ae391ace0",
+    "python/tiga/codegen/registry.py": "7982cd7bd1d789f0d1d8f8347faeb0ded36dc8702c2c3a5cf8905028621477bd",
+    "python/tiga/codegen/ttir.py": "e0cb55d618b3ac0e8b84c32292d7c51d1e836166d394f004450631cc059bd65f",
+    "python/tiga/compiler/__init__.py": "0120b607bdc959fb4a74ee21935ae3de616c0ecdcd8dcef35bce5183d4a0f688",
+    "python/tiga/compiler/bundle_plan.py": "6d7583f2ed518f4b6c80652b6829d96cddad7df1ce0426f2c9e2b4e87d3b76b1",
+    "python/tiga/compiler/capture.py": "4367e1b05f120318c74d3c09e720931841f415e8dd34708997782ff1fe9d2f7d",
+    "python/tiga/compiler/cpu_tensor.py": "f5d7bffe3a2d85416175926df198e4fd1bc3f14825f1b6fcfe22e8ab144c539d",
+    "python/tiga/compiler/domain_capture.py": "b4e442917047191e1e59cee52a2279c88b7f8e129ce2a454de2f120525dd34c0",
+    "python/tiga/compiler/edge_nn_attention.py": "3d4722493ea838ef4c3c0f67b1984878279b4abceb4fc33de3ddab95aa2013db",
+    "python/tiga/compiler/edge_nn_tile.py": "48a539a25394ac436256f69f5711e72a0dd177be37d00bacddccd5d0e54aaadd",
+    "python/tiga/compiler/edge_nn_vjp.py": "1d2fc806e8adf9246be804d612cd174289970e74c6f44f461a6bf53dbd3c9331",
+    "python/tiga/compiler/gpu_tensor.py": "c64074f5de8e955c7af8e3669e1023594e3adf849d3dc5411e9316117b720f7b",
+    "python/tiga/compiler/native.py": "15f1c09dab05fd3480b876e1b952ccedc518d60d399b7205d0449d3f36315ad8",
+    "python/tiga/compiler/nn_capture.py": "30e3c11ac7030031e36556adcb08a874c866984bf48e1b1a3c3fc74f783eec43",
+    "python/tiga/compiler/reducer_capture.py": "3f4692882eaa7f7b93fe7d2c79833cd254ec707fafc296673c71ade273347f6b",
+    "python/tiga/compiler/relation_vjp.py": "def9cd93bc18b3e2ee1304d1778cf53f41a1445038af677d5bc2b6c8dc0e7b2d",
+    "python/tiga/compiler/schedule.py": "b58ea0bfda1b73b92408a7d779997bb3b677650efb6ee06be126eee4c53d6e43",
+    "python/tiga/compiler/shapes.py": "37f676981365409e4c0e91641d098d6ad9e0a78bb6cf2d876c8cbcb6a6536273",
+    "python/tiga/compiler/tensor_mlir.py": "25090798dc3e4ea54d8452a0ce97bb28a439fad74f0d62ef1da80477b8e37c13",
+    "python/tiga/compiler/toolchain.py": "dfc9bf5aaa313bf952f72692033bbfff041fefb66b0a0aa4febb8fd59d5dfd5d",
+    "python/tiga/control/__init__.py": "de7f34692de98985f278f6c310c040b9376fdfef80a61b563abd7129d3242b9b",
+    "python/tiga/distributed/__init__.py": "b15d15a8b915f796075da89b110dac2220140f96642b640f5d16f8cfea5582ac",
+    "python/tiga/distributed/model.py": "aac0fa5e120299767ef76430c8185f919e4919cf15b458060ab15895b9b429d3",
+    "python/tiga/distributed/mpi.py": "3e5274620387dcd456936aa8b887211e3ae6dc43e5c38763ad18dd2a49a0b919",
+    "python/tiga/distributed/nccl.py": "d401248f5888843c0bdedc4635a26244f2a872229f37a88142e96100d97f09a3",
+    "python/tiga/distributed/registry.py": "75a76a163b7ef26dda7679a67f08a7e99cf51f6855a8a1035d4c84a335b1a942",
+    "python/tiga/distributed/tcp.py": "02700d6448c66b7e6488e394007e314b076c1c01a139e9a21ca9de07668c1923",
+    "python/tiga/distributed/transport.py": "ad115f61438e3ab1f291289f67bbfb663d8c57695fe52c11ea7b71b287bc53e8",
+    "python/tiga/graph/__init__.py": "48e6f6bdd523e6f34e3921f3c1395d6cdf12422ca6d73b72e27ad818518ba0b9",
+    "python/tiga/graph/core.py": "9d783eb77a5980147fcf47675166fcbf61c5f9162d0051ac5271711d6fcc1328",
+    "python/tiga/graph/dynamic.py": "13f0993eb7a011cee880a46fbbf8de6bc16f45ee2e5812c2bb30565baa050c80",
+    "python/tiga/graph/offload.py": "2b6447203f19189267ed626512fa398c242bdb99ae5413dda64adcd5c20e21f2",
+    "python/tiga/graph/storage.py": "dd6b572f2c83be46b75c14b7f96e850b6e8e96acb3931378c6c3c961a7f82814",
+    "python/tiga/interop/__init__.py": "770db3cd77b08931127f77fc8df3cd2ce854c5e7a6dcb2dc161312e64531780c",
+    "python/tiga/interop/torch/__init__.py": "99918a18435c1dfcea689ce8bfea549f1a124d6f84d4adf2ca6d0e2db83d9b5a",
+    "python/tiga/interop/torch/compiler_bridge.py": "7846c301986889bbd198b700ee302e861d1894f3f53b1610eb01d57f2bda458e",
+    "python/tiga/interop/torch/graph.py": "d10fdfcb04c1e6c0f0d1848028a3ca777664ba5744c80077b5fd286a787f4823",
+    "python/tiga/interop/torch/library.py": "4c3cf2d0c2a095d9ddbf198f3bd1d9d414511042e65ea8002e7d871bed8b46d0",
+    "python/tiga/interop/torch/message_passing.py": "f61c00aa0bb4be4707d3b7ffb822d74b1db3800043e33fe7f94f3ebb0efb2f6f",
+    "python/tiga/interop/torch/provider.py": "322c1b00a3099386b566d70078e1afef7fbd4fa454a898ea8a0576d6e61ef3c2",
+    "python/tiga/interop/torch/reducer_oracle.py": "1b780d52938f3101a9e7cb0e7b9b3f2011a27c127321778103fc0da2ec41baa1",
+    "python/tiga/interop/torch/relation_vjp.py": "8bed2d5914ad6615ab80f413628d00be1721c25806a432c1123a384ada079f77",
+    "python/tiga/interop/torch/tensor.py": "ef5daf8a6e5b02a9925b514e4531c5cfd2a4df0506646405ab60f0fd52989fe6",
+    "python/tiga/jit.py": "22d08337031a8ae98c1a2b8b6b040a55230b99a68694a187212d385677a45d8a",
+    "python/tiga/kernel/__init__.py": "2f353ad80547a9f2e2693a49e16b618eb4c0571563c9a90bce0558e880692a9a",
+    "python/tiga/kernel/model.py": "9b35b5638dc583f971ab8d19ca8a911af8cd2929e7137cd83357c71b73a317b7",
+    "python/tiga/math/__init__.py": "a55b1dfb7b91ad467367a3afdfb277631378c39598b704ebfab285fc8d50741e",
+    "python/tiga/message_passing/__init__.py": "56635e9ddeff0b12ce79530acdf05692d9c08f20f659fa5cd0c570dd9588623d",
+    "python/tiga/message_passing/core.py": "011958834e897236b8a5ae9825468a72ae542cefc6fa007a7e90640660de341e",
+    "python/tiga/message_passing/paged.py": "7d0ad12d37b524b8881118b402f2441a950d530792e8e876fc85d04dd1a1fb56",
+    "python/tiga/nn/__init__.py": "77e47c228d439c7d1d284dc968d2990b42bcd38bcb504f1e265772cfad1713e4",
+    "python/tiga/program/__init__.py": "fef28902f6645ae4fbad61509009d93cf6cce0357681f64d4dcdfbd9281ada7d",
+    "python/tiga/program/core.py": "cb24120dfd404a4996ddcf5de9187484741d76aefa839f29b9910cf4a067246c",
+    "python/tiga/reducer/__init__.py": "80c33281292ebfa7ff050f02dade2e79e78d17d567ab7fd67b31caca5df7fb83",
+    "python/tiga/reducer/core.py": "d941a05f665dbd77e0594a0efddbb9c313dfb32a26662e2889dbbc417180228f",
+    "python/tiga/runtime/__init__.py": "f16c1d58c567055de252d9aea5513e1b8ca8ebbae01337d247782edf84b145e8",
+    "python/tiga/runtime/bundle.py": "c31bcd05152b7b30fec9dbe3792e4a7c5508e4bfa27ef33664e847baafdc5182",
+    "python/tiga/runtime/cuda_blas.py": "98643e73e48f98491dacb6f30561ea6ae337969fbf996b061911af0d4a6a3cd0",
+    "python/tiga/runtime/hierarchy.py": "4151efed9528bed59c2193105a548740110553cc42417180f0d218cb658c8114",
+    "python/tiga/runtime/memory.py": "cd8f3a945de2c5cb035e8ca1262a8fb6482af4ffa5429342e8c7e2d044be4dac",
+    "python/tiga/runtime/plan.py": "009cf8ac62850e8169bcbfaca1cd0ac0e75f313b78d6fed0102c2f227474b733",
+    "python/tiga/runtime/storage_io.py": "9b7c16897d463b5cb722350618cb02bcac817bdc991a44c208a154676e20ba71",
+    "python/tiga/tensor/__init__.py": "7b5c6cd46f1e08420676f15b80e8fe83c2ada5a5d3a9514aa855b778efe59b8d",
+    "python/tiga/tensor/core.py": "4427465ba9030bb455456e14f196f8ecd23fb2873d45087741b15afa1c1e023d",
+    "python/tiga/tensor/spill.py": "6ef9614857e425ef11789525516ed53fe7f7e069ee21022d4d93ba6678922af4",
+    "python/tiga/visualize/__init__.py": "39d8206990c7e3b375650f3fda3275c23d11497d683195dc6935cb4a585b2340",
+    "python/tiga/visualize/camera.py": "03a4919f78aca8ec931beabdac74b9c8868076db5470628b0597120fefed3736",
+    "python/tiga/visualize/exchange.py": "a41db1c886fc2b525b0794e4c982aae82cbf4fc5e16a77cf732ea497ced43100",
+    "python/tiga/visualize/geometry.py": "d257d090eedf1f986eef614a72a701c082a4031074a6d13a16856d97a3219319",
+    "python/tiga/visualize/splats.py": "ed43e64a0782327a74f6c59ff4e38d0a2d8ddf7fc9cfb8942aa9c332d241b505",
+    "python/tiga/visualize/video.py": "1577f7c50b4bf7d918012fab9460998fd8ae1fffcdfcc80653b359d6b8e9e1a6",
+    "python/tiga/visualize/volume.py": "55212736669edc3d32b22addc5eaf5f0b74ee58669d1d13849f6bfabac2a29d0"
+  },
+  "benchmark_sha256": "7e7e09a3ba9a87da8c5ab03519a845b6acd6c36b2180323787d6c6dd78fa1d7b",
+  "scope": "host wall time through synchronized output; topology/input creation, barriers and oracle excluded; changed inputs; forward only",
+  "rows": [
+    {
+      "nodes": 32768,
+      "mode": "single",
+      "correct": true,
+      "median_ms": 5.941145,
+      "samples_ms": [
+        6.551922,
+        4.994055,
+        6.781027,
+        4.942145,
+        5.941145
+      ],
+      "traces": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "traffic": [
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 4354052683,
+          "forward_finished_ns": 4360604605,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 4362629093,
+          "forward_finished_ns": 4367623148,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 4370791790,
+          "forward_finished_ns": 4377572817,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 4379512902,
+          "forward_finished_ns": 4384455047,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 4386894296,
+          "forward_finished_ns": 4392835441,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        }
+      ]
+    },
+    {
+      "nodes": 32768,
+      "mode": "serialized",
+      "correct": true,
+      "median_ms": 5.057774,
+      "samples_ms": [
+        5.057774,
+        5.805343,
+        4.917404,
+        6.036197,
+        4.982523
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 16384,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 16384,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 16384,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 16384,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 16384,
+          "measured_overlap_ms": 0.0
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 5802842034,
+          "forward_finished_ns": 5807899808,
+          "exchange_started_ns": 5802951492,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.083328
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 5808913504,
+          "forward_finished_ns": 5814718847,
+          "exchange_started_ns": 5810345159,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.076956
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 5815955037,
+          "forward_finished_ns": 5820872441,
+          "exchange_started_ns": 5816046791,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.085924
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 5821794343,
+          "forward_finished_ns": 5827830540,
+          "exchange_started_ns": 5821927797,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.202705
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 5828890379,
+          "forward_finished_ns": 5833872902,
+          "exchange_started_ns": 5829005328,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.084009
+        }
+      ]
+    },
+    {
+      "nodes": 32768,
+      "mode": "automatic",
+      "correct": true,
+      "median_ms": 9.224329,
+      "samples_ms": [
+        9.302187,
+        8.731082,
+        8.915988,
+        9.224329,
+        13.294856
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 16368,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 6045608279,
+          "communication_wait_started_ns": 6050058263,
+          "communication_wait_finished_ns": 6050061249,
+          "interior_started_ns": 6046352324,
+          "interior_finished_ns": 6050058003,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 16368,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 6056820775,
+          "communication_wait_started_ns": 6060864866,
+          "communication_wait_finished_ns": 6060866990,
+          "interior_started_ns": 6057095457,
+          "interior_finished_ns": 6060864686,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 16368,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 6067066675,
+          "communication_wait_started_ns": 6071069488,
+          "communication_wait_finished_ns": 6071072504,
+          "interior_started_ns": 6067586884,
+          "interior_finished_ns": 6071069358,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 16368,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 6077912405,
+          "communication_wait_started_ns": 6082671035,
+          "communication_wait_finished_ns": 6082673179,
+          "interior_started_ns": 6078228536,
+          "interior_finished_ns": 6082670685,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 16368,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 6088319807,
+          "communication_wait_started_ns": 6096818271,
+          "communication_wait_finished_ns": 6096821266,
+          "interior_started_ns": 6088782207,
+          "interior_finished_ns": 6096818000,
+          "measured_overlap_ms": null
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 6045066584,
+          "forward_finished_ns": 6054368771,
+          "exchange_started_ns": 6045168137,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.080613
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 6056239143,
+          "forward_finished_ns": 6064970225,
+          "exchange_started_ns": 6056339584,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.086315
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 6066567205,
+          "forward_finished_ns": 6075483193,
+          "exchange_started_ns": 6066660773,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.0946
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 6077172082,
+          "forward_finished_ns": 6086396411,
+          "exchange_started_ns": 6077344499,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.124918
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 6087655894,
+          "forward_finished_ns": 6100950750,
+          "exchange_started_ns": 6087777686,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.109679
+        }
+      ]
+    },
+    {
+      "nodes": 131072,
+      "mode": "single",
+      "correct": true,
+      "median_ms": 10.354844,
+      "samples_ms": [
+        10.281395,
+        9.985041,
+        12.593667,
+        10.354844,
+        11.669354
+      ],
+      "traces": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "traffic": [
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 7267286959,
+          "forward_finished_ns": 7277568354,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 7287685396,
+          "forward_finished_ns": 7297670437,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 7307521503,
+          "forward_finished_ns": 7320115170,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 7333727455,
+          "forward_finished_ns": 7344082299,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 7354004646,
+          "forward_finished_ns": 7365674000,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        }
+      ]
+    },
+    {
+      "nodes": 131072,
+      "mode": "serialized",
+      "correct": true,
+      "median_ms": 8.191114,
+      "samples_ms": [
+        7.756937,
+        9.036233,
+        7.654214,
+        9.283457,
+        8.191114
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 65536,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 65536,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 65536,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 65536,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 65536,
+          "measured_overlap_ms": 0.0
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 12488168168,
+          "forward_finished_ns": 12495925105,
+          "exchange_started_ns": 12488331468,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.112354
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 12500410264,
+          "forward_finished_ns": 12509446497,
+          "exchange_started_ns": 12502247679,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.165405
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 12514830100,
+          "forward_finished_ns": 12522484314,
+          "exchange_started_ns": 12514969866,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.120509
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 12526817736,
+          "forward_finished_ns": 12536101193,
+          "exchange_started_ns": 12526967201,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.106071
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 12540418760,
+          "forward_finished_ns": 12548609874,
+          "exchange_started_ns": 12540556311,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.10529
+        }
+      ]
+    },
+    {
+      "nodes": 131072,
+      "mode": "automatic",
+      "correct": true,
+      "median_ms": 14.37726,
+      "samples_ms": [
+        14.554847,
+        13.748118,
+        17.385967,
+        14.37726,
+        12.933413
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 65520,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 13136025090,
+          "communication_wait_started_ns": 13144916010,
+          "communication_wait_finished_ns": 13144920919,
+          "interior_started_ns": 13136722126,
+          "interior_finished_ns": 13144915699,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 65520,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 13156862877,
+          "communication_wait_started_ns": 13163787552,
+          "communication_wait_finished_ns": 13163791239,
+          "interior_started_ns": 13157134494,
+          "interior_finished_ns": 13163787382,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 65520,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 13177201259,
+          "communication_wait_started_ns": 13184503386,
+          "communication_wait_finished_ns": 13184506822,
+          "interior_started_ns": 13177679329,
+          "interior_finished_ns": 13184502945,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 65520,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 13195404220,
+          "communication_wait_started_ns": 13202830363,
+          "communication_wait_finished_ns": 13202833980,
+          "interior_started_ns": 13195877230,
+          "interior_finished_ns": 13202830082,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 65520,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 13213927560,
+          "communication_wait_started_ns": 13221703956,
+          "communication_wait_finished_ns": 13221707613,
+          "interior_started_ns": 13214676194,
+          "interior_finished_ns": 13221703835,
+          "measured_overlap_ms": null
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 13135353087,
+          "forward_finished_ns": 13149907934,
+          "exchange_started_ns": 13135514183,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.112073
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 13154147938,
+          "forward_finished_ns": 13167896056,
+          "exchange_started_ns": 13154298374,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.107685
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 13171868973,
+          "forward_finished_ns": 13189254940,
+          "exchange_started_ns": 13176709825,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.112103
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 13193187143,
+          "forward_finished_ns": 13207564403,
+          "exchange_started_ns": 13194916873,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.113356
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 13213313663,
+          "forward_finished_ns": 13226247076,
+          "exchange_started_ns": 13213462045,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.107695
+        }
+      ]
+    },
+    {
+      "nodes": 524288,
+      "mode": "single",
+      "correct": true,
+      "median_ms": 27.202027,
+      "samples_ms": [
+        27.202027,
+        32.250348,
+        24.794147,
+        28.45748,
+        25.181579
+      ],
+      "traces": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "traffic": [
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 17983525622,
+          "forward_finished_ns": 18010727649,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 18123188732,
+          "forward_finished_ns": 18155439080,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 18273042504,
+          "forward_finished_ns": 18297836651,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 18412512908,
+          "forward_finished_ns": 18440970388,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        },
+        {
+          "send_bytes": 0,
+          "receive_bytes": 0,
+          "forward_started_ns": 18558249951,
+          "forward_finished_ns": 18583431530,
+          "exchange_started_ns": null,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0
+        }
+      ]
+    },
+    {
+      "nodes": 524288,
+      "mode": "serialized",
+      "correct": true,
+      "median_ms": 16.982096,
+      "samples_ms": [
+        16.820025,
+        34.511474,
+        16.982096,
+        20.150832,
+        16.898792
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 262144,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 262144,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 262144,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 262144,
+          "measured_overlap_ms": 0.0
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "device-direct-serialized",
+          "interior_rows": 0,
+          "boundary_rows": 262144,
+          "measured_overlap_ms": 0.0
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 39492821673,
+          "forward_finished_ns": 39509641698,
+          "exchange_started_ns": 39493061078,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.134546
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 39555547509,
+          "forward_finished_ns": 39590058983,
+          "exchange_started_ns": 39573856687,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.122664
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 39647909859,
+          "forward_finished_ns": 39664891955,
+          "exchange_started_ns": 39648158041,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.119567
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 39709233777,
+          "forward_finished_ns": 39729384609,
+          "exchange_started_ns": 39709486267,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.134315
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 39788686123,
+          "forward_finished_ns": 39805584915,
+          "exchange_started_ns": 39788902083,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.118586
+        }
+      ]
+    },
+    {
+      "nodes": 524288,
+      "mode": "automatic",
+      "correct": true,
+      "median_ms": 22.933974,
+      "samples_ms": [
+        22.549335,
+        22.933974,
+        25.625394,
+        29.800487,
+        20.842723
+      ],
+      "traces": [
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 262128,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 42129315854,
+          "communication_wait_started_ns": 42146018186,
+          "communication_wait_finished_ns": 42146021593,
+          "interior_started_ns": 42130334814,
+          "interior_finished_ns": 42146017956,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 262128,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 42211642962,
+          "communication_wait_started_ns": 42226230146,
+          "communication_wait_finished_ns": 42226233342,
+          "interior_started_ns": 42212015722,
+          "interior_finished_ns": 42226229955,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 262128,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 42293032264,
+          "communication_wait_started_ns": 42309559859,
+          "communication_wait_finished_ns": 42309565811,
+          "interior_started_ns": 42295354230,
+          "interior_finished_ns": 42309559539,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 262128,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 42379663429,
+          "communication_wait_started_ns": 42394897332,
+          "communication_wait_finished_ns": 42394903664,
+          "interior_started_ns": 42380543555,
+          "interior_finished_ns": 42394896811,
+          "measured_overlap_ms": null
+        },
+        {
+          "schema": "tiga.distributed-execution-trace.v1",
+          "schedule": "interior||device-halo->boundary",
+          "timing_kind": "host-submit-order",
+          "interior_rows": 262128,
+          "boundary_rows": 16,
+          "communication_enqueued_ns": 42458524864,
+          "communication_wait_started_ns": 42473817915,
+          "communication_wait_finished_ns": 42473821913,
+          "interior_started_ns": 42459379341,
+          "interior_finished_ns": 42473817715,
+          "measured_overlap_ms": null
+        }
+      ],
+      "traffic": [
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 42128225801,
+          "forward_finished_ns": 42150775136,
+          "exchange_started_ns": 42128656221,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.154013
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 42207783191,
+          "forward_finished_ns": 42230717165,
+          "exchange_started_ns": 42208036865,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.124236
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 42289156867,
+          "forward_finished_ns": 42314782261,
+          "exchange_started_ns": 42292443867,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.125108
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 42369866502,
+          "forward_finished_ns": 42399666989,
+          "exchange_started_ns": 42379143168,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.120539
+        },
+        {
+          "send_bytes": 1024,
+          "receive_bytes": 1024,
+          "forward_started_ns": 42457671053,
+          "forward_finished_ns": 42478513776,
+          "exchange_started_ns": 42457921791,
+          "socket_span_ms": null,
+          "enqueue_span_ms": 0.130779
+        }
+      ]
+    }
+  ]
+}

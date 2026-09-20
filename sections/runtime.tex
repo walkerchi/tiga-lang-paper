@@ -1,0 +1,92 @@
+\section{Storage, memory and distribution}
+\label{sec:runtime}
+The storage hierarchy makes the capacity strategy explicit
+(Figure~\ref{fig:storage-hierarchy}): keep the complete relation and source
+fields in a persistent store, stage one destination-row page through host
+memory, and execute with a bounded temporary GPU working set. The final output
+remains in device memory. FlashAttention's IO-aware view distinguishes on-chip
+storage from device memory~\cite{flashattention}; here the paging boundary also
+crosses host DRAM and NVMe. Tiga's paging mechanism bounds graph residency across
+these outer memory levels; tile-local fusion bounds intermediate storage within a kernel.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/storage-hierarchy}
+\caption{Storage hierarchy for paged graph execution. The central
+constraint is \emph{active page plus full output}, not full-graph residency on
+the GPU. Arrows show input movement and kernel access; the implementation also
+returns each completed output page through host bytes before writing it into
+the resident device output. No direct NVMe-to-GPU path is implied. Widths are
+schematic, not hardware capacities or bandwidths. Experimental hardware and
+measured footprints are reported in Section~\ref{sec:experimental-setup} and
+Section~\ref{sec:billion}, respectively.}
+\label{fig:storage-hierarchy}
+\end{figure}
+
+\subsection{Logical values versus physical residence}
+\label{sec:gpu-paging}
+The native runtime records value metadata and physical buffers separately.
+Execution scopes select default device, tier budgets, spill directory and graph
+paging defaults; they do not migrate preexisting values. Memory reports count
+scope-created allocations, not process RSS or Torch-owned storage. Limits are
+budgets, not reservations of physical capacity.
+
+Temporary spill releases the tensor's resident-buffer reference while retaining
+shape, dtype, logical device, version and same-process gradient history.
+Observation restores the value. Other views or launches may still own storage,
+so logical eviction is not proof that all associated device bytes were freed.
+Persistent snapshots store values, not a reconstructible autograd graph. Device
+copy is differentiable on supported native paths but currently eager, not merely
+a scheduler hint. The optional LRU policy evicts whole idle native tensors; it
+does not tile a working set larger than device memory, manage Torch allocations
+or supply transparent GPU-to-NVMe execution for arbitrary kernels.
+
+Paged CSR streams bounded destination-row ranges on CPU and, for the tested
+FP32 forward slice, on CUDA via host staging. CPU paging has a VJP path;
+CUDA paged backward remains unsupported. Graph offload and
+field storage have distinct memory lifetimes; automatically paging topology
+does not imply every node/edge field is paged. Forward output assembly allocates
+the final resident tensor once and writes each completed page into its row
+range. Only one output-page payload is retained on the host; the final output
+must still fit the selected device. Persistent CSR ingestion in the large-graph
+experiment writes bounded chunks directly to the versioned store, without
+constructing a graph-sized Python index list.
+
+This bounded-memory path is currently a capacity mechanism rather than an
+optimal IO pipeline. Source fields are gathered on the host into page-edge
+order and copied to CUDA, so repeated source IDs can duplicate feature traffic
+within a page. Each completed output page is copied back to host bytes before
+being written into the final device output. Page-local staging bounds the
+temporary working set but does not eliminate these copies. Section~\ref{sec:billion} measures their
+cost and separates it from GPU kernel execution. Deduplicating source staging,
+direct device output assembly and asynchronous IO are distinct optimizations;
+they are not implied by an offload interface.
+
+The optional runtime prefetcher maintains a bounded queue of topology-page
+reads and contiguous-field read-ahead hints. It does not move source gathers,
+host packing or CUDA copies into a compiler-scheduled asynchronous pipeline.
+Consequently prefetch depth is not a guarantee of disk/PCIe/kernel overlap;
+the capacity experiment reports the explicit serialized configuration.
+
+\subsection{Ownership, halos and progress}
+A logical device mesh and destination partition assign output ownership.
+Remote source values become ghosts, and a halo map specifies transfers between
+ranks. The public schedule completes halo exchange before computing all owned
+destination rows in one local call, without split-output assembly.
+Reverse-mode execution accumulates ghost contributions back
+to owners. Event ordering is a correctness requirement independently of whether
+communication and computation actually overlap in time.
+
+The runtime supports CPU rank-local execution, MPI transport, and two-host CUDA
+forward/VJP through TCP and NCCL. Deployment supplies worker processes, rank
+membership and a communicator. Ownership remains fixed during execution;
+Section~\ref{sec:two-host} evaluates an equal-destination partition on spatial meshes.
+
+\subsection{Validation and trust boundaries}
+Dispatch distinguishes supported compiled paths from reference/provider routes.
+Full CSR validation checks monotonic row pointers, endpoints and source-index
+bounds; basic validation checks metadata and is not an exhaustive scan.
+Paged reads validate each consumed range. Tensor snapshots, geometry importers
+and TCP transports are not security sandboxes: compiled UDFs and providers
+execute trusted native code, and transport deployment requires trusted peers.
+\FloatBarrier

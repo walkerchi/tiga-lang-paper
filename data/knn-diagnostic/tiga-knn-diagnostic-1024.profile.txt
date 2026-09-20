@@ -1,0 +1,63 @@
+         58714 function calls (56469 primitive calls) in 0.135 seconds
+
+   Ordered by: cumulative time
+   List reduced from 797 to 55 due to restriction <55>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        3    0.000    0.000    0.052    0.017 message_passing.py:1496(__call__)
+        3    0.000    0.000    0.052    0.017 message_passing.py:1626(_execute_ranked)
+        3    0.000    0.000    0.047    0.016 ttir.py:529(prepare_ttir_ranked)
+        3    0.001    0.000    0.047    0.016 ttir.py:439(compile_ttir)
+        3    0.000    0.000    0.045    0.015 compiler.py:226(compile)
+        4    0.000    0.000    0.027    0.007 subprocess.py:506(run)
+        3    0.027    0.009    0.027    0.009 compiler.py:89(__init__)
+        4    0.000    0.000    0.026    0.006 subprocess.py:1165(communicate)
+        1    0.000    0.000    0.018    0.018 subprocess.py:417(check_output)
+       26    0.018    0.001    0.018    0.001 {method 'read' of '_io.TextIOWrapper' objects}
+        3    0.000    0.000    0.017    0.006 compile_worker.py:204(compile_in_worker)
+        3    0.000    0.000    0.017    0.006 compile_worker.py:104(compile)
+        3    0.000    0.000    0.015    0.005 selectors.py:451(select)
+        3    0.015    0.005    0.015    0.005 {method 'poll' of 'select.epoll' objects}
+       84    0.000    0.000    0.012    0.000 pathlib.py:1017(read_bytes)
+       96    0.012    0.000    0.012    0.000 {built-in method _hashlib.openssl_sha256}
+       84    0.011    0.000    0.011    0.000 {method 'read' of '_io.BufferedReader' objects}
+        3    0.000    0.000    0.010    0.003 compiler_bridge.py:123(lower_kernel_to_ttir)
+        3    0.000    0.000    0.008    0.003 subprocess.py:2062(_communicate)
+       16    0.000    0.000    0.007    0.000 selectors.py:402(select)
+       16    0.007    0.000    0.007    0.000 {method 'poll' of 'select.poll' objects}
+       78    0.000    0.000    0.006    0.000 pathlib.py:663(relative_to)
+        3    0.006    0.002    0.006    0.002 {built-in method triton._C.libtriton.ir.parse_mlir_module}
+        3    0.000    0.000    0.004    0.001 compiler_bridge.py:56(message_passing_domain_mlir)
+        4    0.000    0.000    0.004    0.001 __init__.py:882(version)
+        3    0.000    0.000    0.003    0.001 native.py:75(domain_stages)
+        3    0.003    0.001    0.003    0.001 {built-in method tiga._graphforge_compiler.domain_ir}
+      785    0.000    0.000    0.003    0.000 <frozen _collections_abc>:1022(__iter__)
+       78    0.000    0.000    0.003    0.000 pathlib.py:690(is_relative_to)
+        3    0.000    0.000    0.003    0.001 model.py:211(_record_variant)
+        3    0.000    0.000    0.003    0.001 schedule.py:15(schedules_from_mlir)
+        3    0.003    0.001    0.003    0.001 {built-in method tiga._graphforge_compiler.kernel_schedules}
+      708    0.000    0.000    0.003    0.000 pathlib.py:276(__getitem__)
+        4    0.000    0.000    0.003    0.001 __init__.py:464(version)
+        4    0.000    0.000    0.003    0.001 __init__.py:436(metadata)
+     1034    0.001    0.000    0.003    0.000 pathlib.py:380(with_segments)
+        4    0.000    0.000    0.002    0.001 __init__.py:31(message_from_string)
+        4    0.000    0.000    0.002    0.001 parser.py:56(parsestr)
+       42    0.000    0.000    0.002    0.000 {built-in method builtins.sorted}
+       78    0.000    0.000    0.002    0.000 <frozen _collections_abc>:1032(__contains__)
+        4    0.000    0.000    0.002    0.001 parser.py:41(parse)
+       15    0.000    0.000    0.002    0.000 feedparser.py:171(feed)
+      634    0.000    0.000    0.002    0.000 pathlib.py:420(_from_parsed_parts)
+        3    0.002    0.001    0.002    0.001 {built-in method triton._C.libtriton.ir.load_dialects}
+       79    0.000    0.000    0.002    0.000 pathlib.py:1099(rglob)
+      908    0.000    0.000    0.002    0.000 pathlib.py:437(__str__)
+        3    0.000    0.000    0.002    0.001 compiler.py:406(__init__)
+     1074    0.000    0.000    0.002    0.000 pathlib.py:1159(__init__)
+       19    0.000    0.000    0.002    0.000 feedparser.py:176(_call_parse)
+        4    0.000    0.000    0.002    0.000 subprocess.py:807(__init__)
+       19    0.000    0.000    0.002    0.000 feedparser.py:216(_parsegen)
+      512    0.000    0.000    0.002    0.000 pathlib.py:551(drive)
+        4    0.000    0.000    0.002    0.000 subprocess.py:1791(_execute_child)
+      284    0.000    0.000    0.002    0.000 pathlib.py:407(_load_parts)
+      125    0.001    0.000    0.002    0.000 {built-in method _io.open}
+
+

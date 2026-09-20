@@ -1,0 +1,51 @@
+\section{Differentiation and numerical contracts}
+For fixed relation indices, weighted sum has a simple adjoint. With output
+cotangent denoted by a bar, source and edge derivatives are
+$$
+ \bar{x}_j=\sum_{e:s(e)=j}w_e\bar{y}_{d(e)},\qquad
+ \bar{w}_e=x_{s(e)}\bar{y}_{d(e)}.
+$$
+Repeated source indices require accumulation, not assignment. Empty destination
+rows contribute no source/edge derivative. The example in Section~\ref{sec:programming-model} provides
+an independently checkable forward and backward value contract.
+
+\subsection{Native and Torch paths}
+Native reverse-mode transforms construct derivative expressions from supported
+Tensor and relation operations. Torch-facing calls preserve ordinary Torch
+outputs and autograd integration, but their backward implementation is path-specific.
+Some compiled CSR forwards replay fixed-topology Torch semantics during backward.
+That route is differentiable without being a compiled TTIR backward kernel.
+Explicitly wrapping a Torch tensor into a native tensor shares storage but does
+not merge the two autograd histories.
+
+Supported traced edge neural networks have a CUDA tile forward and a symbolic-VJP
+recompute kernel. The tests compare output and gradients of source features,
+positions and every module parameter to an eager reference. CPU tests additionally exercise explicit edge
+attributes with double-precision finite differences. These checks establish the
+tested first-order envelope, not arbitrary Python capture or universal
+higher-order differentiation. ReLU-like nondifferentiabilities need appropriate
+test points, rather than unqualified finite-difference equality at a kink.
+
+\subsection{Online softmax and approximation}
+For messages consisting of a score and value, the streaming state tracks the
+maximum score, normalized mass and weighted value accumulator. Two nonempty
+states combine by rescaling into a common maximum:
+$$
+ m=\max(m_a,m_b),\qquad
+ \ell=e^{m_a-m}\ell_a+e^{m_b-m}\ell_b,\qquad
+ o=e^{m_a-m}o_a+e^{m_b-m}o_b.
+$$
+Finalization divides the accumulator by the mass for nonempty rows; empty-state
+handling must avoid undefined subtraction of infinities and follow the
+implementation's reducer convention. This numerical structure is related to
+IO-aware attention algorithms~\cite{flashattention}; it does not imply that every
+Tiga path achieves their performance or full feature coverage.
+
+An optional positive pruning threshold enables an approximate dense-attention
+forward path. Scores and key reads are still needed for the pruning decision;
+eligible tiles skip value loading and accumulation. A large score gap can make
+a tile's contribution small, but a block-level criterion is not a per-query
+error bound. Threshold choice affects accuracy and work saved, and may not improve
+latency. The exact default is a disabled threshold, not a threshold of zero.
+Pruned backward is not claimed. Exact and approximate workloads must not be mixed
+in a single speedup comparison without reporting numerical error.

@@ -1,0 +1,50 @@
+\section{A differentiable EdgeNN example}
+\label{app:edge-nn}
+This example expresses a shared edge-local neural network followed by a
+destination-wise sum. Positions and node features are ordinary
+\code{torch.Tensor} objects; the weights are ordinary \code{torch.nn.Parameter}
+objects. No native tensor wrapper or handwritten backward is required.
+For a radius relation, the program computes
+$$
+\mathcal{N}(i)=\{j\ne i:\|p_j-p_i\|_2\le r\},\qquad
+y_i=\sum_{j\in\mathcal{N}(i)}\left[
+W_2\,\operatorname{ReLU}\!\left(W_1[p_j-p_i\,;\,x_j]+b_1\right)+b_2\right].
+$$
+Here the final bias is part of each edge message, inside the sum.
+The feature widths are 8 for node inputs, 3 for displacement, 16 for the
+hidden layer and 4 for each output. The reducer produces a zero vector for
+a destination with no neighbors.
+
+\subsection{Define the message and differentiate the result}
+\code{tg.nn.trace} captures the supported Torch module without replacing its
+parameters. Its multiple tensor arguments are concatenated along the feature
+axis: \code{edge.displacement} supplies the first three features and
+\code{src.x} the remaining eight. \code{reducer = tg.sum()} specifies aggregation
+once on the class, rather than inside the edge function.
+\lstinputlisting[language=Python,firstline=2,lastline=30]{examples/edge_nn.py}
+
+The call returns one four-component vector per destination. The loss yields
+gradients for node features, positions and every MLP weight and bias through
+\code{torch.autograd.grad}; \code{loss.backward()} is the usual alternative
+when accumulated \code{.grad} fields are wanted. The position derivative acts
+through the displacement of selected edges. Discrete radius membership is
+not differentiated: moving across the cutoff changes the selected relation.
+
+\subsection{Check against an explicit Torch reference}
+The following continuation materializes edges only for validation, applies
+the original Torch MLP, and aggregates with \code{index\_add}. Both forward
+values and all gradients are compared on the same selected relation.
+This isolates message, reducer and differentiation correctness; it is not an
+independent validation of the radius-neighbor search.
+\lstinputlisting[language=Python,firstline=32]{examples/edge_nn.py}
+
+On the supported CUDA EdgeNN path, Tiga fuses edge evaluation and reduction
+into tiled execution and recomputes local activations in the VJP, avoiding
+a global edge-by-hidden-feature activation tensor. CPU execution remains
+useful for functional checking but does not establish that CUDA performance
+property. Unsupported module operations are outside this example's capture
+contract. The complete runnable file is \code{examples/edge\_nn.py}; execute it
+from the paper directory with Tiga and the appropriate Torch installation:
+\begin{lstlisting}[language=TigaShell]
+python examples/edge_nn.py
+\end{lstlisting}

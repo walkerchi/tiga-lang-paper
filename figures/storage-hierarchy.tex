@@ -1,0 +1,33 @@
+% Native vector diagram: widths are schematic, not measured capacities.
+\begin{tikzpicture}[font=\small, >=Latex,
+  tier/.style={draw=black!45, line width=.6pt, align=center, inner sep=6pt},
+  note/.style={anchor=west, align=left, text width=4.3cm, font=\footnotesize},
+  transfer/.style={->, line width=.8pt, draw=black!65}]
+  \node[tier, minimum width=3.6cm, minimum height=1.0cm] (chip) at (4.5,6.5)
+    {\textbf{On-chip storage}\\Registers / shared SRAM};
+  \node[tier, draw=tigateal, fill=tigateal!7, line width=1.1pt,
+    minimum width=6cm, minimum height=1.25cm] (gpu) at (4.5,4.4)
+    {\textbf{GPU device memory}\\HBM or GDDR\\
+     \textcolor{tigateal}{\textbf{Active page + full output}}};
+  \node[tier, minimum width=7.5cm, minimum height=1.1cm] (ram) at (4.5,2.2)
+    {\textbf{Host DRAM}\\File-backed pages + gather / staging buffers};
+  \node[tier, minimum width=9cm, minimum height=1.1cm] (disk) at (4.5,0)
+    {\textbf{NVMe-backed persistent store}\\Full CSR topology + source fields};
+
+  \draw[transfer] (disk.north) -- node[right, font=\footnotesize]
+    {Read / mmap; gather page inputs} (ram.south);
+  \draw[transfer] (ram.north) -- node[right, font=\footnotesize]
+    {Host-to-device page transfer} (gpu.south);
+  \draw[<->, line width=.8pt, draw=black!65] (gpu.north) --
+    node[right, font=\footnotesize] {Kernel loads / stores} (chip.south);
+
+  \node[note] at (9.5,6.5) {Kernel-local working state\\No full edge-message array};
+  \node[note, text=tigateal] at (9.5,4.4)
+    {\textbf{Capacity constraint}\\Active page + full output\\must fit device memory};
+  \node[note] at (9.5,2.2) {Bounded page staging\\Gather source values\\by destination-row page};
+  \node[note] at (9.5,0) {Persistent graph storage\\Graph need not fit GPU\\Source fields stay on disk};
+  \draw[black!30, densely dotted] (chip.east) -- (9.3,6.5);
+  \draw[black!30, densely dotted] (gpu.east) -- (9.3,4.4);
+  \draw[black!30, densely dotted] (ram.east) -- (9.3,2.2);
+  \draw[black!30, densely dotted] (disk.east) -- (9.3,0);
+\end{tikzpicture}

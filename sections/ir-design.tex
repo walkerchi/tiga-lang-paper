@@ -1,0 +1,162 @@
+\subsection{Design contract: delay decisions, retain legality}
+\label{sec:ir-design}
+The layers answer different questions about the same program. Domain asks what
+messages and reductions mean. Iter asks which relation coordinates must be
+visited. Kernel asks how that work is mapped to execution resources. Task and
+Storage ask when work may run and which physical copy supplies its operands.
+Tensor IR is a numerical-expression layer used alongside these decisions, not
+necessarily a final fifth stage. The split avoids encoding a GPU schedule in
+the mathematical interface, but does not make scheduling automatic or optimal.
+
+The key invariant is preservation of the observable outputs and supported VJPs
+for the declared input contract. Shape, dtype, device, field role, reducer state,
+topology snapshot and data-access effects are parts of that contract. A pass
+that cannot establish a required property must reject the transformation or
+select an explicitly diagnosed alternative. A topology version in the IR is a
+validity annotation; it does not make arbitrary external in-place mutation safe.
+
+\subsection{Domain: field roles and reducer algebra}
+In the example, the source field is indexed by a source ID and the edge weight
+by an edge position. Both are floating-point vectors, but exchanging their roles
+changes the program. \code{gf.apply} therefore retains \code{input\_roles},
+\code{input\_names}, reducer symbols, region kinds and input segments. Its region
+contains the edge-local arithmetic, not an already materialized global message
+array. A relation separately retains cardinalities, origin, lifecycle, version
+and the available degree constraints.
+
+A reducer describes identity, lift, combine and finalize regions, including the
+types of its intermediate state. This is richer than attaching the string
+``sum'' to an arbitrary scatter. A product or online-softmax reducer needs
+different state and different differentiation rules. Empty rows start from the
+identity and still obey finalize. Associativity admits regrouping; commutativity
+admits reordering. These declarations are semantic obligations, not properties
+the compiler proves for unrestricted user-written Python. Floating-point sums
+require tolerance-aware validation when their reduction tree changes.
+
+The full fixture and four unedited compiler outputs are included in
+\code{generated/ir/}. This excerpt shows the fixture's edge region; its
+enclosing Domain operation is omitted:
+\begin{lstlisting}[language=TigaIR]
+^bb0(%source: f32, %edge: f32):
+  %message = arith.mulf %source, %edge : f32
+  "gf.yield"(%message) : (f32) -> ()
+\end{lstlisting}
+The block arguments represent one logical edge invocation. The region itself
+does not say which CPU core, CUDA thread or memory tier executes it.
+
+\subsection{Iter: coordinates before threads}
+The Domain-to-Iter pass replaces the application with \code{gf\_iter.traverse}
+and preserves the reducer and edge region. In the checked CSR fixture, the
+attributes \code{coordinate\_hierarchy = "compressed-row"} and
+\code{ordering = "destination-major"} describe a row-oriented coordinate walk.
+These names do not mean that the operation is already an explicit sequential
+loop, or that all threads use the same row length.
+
+For the three-row example, \code{row\_ptr=[0,2,3,3]} determines edge ranges
+$[0,2)$, $[2,3)$ and $[3,3)$. The edge position indexes the weight;
+\code{col\_idx[e]} supplies the source ID. Thus the first row visits source IDs
+0 and 1, forms messages 8 and 15 and produces 23. The second produces 6; the
+empty third row produces the sum identity 0. Confusing edge positions with
+source IDs would already invalidate lowering before any hardware schedule.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Stealth,every node/.style={font=\small}]
+\node[draw,rounded corners,text width=2.2cm,align=center,minimum height=1cm] (domain) {same edge message};
+\node[draw,rounded corners,draw=tigateal,thick,text width=4.2cm,align=center,minimum height=1cm,right=1cm of domain] (iter) {select this row's edges};
+\draw[->] (domain) -- (iter);
+\node[below=0.35cm of iter,text=tigateal] {row 0: edges 0, 1 $\longrightarrow$ sum 23};
+\end{tikzpicture}
+\caption{Iter introduces coordinate traversal, not a thread assignment.
+The highlighted decision is row membership.}
+\label{fig:iter-design}
+\end{figure}
+
+Dense and generated relations need different coordinate producers. Materializing
+all edges merely to resemble CSR can destroy the reason to retain an implicit
+relation. Conversely, preserving a constructor in the frontend does not prove
+that every backend consumes it implicitly: graph concatenation currently
+materializes CSR. Format abstraction and schedule selection must be inspected
+on the path actually chosen.
+
+\subsection{Kernel: a concrete, guarded schedule}
+The fixture's Kernel operation consumes CSR buffers and field tensors. Its
+selected bounded-ragged schedule records these attributes:
+\begin{lstlisting}[language=TigaIR]
+block_rows = 16, block_neighbors = 16,
+num_warps = 4, pipeline_stages = 1
+\end{lstlisting}
+These are values for this fixture, not global Tiga defaults.
+Its execution roles distinguish workgroup destination rows, subgroup
+neighbor reduction and scalar lanes. Resource and handoff attributes describe
+global reads, private register state, subgroup reduction and global output writes.
+
+The important transition is from enumerating the correct coordinates to deciding
+how multiple coordinates share hardware. A maximum-degree guard can admit a
+masked bounded-neighbor tile; without that bound, the same launch geometry may
+be incorrect or wasteful. A high-degree split requires explicit partial states
+and a legal merge. No universal schedule should be inferred from the simple
+case's kernel. Provider-neutral scheduling still needs target capabilities and
+resource constraints; it does not imply identical machine instructions on every
+backend.
+
+\subsection{Task and Storage: dependencies are not residency}
+The checked distributed fixture introduces partition and halo planning, then
+pack, exchange and unpack events. Interior work depends on partition readiness;
+boundary work additionally depends on unpack completion. A join represents the
+completion of both branches. This fixture demonstrates the dependency vocabulary;
+the public executor uses the communication-then-compute order described in
+Section~\ref{sec:runtime}.
+
+Storage represents a logical region and version separately from physical
+instances, which carry capacity, memory space, device and layout.
+\code{gf\_storage.transfer} produces a readiness event;
+\code{gf\_storage.release} depends on completion before storage is recycled;
+\code{gf\_storage.join} joins events without specifying a host-wide synchronize.
+These operations establish a vocabulary for movement and lifetime, not proof
+that a cost model automatically supplies an out-of-core schedule for any kernel.
+
+For a paged graph, correctness requires that the page's topology and field
+version agree, transfer completes before consumption, and storage is not reused
+until the last consumer finishes. The current public CPU/CUDA paged-CSR executor
+has host-side orchestration; its memory experiment must not be labeled an
+end-to-end compiled GPU Storage-IR scheduler. Whole-Tensor LRU eviction is a
+separate policy from partitioning one oversized active working set.
+
+\subsection{Transformations, verification and differentiation}
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Transformation & Required fact & Failure if ignored \\
+\midrule
+Row regrouping & Reducer association/order contract & Different state or numerical behavior \\
+Bounded neighbor tile & Degree/shape guards and masked accesses & Truncated rows or out-of-range loads \\
+Producer--consumer fusion & Compatible effects and dependencies & Stale values or duplicated side effects \\
+Topology reuse & Matching frozen snapshot and bindings & Wrong edges after mutation \\
+Storage reuse & Last consumer completed & Use-after-recycle or stale version \\
+VJP construction & Saved/recomputed primal state and fixed topology & Incorrect input/parameter gradients \\
+\bottomrule
+\end{tabularx}
+\caption{Legality obligations, not a claim that every possible violation is
+statically proven absent. Runtime guards and negative tests remain necessary.}
+\end{table}
+
+Differentiation can change the access pattern: source gradients accumulate over
+reverse incidence, and edge gradients retain edge identity. A forward schedule
+need not be a good backward schedule. The compiler therefore needs a distinction
+between semantic VJP generation, schedule selection and runtime saved-state
+management. For current Torch CSR replay, that semantic bridge is implemented
+through Torch autograd rather than a generated TTIR backward kernel; dedicated
+edge-NN and native VJP paths have different contracts.
+
+Reproduce the checked architectural example with
+\begin{lstlisting}[language=TigaShell]
+gf-opt distributed-plan.mlir -gf-lower-domain-to-iter \
+  -gf-lower-iter-to-kernel -gf-select-kernel-schedule \
+  -gf-plan-distributed-tasks
+\end{lstlisting}
+The paper's artifact exporter reruns each stage and rejects a mismatch against
+the documentation snapshot before copying the outputs. This validates that the
+walkthrough is real compiler output; it does not prove that every ordinary
+Python program traverses all these stages.

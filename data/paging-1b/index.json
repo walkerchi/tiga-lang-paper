@@ -1,0 +1,9 @@
+{
+  "REPRODUCE.md": "0bce92e147a0156c98a4eb7054e45b252fc25b92c0ed21b6f3c9067a02c81323",
+  "cuda_cuda_gpu_kern_sum.csv": "bb7f8bfa0ef2783445a71bca7ed18803b3a55c7183184e57dcfa8c0f913e6750",
+  "cuda_cuda_gpu_mem_size_sum.csv": "16cd35ad011aa72b4d9966f7917e3fadc39316aeef2ad7d7326421cca2164867",
+  "cuda_cuda_gpu_mem_time_sum.csv": "8f21888b732b55396d1f5548c1a3cc73ddc955e573449499ad349b7c968a889a",
+  "profile.json": "a2ca62c55632cb2fc43fa5c45a9c845d9e05d86770986f3f235b34638282f426",
+  "source.tar.gz": "f6e8842117d037a8dc44569ea0f5b6b2c12f299cc9db9533de73639398ee23a5",
+  "trace.nsys-rep": "6f50596c71a42a11f2fb32b11fb3149e5dd7df574242534028cfd052bb7bec72"
+}

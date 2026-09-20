@@ -1,0 +1,24 @@
+% Related work is integrated into background.tex; not compiled separately.
+\section{Related work and positioning}
+MLIR provides reusable infrastructure for retaining multiple abstraction levels
+and implementing domain-specific compilers~\cite{mlir}. Tiga uses that approach
+for relations, tensor operations and execution planning rather than proposing a
+replacement compiler infrastructure.
+
+Triton exposes tiled neural-network computation and compiles toward GPU
+execution~\cite{triton}. In Tiga it is currently a downstream NVIDIA compilation
+provider. The distinction is the level at which graph structure and reducer
+algebra remain explicit, not a claim that a higher-level interface always wins.
+
+PyTorch Geometric provides graph-learning abstractions and implementations built
+around PyTorch~\cite{pyg}. Its optimized sparse paths reinforce the need to compare
+matched operators rather than contrasting all graph frameworks with a naive
+gather--scatter baseline. Tiga's present scope is compiler mechanisms, not a
+comparable library of models, datasets and training infrastructure.
+
+FlashAttention demonstrates the importance of IO-aware exact attention
+implementation~\cite{flashattention}. Tiga's dense-relation and streaming-reducer
+paths share relevant numerical structure. Its optional tile pruning changes the
+mathematical contract and is described separately from exact attention. This
+report does not claim a new attention algorithm or a general replacement for
+specialized attention libraries.

@@ -1,0 +1,101 @@
+\section{Compiler organization}
+Tiga uses extensible MLIR infrastructure~\cite{mlir}. Its representations separate
+the mathematical computation from traversal and execution decisions.
+The historical dialect prefix \code{gf} remains in actual IR despite the Python
+package rename. Architectural names such as ``Domain IR'' are not literal
+operation names, and are not APIs ordinary applications must write.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\linewidth}{l l Y}
+\toprule
+Layer & Example operation & Preserved decision \\
+\midrule
+Domain & \code{gf.apply} & Relation, field roles, message regions and reducer algebra \\
+Iter & \code{gf\_iter.traverse} & Traversal organization and reduction structure \\
+Kernel & \code{gf\_kernel.launch} & Work mapping and local resource organization \\
+Task/Storage & \code{gf\_task.launch} & Dependency, transfer and readiness ordering \\
+Tensor & \code{gf\_tensor.mul} & Tensor expressions, views and gradient computation \\
+\bottomrule
+\end{tabularx}
+\caption{IR layers answer different questions; the table is not an unconditional
+five-stage execution trace.}
+\end{table}
+
+\input{sections/ir-design}
+
+\subsection{Implemented routes through the layers}
+The checked \code{tests/mlir/distributed-plan.mlir} fixture and
+\code{tools/render\_ir\_docs.py} reproduce the documentation's progression
+through Domain, Iter, Kernel and Task IR. It is a hand-authored compiler fixture
+with placement metadata, not a purported dump of every Python call.
+
+Native Tensor programs, including native CSR message passing, can lower through
+Tensor IR to Vector/SCF/MemRef and LLVM execution. Relation-oriented CUDA paths
+retain graph structure through Iter and Kernel representations. Task and Storage
+operations appear where needed for dependencies and movement; a simple call does
+not necessarily materialize each architectural layer as an inspectable artifact.
+
+\subsection{Providers and inspectability}
+The NVIDIA provider hands serialized Triton IR to Triton~\cite{triton}, which
+continues to device code. Serialization avoids requiring the provider and Tiga
+to share one in-process MLIR ABI. Target capability information still influences
+earlier scheduling. CPU execution uses LLVM and an ExecutionEngine binding.
+Other device names and provider interfaces do not establish tested hardware support.
+
+\paragraph{Exact ranked selection and executable reuse.}
+For generated kNN, one program scans candidate tiles for a destination query,
+retains a power-of-two padded top-k state, and consumes selected source features
+without materializing adjacency. A candidate's ordering key contains its squared
+distance and source index, so distance ties have a stable order. Before sorting
+a tile, the kernel compares its minimum key with the largest retained key.
+If the tile cannot improve the retained state, sorting and merging are skipped
+exactly; distance evaluation is not skipped. Otherwise, local sorting and the
+retained-state merge execute normally. For non-power-of-two k, the padded state
+makes the test conservative. The search still examines all query--candidate
+pairs and is not a spatial-index algorithm.
+
+Repeated public calls can bind coordinates from a new Graph descriptor with
+equivalent relation semantics. The executable guard checks query/source counts,
+k, self-exclusion and domain identity semantics, coordinate and field
+shape/dtype/device/stride, field names, and the absence of gradient-bearing
+inputs. Coordinates and feature values remain live operands, not cached graph
+results. This separates changing data from changing programs and removes
+repeated capture/lowering/provider preparation for compatible dynamic calls.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Backend / target & Current executable route & Evidence and boundary \\
+\midrule
+CPU / LLVM & Tensor IR through Vector/SCF/MemRef and LLVM ExecutionEngine & Native CPU forward/VJP and paged CSR; supported reducer/layout subset \\
+NVIDIA / CUDA & Relation/Kernel IR to serialized TTIR, vendor Triton, PTX/cubin; CUDA Driver runtime & Torch/PyG comparisons, billion-edge paged forward and two-host NCCL execution; backward remains path-dependent \\
+Torch adapter & Ordinary Torch tensors and autograd; dispatch to compiled or library/reference routes & Interoperability layer, not an independent hardware backend; some CSR VJPs replay Torch \\
+AMD / Hygon & Provider ABI and conformance scaffolding & Pending provider integration and real-hardware validation; no speedup reported \\
+Apple Metal & Provider interface only & Pending legal lowering and device validation; no speedup reported \\
+Other accelerators & Extension points & Device implementations require provider integration and hardware validation \\
+\bottomrule
+\end{tabularx}
+\caption{Backend execution paths. CUDA graph paging uses host staging,
+and MPI/TCP/NCCL are transports rather than kernel code generators.}
+\label{tab:backends}
+\end{table}
+
+The application can inspect \code{program.explain()} and available stage/code
+artifacts. Native tensors additionally expose execution metadata after
+realization. Available artifacts depend on the selected provider.
+Small native expressions under an automatic policy may use a
+Python reference evaluator. Strict native validation explicitly requires the
+native policy and checks the reported backend.
+
+\subsection{Programs and bounded control}
+Straight-line message-passing calls can be captured as a typed acyclic
+\code{GraphProgram}. Independent legal leaves may fuse horizontally; dependencies
+remain ordered. \code{@tg.jit} also captures supported Python loop forms, while
+\code{repeat} and \code{while\_loop} offer explicit structured control over native
+values. Loop-carried shape, dtype and device are invariant. Bounded while requires
+a scalar boolean condition and a finite maximum iteration count. CPU lowering
+supports the implemented structured loop slice; general multi-state CUDA loop
+plans and structured reverse-loop lowering remain incomplete.
+\FloatBarrier

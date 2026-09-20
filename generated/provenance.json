@@ -1,0 +1,40 @@
+{
+  "status": "historical, not remeasured for this report",
+  "candidate": "tiga.prepared_auto",
+  "baseline": "torch.sparse.mm",
+  "cache": "hot",
+  "inputs": [
+    {
+      "path": "output/roofline/weighted_aggregation/regular_local_cuda_i64_n131072_degree16_f1_16_64/roofline.json",
+      "sha256": "573df533857c9ce6060bbcf333e7f744943b66d43680e757d3c5d0d8dfa42808"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/irregular_random_cuda_i32_n131072_degree16_f16_64/roofline.json",
+      "sha256": "ae27a86106751684f1387d48c9bf96cc062aff8de1d35db09d2249e5cb9a099b"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/powerlaw_local_cuda_i32_n131072_degree16_f1/roofline.json",
+      "sha256": "219a9c776315c2aedf6ff3bf625f513696ebd61f944e50b352ba1a00ee36fdb3"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/powerlaw_local_cuda_i64_n131072_degree16_f1/roofline.json",
+      "sha256": "27456a847d277d3b262772c80fc8fa95d65db20de9f0b5d429801c3ccebabc3d"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/powerlaw_random_cuda_i32_n131072_degree16_f1/roofline.json",
+      "sha256": "7bb6369b2a12bec4087b01de5450430a92a500a25e229b58b22fe7dcd9d9bae6"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/powerlaw_random_cuda_i64_n131072_degree16_f1/roofline.json",
+      "sha256": "34bd16b00e5760c0e03f4822dfb3b2878a12ede161fd7c8787cb13114f2bf4b8"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/lognormal_random_cuda_i32_n131072_degree16_f1/roofline.json",
+      "sha256": "11cdd3c02c8fe4f1606dd70e4560fbfc03f8f2e6173478c5273fa09bc58351f7"
+    },
+    {
+      "path": "output/roofline/weighted_aggregation/exponential_random_cuda_i32_n131072_degree16_f1/roofline.json",
+      "sha256": "871643ea542176debab9677a68c249d3be1aa3a4afe71d82576d0524c6f220f4"
+    }
+  ]
+}

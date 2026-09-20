@@ -1,0 +1,34 @@
+% Self-contained highlighting: no shell escape, Pygments or generated cache.
+\definecolor{tigakeyword}{HTML}{174B8A}
+\definecolor{tigastring}{HTML}{8C3B12}
+\definecolor{tigacomment}{HTML}{52616B}
+\definecolor{tigatype}{HTML}{087568}
+\definecolor{tigacodebg}{HTML}{F7F9FC}
+\lstdefinestyle{tigacode}{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{tigakeyword}\bfseries,
+  keywordstyle=[2]\color{tigatype},
+  commentstyle=\color{tigacomment}\itshape,
+  stringstyle=\color{tigastring},
+  backgroundcolor=\color{tigacodebg},
+  breaklines=true,columns=fullflexible,keepspaces=true,
+  showstringspaces=false,upquote=true,tabsize=4,
+  frame=single,rulecolor=\color{black!15},framesep=5pt,
+  aboveskip=0.8em,belowskip=0.8em}
+\lstdefinelanguage{TigaIR}{
+  sensitive=true,
+  alsoletter={._},
+  morekeywords={module,func.func,return,arith.mulf,arith.addf,gf.apply,
+    gf.yield,gf_iter.traverse,gf_kernel.launch,gf_storage.transfer,
+    gf_storage.release,gf_storage.join},
+  morekeywords=[2]{f16,f32,f64,i1,i32,i64,index,tensor,memref,
+    block_rows,block_neighbors,num_warps,pipeline_stages},
+  morecomment=[l]{//},
+  morestring=[b]"}
+\lstdefinelanguage{TigaShell}{
+  sensitive=true,alsoletter={-},
+  morekeywords={gf-opt},
+  morekeywords=[2]{-gf-lower-domain-to-iter,-gf-lower-iter-to-kernel,
+    -gf-select-kernel-schedule,-gf-plan-distributed-tasks},
+  morecomment=[l]{\#},morestring=[b]",morestring=[b]'}
+\lstset{style=tigacode}

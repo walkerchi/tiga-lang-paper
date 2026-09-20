@@ -1,0 +1,155 @@
+\section{Background: why graph-aware compilation?}
+\label{sec:background}
+\subsection{Message passing as a general computational model}
+\label{sec:general-message-passing}
+Message passing is broader than neighborhood aggregation in a fixed-depth GNN.
+In the general model, stateful entities perform local computation, communicate
+values or control information, and continue through repeated transitions.
+The actor formalism treats communication as an organizing principle for data,
+procedures and control~\cite{actors}. Pregel gives a graph-oriented, iterative
+realization through vertex programs and messages~\cite{pregel}. Tiga uses
+structured relations and reducers rather than implementing arbitrary actor
+mailboxes or adopting Pregel's execution protocol.
+
+\paragraph{Universality and its conditions.}
+With sufficiently expressive local transitions, repeatable control and
+arbitrarily extensible state, a message-passing model can in principle express
+any computable algorithm. A constructive way to see this is to encode a Turing
+machine's tape as a chain of entities. Each entity stores a tape symbol; a
+message carries the head's finite control state. Receiving the head message
+updates the symbol and sends the next head state to the left or right neighbor.
+Allowing the chain and the number of transitions to grow reproduces the machine's
+computation. This is an expressiveness argument for the general model, not a
+universality proof for Tiga's present bounded loops, fixed-shape tensors or
+finite-memory backends. It refers to computable problems, not undecidable ones,
+and says nothing by itself about time, memory or useful parallelism.
+
+\paragraph{A common language for numerical programs.}
+The practical opportunity is to retain a useful computational structure without
+requiring every application to start from an explicit graph dataset. Elementwise
+maps use independent entities or self-relations. Matrix multiplication connects
+each output row to contributing source rows, with weighted vector messages and
+a sum reducer. Convolution and finite-difference stencils use regular local
+relations; particles use coordinate-dependent radius or kNN relations; attention
+uses dense or masked relations and a normalization-aware reducer. Repeated
+message passing with state updates expresses time stepping, iterative solvers
+and graph traversals. These are representations within a shared conceptual model,
+not a claim that every specialized operation has an equally optimized Tiga path.
+The language ambition is to make such programs composable and their interactions
+compiler-visible; the implementation and evaluation below establish concrete
+slices of that ambition.
+
+\paragraph{Why a compiler is needed.}
+An edge function can be only a multiply, yet its execution may require reading
+an index, gathering a feature vector, creating an edge-sized temporary and
+scattering into a destination. For $E$ edges and feature width $F$, explicitly
+materializing messages requires storage proportional to $EF$, even when the
+final output has only $NF$ values. A fused traversal can instead accumulate
+messages directly. Fusion is not universally optimal: a library sparse matrix
+operation, feature tiling, recomputation or a different graph layout may win
+depending on shape, degree distribution and reuse. Consequently the relevant
+compiler question is which semantic information remains available when each
+decision is made, not whether a system uses the phrase ``message passing.''
+
+PyTorch Geometric supplies a graph-learning programming model with gather--scatter
+and optimized sparse execution paths~\cite{pyg}. Graphiler makes the compiler connection explicit:
+its message-passing data-flow graph annotates graph-related tensor residency and
+movement, enabling reductions in redundant computation and intermediate
+storage~\cite{graphiler}. Tiga likewise retains source-, edge- and
+destination-associated semantics, and carries these roles into relation traversal
+and differentiation.
+
+\subsection{Graph and feature schedules, fusion, and training}
+FeatGraph composes sparse traversal templates with feature-dimension UDFs and
+schedules~\cite{featgraph}. It shows why graph traversal and within-feature
+computation should be optimized together. Seastar offers vertex-centric Python
+programming and generates fused forward and backward GPU kernels~\cite{seastar}.
+Tiga extends this compiler-oriented programming model with explicit relation
+constructors and storage/ownership representations.
+
+GALA is especially relevant to a multi-level design. It separates data and
+compute representations, composes intra-operator and inter-operator
+transformations, and reasons about training-specific optimization opportunities
+across forward and backward computations~\cite{gala}. Tiga separates relation,
+traversal and execution representations; its current evaluation focuses on
+forward workloads, with path-specific gradient implementations described in
+the differentiation section. Whole-training-program optimization remains beyond
+that evaluated scope.
+
+GraphIt separates the graph algorithm from scheduling choices~\cite{graphit}.
+That distinction helps explain why a relation-level operation should not
+prematurely encode threads, blocks or traversal order. Tiga additionally seeks
+to preserve numerical field operations, reducer state and differentiation
+requirements alongside traversal scheduling.
+
+\subsection{Relations and sparse iteration beyond GNNs}
+Ebb represents geometric domains through a relational data model and separates
+simulation code, domain libraries and parallel runtime implementation~\cite{ebb}.
+Simit connects hypergraph-local computation to global tensor algebra for physical
+simulation~\cite{simit}. They are important precedents for a graph language that
+is not limited to neural networks. Tiga's particle, solver and stencil examples
+belong in this lineage of relational numerical programming.
+
+TACO derives compound dense/sparse tensor kernels from high-level algebra using
+iteration and merge structures~\cite{taco}. Its format-abstraction work further
+separates logical computation from sparse storage levels~\cite{sparseformats}.
+SparseTIR develops composable sparse formats and transformations for deep-learning
+operators~\cite{sparsetir}. These works motivate keeping coordinate traversal
+distinct from physical layout and execution mapping. Tiga's Iter IR preserves
+relation-coordinate structure for its supported traversal families; the
+implementation does not provide a general sparse-format algebra.
+
+Triton supplies a lower-level tiled compilation interface~\cite{triton}, while
+MLIR supplies infrastructure for composing dialects and lowering passes~\cite{mlir}.
+Tiga uses both: graph-aware representations are upstream of a current NVIDIA
+provider. The provider performs device-code compilation after Tiga's graph-aware
+transformations.
+
+\subsection{Capacity: running the graph at all}
+Reducing execution latency and reducing the resident working set are related but
+distinct goals. If a graph does not fit a resource budget, a faster in-memory
+kernel is insufficient. GraphChi established disk-based large-graph computation
+on a single machine through partitioned processing and sliding
+windows~\cite{graphchi}. X-Stream uses edge-centric streaming partitions to favor
+sequential access over random graph-data access~\cite{xstream}. These systems are
+relevant even though they do not share Tiga's differentiable Tensor interface.
+
+Legion separates logical regions and task privileges from placement and physical
+instances, providing a model for reasoning about locality, independence and
+data movement~\cite{legion}. Tiga's storage versions, task dependencies and halo
+ownership apply this separation to the graph runtime described in Section~\ref{sec:runtime}.
+
+These systems distinguish executing faster from making execution possible.
+Tiga evaluates both, plus the cost of distributing the same graph. The capacity
+experiment traverses explicit disk-backed CSR through host staging to CUDA;
+the distributed experiment measures rank ownership and halo movement separately.
+Neither a transfer-bandwidth microbenchmark nor a successful communicator setup
+alone answers these application-level questions.
+
+FlashAttention is a related example of IO-aware exact
+computation~\cite{flashattention}: avoiding an intermediate can matter as much as
+reducing arithmetic. Tiga's dense relations and streaming reducers expose
+similar scheduling opportunities, while optional tile pruning changes the
+mathematical contract and is distinct from exact attention. The experiments in
+this report concern graph aggregation and do not claim attention-library parity.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\linewidth}{l Y Y}
+\toprule
+Prior work & Relevant mechanism & Connection to Tiga \\
+\midrule
+Graphiler & Graph-aware dataflow/residency & Source, edge and destination field roles \\
+FeatGraph & Sparse traversal + feature schedules & Joint graph/feature traversal selection \\
+Seastar & Vertex-centric fused forward/backward & Message fusion and derivative generation \\
+GALA & Composed data/compute and training transforms & Layered representation and transformation scope \\
+Ebb / Simit & Relational simulation / hypergraph algebra & Numerical programs beyond GNNs \\
+GraphIt & Algorithm/schedule separation & Separate meaning from execution mapping \\
+TACO / SparseTIR & Sparse iteration, formats, transformations & Relation traversal separate from storage \\
+GraphChi / X-Stream & Disk-oriented partitioned execution & Bounded graph pages and storage traffic \\
+Legion & Logical regions and physical placement & Storage instances, ownership and dependencies \\
+\bottomrule
+\end{tabularx}
+\caption{Prior work and its relationship to Tiga's design.}
+\end{table}
+\FloatBarrier

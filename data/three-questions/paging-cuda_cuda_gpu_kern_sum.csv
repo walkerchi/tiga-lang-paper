@@ -1,0 +1,3 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
+99.4,15819559,10,1581955.9,1657384.0,893636,1664391,241868.4,gf_tensor_csr_sum
+0.6,89601,10,8960.1,9312.0,4960,9728,1423.7,gf_tensor_pointwise

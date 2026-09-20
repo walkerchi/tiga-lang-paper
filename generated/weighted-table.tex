@@ -1,0 +1,17 @@
+\begin{tabular}{lllrrrr}
+\toprule
+Topology & Locality & Index & F & Tiga & Torch & Ratio \\
+\midrule
+regular & local & i64 & 1 & 0.020 & 0.047 & 2.31$\times$ \\
+regular & local & i64 & 16 & 0.025 & 0.232 & 9.19$\times$ \\
+regular & local & i64 & 64 & 0.100 & 0.275 & 2.76$\times$ \\
+irregular & random & i32 & 16 & 0.057 & 0.263 & 4.63$\times$ \\
+irregular & random & i32 & 64 & 0.206 & 0.400 & 1.94$\times$ \\
+powerlaw & local & i32 & 1 & 0.020 & 0.041 & 2.00$\times$ \\
+powerlaw & local & i64 & 1 & 0.023 & 0.038 & 1.65$\times$ \\
+powerlaw & random & i32 & 1 & 0.054 & 0.070 & 1.30$\times$ \\
+powerlaw & random & i64 & 1 & 0.054 & 0.071 & 1.32$\times$ \\
+lognormal & random & i32 & 1 & 0.054 & 0.071 & 1.31$\times$ \\
+exponential & random & i32 & 1 & 0.055 & 0.071 & 1.29$\times$ \\
+\bottomrule
+\end{tabular}

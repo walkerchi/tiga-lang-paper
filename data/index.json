@@ -1,0 +1,50 @@
+{
+  "status": "local dirty-checkout experiments; not a tagged release",
+  "files": [
+    {
+      "path": "data/gpu-scaling.json",
+      "sha256": "f77403a735c1d1bc5ea187691761f0e70ea91b9ec392442b4aa8c163b45f8d13"
+    },
+    {
+      "path": "data/memory-results.json",
+      "sha256": "0115a47fa2d558c047ea5fd6cd24564dad10ceb7aa05a0bc2ed623c7674668f1"
+    },
+    {
+      "path": "data/gpu-run.json",
+      "sha256": "c9dbf33975f4f46629a59449112eb492486ed0fb516f9062f6f69d56f60adb52"
+    },
+    {
+      "path": "data/memory-run.json",
+      "sha256": "c4cb895febdf7b5f0e2697773405767723ff5d279d38db464f8da4cce6169712"
+    },
+    {
+      "path": "data/paper_scaling.py",
+      "sha256": "ff70025b50c4adea23222a6c28b0d859d214868d1f35e3b23039362c94fcfa3c"
+    },
+    {
+      "path": "data/capacity_scaling.py",
+      "sha256": "abc80ce3eb858dc86950937ba82c8f6af667a9c407a9b2cdf54f57e2ba06e872"
+    },
+    {
+      "path": "generated/ir/distributed-plan.mlir",
+      "sha256": "5adef5ba19fa53c31333f8189f2940e3c574d1be0b60ec59699ce14bbbe638a7"
+    },
+    {
+      "path": "generated/ir/domain.mlir",
+      "sha256": "e8e875e52184b53e8d44e44559da8b5e69b5b015814b0cfef3f47f01772c0fb9"
+    },
+    {
+      "path": "generated/ir/iter.mlir",
+      "sha256": "9eb5d37f1c8e930241dc2dfa6d532328dcad2d28898ead790fbb745a971ff81f"
+    },
+    {
+      "path": "generated/ir/task.mlir",
+      "sha256": "009f3584459fe148f636f4c697bf9f08215fa6e3f82f20165758795d648b9f71"
+    },
+    {
+      "path": "generated/ir/kernel.mlir",
+      "sha256": "a05b90ee0ef7ef79a3021e5b351e1944789f9a7b66c0e649cfe3cc5e22c4154e"
+    }
+  ],
+  "gf_opt_sha256": "31330ce800144d8c1b70e1c24fb5d29962ed793b704b0c502eae6b29e41a2ccb"
+}

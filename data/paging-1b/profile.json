@@ -1,0 +1,3494 @@
+{
+  "schema": "tiga.billion-edges.v1",
+  "status": "ok",
+  "edges": 1000000000,
+  "nodes": 62500000,
+  "features": 32,
+  "degree": 16,
+  "mode": "paged",
+  "page_rows": 65536,
+  "gpu_before": {
+    "name": "NVIDIA GeForce RTX 5070 Ti",
+    "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+    "driver": "595.84",
+    "total_bytes": 17094934528,
+    "used_bytes": 3240099840
+  },
+  "ingest": {
+    "edges": 1000000000,
+    "nodes": 62500000,
+    "degree": 16,
+    "features": 32,
+    "seconds": 21.034420879092067,
+    "chunk_rows": 65536,
+    "peak_rss_bytes": 306204672,
+    "payload_sha256": {
+      "row_ptr.bin": "e91713421fd4fd68a5ac00ce521fe887e85d24225858ac48b07085e0c2c8d3cb",
+      "col_idx.bin": "7f8d79f78797579e573b07af738a3c8b10faf136da9eddef31704d2feb0180d5",
+      "x.bin": "c5e95b435d87d5eea37e6013eefac2ef4988188144375624ae7815a22ed6b0c1"
+    },
+    "topology_bytes": 8500000008,
+    "source_bytes": 8000000000,
+    "output_bytes": 8000000000,
+    "stored_bytes": 16500000008,
+    "resident_lower_bound_bytes": 24500000008
+  },
+  "provenance": {
+    "command": [
+      "/home/walkerchi/Code/graphforgev2/benchmarks/memory_hierarchy/profile_paging.py",
+      "--edges",
+      "1000000000",
+      "--cache-dir",
+      "/tmp/tiga-billion-20260919",
+      "--cuda-capture",
+      "--evict-fixture",
+      "--output",
+      "output/paper-three-questions/paging-1b/profile.json"
+    ],
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "timestamp_utc": "2026-09-19T15:52:18Z",
+    "benchmark_sha256": "dd8e62f01e4594b0f6694f8c40ff27cd6f777705a590c95279d97c9a41aa6cb2",
+    "source_hashes": {
+      "python/tiga/__init__.py": "fc2d3f26d3a814c47ea43efb4fb40367e43609510a78191643cf41368d3c943f",
+      "python/tiga/__main__.py": "f279911a25fc92f58fe40a1e9915038022dac345e4b784338e6620c4ae29be1e",
+      "python/tiga/_version.py": "d5771e52a6d5354ae7074dbc2fa6ef676a0e09af557080b7c6ae0629458c0cbc",
+      "python/tiga/autograd/__init__.py": "03a17ecc6738369a9800e5105f7717a5ab20717bc3dcaa75b7730d75d40eadd3",
+      "python/tiga/codegen/__init__.py": "1ebfa0d00dab321968853a9f42c3b10d0e673a8e10b41ec2576adfe971d1e9c9",
+      "python/tiga/codegen/compile_worker.py": "71cde2ea70fb8f0bdc2e15dbf1cbad90b150d318c9c0dfef49de15b88fac6bbf",
+      "python/tiga/codegen/provider.py": "00b651cd486ec0c5004ba4cd588ef263601f11176224f17733d4e28ae391ace0",
+      "python/tiga/codegen/registry.py": "7982cd7bd1d789f0d1d8f8347faeb0ded36dc8702c2c3a5cf8905028621477bd",
+      "python/tiga/codegen/ttir.py": "e0cb55d618b3ac0e8b84c32292d7c51d1e836166d394f004450631cc059bd65f",
+      "python/tiga/compiler/__init__.py": "0120b607bdc959fb4a74ee21935ae3de616c0ecdcd8dcef35bce5183d4a0f688",
+      "python/tiga/compiler/bundle_plan.py": "6d7583f2ed518f4b6c80652b6829d96cddad7df1ce0426f2c9e2b4e87d3b76b1",
+      "python/tiga/compiler/capture.py": "4367e1b05f120318c74d3c09e720931841f415e8dd34708997782ff1fe9d2f7d",
+      "python/tiga/compiler/cpu_tensor.py": "f5d7bffe3a2d85416175926df198e4fd1bc3f14825f1b6fcfe22e8ab144c539d",
+      "python/tiga/compiler/domain_capture.py": "b4e442917047191e1e59cee52a2279c88b7f8e129ce2a454de2f120525dd34c0",
+      "python/tiga/compiler/edge_nn_attention.py": "3d4722493ea838ef4c3c0f67b1984878279b4abceb4fc33de3ddab95aa2013db",
+      "python/tiga/compiler/edge_nn_tile.py": "48a539a25394ac436256f69f5711e72a0dd177be37d00bacddccd5d0e54aaadd",
+      "python/tiga/compiler/edge_nn_vjp.py": "1d2fc806e8adf9246be804d612cd174289970e74c6f44f461a6bf53dbd3c9331",
+      "python/tiga/compiler/gpu_tensor.py": "c64074f5de8e955c7af8e3669e1023594e3adf849d3dc5411e9316117b720f7b",
+      "python/tiga/compiler/native.py": "15f1c09dab05fd3480b876e1b952ccedc518d60d399b7205d0449d3f36315ad8",
+      "python/tiga/compiler/nn_capture.py": "30e3c11ac7030031e36556adcb08a874c866984bf48e1b1a3c3fc74f783eec43",
+      "python/tiga/compiler/reducer_capture.py": "3f4692882eaa7f7b93fe7d2c79833cd254ec707fafc296673c71ade273347f6b",
+      "python/tiga/compiler/relation_vjp.py": "def9cd93bc18b3e2ee1304d1778cf53f41a1445038af677d5bc2b6c8dc0e7b2d",
+      "python/tiga/compiler/schedule.py": "b58ea0bfda1b73b92408a7d779997bb3b677650efb6ee06be126eee4c53d6e43",
+      "python/tiga/compiler/shapes.py": "37f676981365409e4c0e91641d098d6ad9e0a78bb6cf2d876c8cbcb6a6536273",
+      "python/tiga/compiler/tensor_mlir.py": "25090798dc3e4ea54d8452a0ce97bb28a439fad74f0d62ef1da80477b8e37c13",
+      "python/tiga/compiler/toolchain.py": "dfc9bf5aaa313bf952f72692033bbfff041fefb66b0a0aa4febb8fd59d5dfd5d",
+      "python/tiga/control/__init__.py": "de7f34692de98985f278f6c310c040b9376fdfef80a61b563abd7129d3242b9b",
+      "python/tiga/distributed/__init__.py": "b15d15a8b915f796075da89b110dac2220140f96642b640f5d16f8cfea5582ac",
+      "python/tiga/distributed/model.py": "aac0fa5e120299767ef76430c8185f919e4919cf15b458060ab15895b9b429d3",
+      "python/tiga/distributed/mpi.py": "3e5274620387dcd456936aa8b887211e3ae6dc43e5c38763ad18dd2a49a0b919",
+      "python/tiga/distributed/nccl.py": "d401248f5888843c0bdedc4635a26244f2a872229f37a88142e96100d97f09a3",
+      "python/tiga/distributed/registry.py": "75a76a163b7ef26dda7679a67f08a7e99cf51f6855a8a1035d4c84a335b1a942",
+      "python/tiga/distributed/tcp.py": "02700d6448c66b7e6488e394007e314b076c1c01a139e9a21ca9de07668c1923",
+      "python/tiga/distributed/transport.py": "97c50b829b9f787d50409bd1e90d4c255dba484d017438518bbb9cb86dbaf9bf",
+      "python/tiga/graph/__init__.py": "48e6f6bdd523e6f34e3921f3c1395d6cdf12422ca6d73b72e27ad818518ba0b9",
+      "python/tiga/graph/core.py": "9d783eb77a5980147fcf47675166fcbf61c5f9162d0051ac5271711d6fcc1328",
+      "python/tiga/graph/dynamic.py": "13f0993eb7a011cee880a46fbbf8de6bc16f45ee2e5812c2bb30565baa050c80",
+      "python/tiga/graph/offload.py": "2b6447203f19189267ed626512fa398c242bdb99ae5413dda64adcd5c20e21f2",
+      "python/tiga/graph/storage.py": "dd6b572f2c83be46b75c14b7f96e850b6e8e96acb3931378c6c3c961a7f82814",
+      "python/tiga/interop/__init__.py": "770db3cd77b08931127f77fc8df3cd2ce854c5e7a6dcb2dc161312e64531780c",
+      "python/tiga/interop/torch/__init__.py": "99918a18435c1dfcea689ce8bfea549f1a124d6f84d4adf2ca6d0e2db83d9b5a",
+      "python/tiga/interop/torch/compiler_bridge.py": "7846c301986889bbd198b700ee302e861d1894f3f53b1610eb01d57f2bda458e",
+      "python/tiga/interop/torch/graph.py": "d10fdfcb04c1e6c0f0d1848028a3ca777664ba5744c80077b5fd286a787f4823",
+      "python/tiga/interop/torch/library.py": "4c3cf2d0c2a095d9ddbf198f3bd1d9d414511042e65ea8002e7d871bed8b46d0",
+      "python/tiga/interop/torch/message_passing.py": "152461e6685998f0767163b68c608395bcfda1248a3a674fc121aeb4bf70a706",
+      "python/tiga/interop/torch/provider.py": "322c1b00a3099386b566d70078e1afef7fbd4fa454a898ea8a0576d6e61ef3c2",
+      "python/tiga/interop/torch/reducer_oracle.py": "1b780d52938f3101a9e7cb0e7b9b3f2011a27c127321778103fc0da2ec41baa1",
+      "python/tiga/interop/torch/relation_vjp.py": "8bed2d5914ad6615ab80f413628d00be1721c25806a432c1123a384ada079f77",
+      "python/tiga/interop/torch/tensor.py": "ef5daf8a6e5b02a9925b514e4531c5cfd2a4df0506646405ab60f0fd52989fe6",
+      "python/tiga/jit.py": "22d08337031a8ae98c1a2b8b6b040a55230b99a68694a187212d385677a45d8a",
+      "python/tiga/kernel/__init__.py": "2f353ad80547a9f2e2693a49e16b618eb4c0571563c9a90bce0558e880692a9a",
+      "python/tiga/kernel/model.py": "9b35b5638dc583f971ab8d19ca8a911af8cd2929e7137cd83357c71b73a317b7",
+      "python/tiga/math/__init__.py": "a55b1dfb7b91ad467367a3afdfb277631378c39598b704ebfab285fc8d50741e",
+      "python/tiga/message_passing/__init__.py": "56635e9ddeff0b12ce79530acdf05692d9c08f20f659fa5cd0c570dd9588623d",
+      "python/tiga/message_passing/core.py": "011958834e897236b8a5ae9825468a72ae542cefc6fa007a7e90640660de341e",
+      "python/tiga/message_passing/paged.py": "7d0ad12d37b524b8881118b402f2441a950d530792e8e876fc85d04dd1a1fb56",
+      "python/tiga/nn/__init__.py": "77e47c228d439c7d1d284dc968d2990b42bcd38bcb504f1e265772cfad1713e4",
+      "python/tiga/program/__init__.py": "fef28902f6645ae4fbad61509009d93cf6cce0357681f64d4dcdfbd9281ada7d",
+      "python/tiga/program/core.py": "cb24120dfd404a4996ddcf5de9187484741d76aefa839f29b9910cf4a067246c",
+      "python/tiga/reducer/__init__.py": "80c33281292ebfa7ff050f02dade2e79e78d17d567ab7fd67b31caca5df7fb83",
+      "python/tiga/reducer/core.py": "d941a05f665dbd77e0594a0efddbb9c313dfb32a26662e2889dbbc417180228f",
+      "python/tiga/runtime/__init__.py": "f16c1d58c567055de252d9aea5513e1b8ca8ebbae01337d247782edf84b145e8",
+      "python/tiga/runtime/bundle.py": "c31bcd05152b7b30fec9dbe3792e4a7c5508e4bfa27ef33664e847baafdc5182",
+      "python/tiga/runtime/cuda_blas.py": "98643e73e48f98491dacb6f30561ea6ae337969fbf996b061911af0d4a6a3cd0",
+      "python/tiga/runtime/hierarchy.py": "4151efed9528bed59c2193105a548740110553cc42417180f0d218cb658c8114",
+      "python/tiga/runtime/memory.py": "cd8f3a945de2c5cb035e8ca1262a8fb6482af4ffa5429342e8c7e2d044be4dac",
+      "python/tiga/runtime/plan.py": "009cf8ac62850e8169bcbfaca1cd0ac0e75f313b78d6fed0102c2f227474b733",
+      "python/tiga/runtime/storage_io.py": "9b7c16897d463b5cb722350618cb02bcac817bdc991a44c208a154676e20ba71",
+      "python/tiga/tensor/__init__.py": "7b5c6cd46f1e08420676f15b80e8fe83c2ada5a5d3a9514aa855b778efe59b8d",
+      "python/tiga/tensor/core.py": "4427465ba9030bb455456e14f196f8ecd23fb2873d45087741b15afa1c1e023d",
+      "python/tiga/tensor/spill.py": "6ef9614857e425ef11789525516ed53fe7f7e069ee21022d4d93ba6678922af4",
+      "python/tiga/visualize/__init__.py": "39d8206990c7e3b375650f3fda3275c23d11497d683195dc6935cb4a585b2340",
+      "python/tiga/visualize/camera.py": "03a4919f78aca8ec931beabdac74b9c8868076db5470628b0597120fefed3736",
+      "python/tiga/visualize/exchange.py": "a41db1c886fc2b525b0794e4c982aae82cbf4fc5e16a77cf732ea497ced43100",
+      "python/tiga/visualize/geometry.py": "d257d090eedf1f986eef614a72a701c082a4031074a6d13a16856d97a3219319",
+      "python/tiga/visualize/splats.py": "ed43e64a0782327a74f6c59ff4e38d0a2d8ddf7fc9cfb8942aa9c332d241b505",
+      "python/tiga/visualize/video.py": "1577f7c50b4bf7d918012fab9460998fd8ae1fffcdfcc80653b359d6b8e9e1a6",
+      "python/tiga/visualize/volume.py": "55212736669edc3d32b22addc5eaf5f0b74ee58669d1d13849f6bfabac2a29d0"
+    },
+    "compiler_hashes": {
+      "TIGA_OPT": "31330ce800144d8c1b70e1c24fb5d29962ed793b704b0c502eae6b29e41a2ccb",
+      "TIGA_TRANSLATE": "90a7a8aac738b24a9c9a1f44cb2a3a17e715e542d82c078e5cb09abf36810e82"
+    },
+    "versions": {
+      "numpy": "2.4.4",
+      "triton": "3.6.0"
+    }
+  },
+  "topology_bytes": 8500000008,
+  "source_bytes": 8000000000,
+  "output_bytes": 8000000000,
+  "stored_bytes": 16500000008,
+  "resident_lower_bound_bytes": 24500000008,
+  "budget_bytes": 12884901888,
+  "load_s": 0.004578473977744579,
+  "forward_s": 417.0521969390102,
+  "execution": {
+    "backend": "paged-message-passing",
+    "page_backends": [
+      "cuda-ttir-triton"
+    ],
+    "pages": 954,
+    "storage_path": "host-staged"
+  },
+  "forward_memory": {
+    "scope": "allocations-created-in-this-execution",
+    "excludes": [
+      "external buffers",
+      "earlier allocations",
+      "Python/compiler memory",
+      "OS page cache",
+      "I/O staging bytes"
+    ],
+    "live_bytes": {
+      "device": 8859768136,
+      "host-pinned": 0,
+      "ram": 0,
+      "nvme": 0
+    },
+    "peak_bytes": {
+      "device": 10281701564,
+      "host-pinned": 0,
+      "ram": 134217728,
+      "nvme": 0
+    },
+    "budget_bytes": {
+      "device": 12884901888
+    },
+    "automatic_tensor_eviction": false,
+    "eviction_policy": "error",
+    "evictions": 0,
+    "restores": 0
+  },
+  "forward_io_delta": {
+    "rchar": 8941212341,
+    "wchar": 77082,
+    "syscr": 38693,
+    "syscw": 3162,
+    "read_bytes": 16500011008,
+    "write_bytes": 19300352,
+    "cancelled_write_bytes": 20480
+  },
+  "forward_peak_rss_bytes": 10039578624,
+  "max_abs_error": 0.0,
+  "checked_values": 2000000000,
+  "check_s": 15.630392669932917,
+  "memory": {
+    "scope": "allocations-created-in-this-execution",
+    "excludes": [
+      "external buffers",
+      "earlier allocations",
+      "Python/compiler memory",
+      "OS page cache",
+      "I/O staging bytes"
+    ],
+    "live_bytes": {
+      "device": 0,
+      "host-pinned": 0,
+      "ram": 0,
+      "nvme": 0
+    },
+    "peak_bytes": {
+      "device": 10281701564,
+      "host-pinned": 0,
+      "ram": 134217728,
+      "nvme": 0
+    },
+    "budget_bytes": {
+      "device": 12884901888
+    },
+    "automatic_tensor_eviction": false,
+    "eviction_policy": "error",
+    "evictions": 0,
+    "restores": 0
+  },
+  "peak_rss_bytes": 12142338048,
+  "gpu_samples": [
+    {
+      "seconds": 0.00024062814190983772,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 3240099840
+    },
+    {
+      "seconds": 1.0327100299764425,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 3652190208
+    },
+    {
+      "seconds": 2.098244738066569,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11671699456
+    },
+    {
+      "seconds": 3.134526876034215,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11956912128
+    },
+    {
+      "seconds": 4.295743996044621,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11967397888
+    },
+    {
+      "seconds": 5.345140215009451,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 6.617336701136082,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12277776384
+    },
+    {
+      "seconds": 7.644592109136283,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 8.668756023980677,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11956912128
+    },
+    {
+      "seconds": 9.835947677958757,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 10.935031531145796,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 12.107604132965207,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12118392832
+    },
+    {
+      "seconds": 13.178339641075581,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 14.231676032068208,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11956912128
+    },
+    {
+      "seconds": 15.394877697108313,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 16.42792696203105,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 17.554554793052375,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12110004224
+    },
+    {
+      "seconds": 18.64748550602235,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11967397888
+    },
+    {
+      "seconds": 19.69831358315423,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11822694400
+    },
+    {
+      "seconds": 20.775113085052,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 21.87487193197012,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12118392832
+    },
+    {
+      "seconds": 22.90767533518374,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 23.956466746982187,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 25.115998483030125,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 26.21980640105903,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 27.38686699909158,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12118392832
+    },
+    {
+      "seconds": 28.43662042915821,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 29.469953240128234,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 30.63746156799607,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 31.72138900612481,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 32.89038394601084,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12118392832
+    },
+    {
+      "seconds": 33.951749494997784,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 34.98532194714062,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 36.153803803958,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 37.2277112621814,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 38.39910287107341,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12118392832
+    },
+    {
+      "seconds": 39.4490014561452,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 40.4707015149761,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 41.62570044002496,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11665408000
+    },
+    {
+      "seconds": 42.6695580361411,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11671699456
+    },
+    {
+      "seconds": 43.70319756795652,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11654922240
+    },
+    {
+      "seconds": 44.88680959306657,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11520704512
+    },
+    {
+      "seconds": 46.00338936713524,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11956912128
+    },
+    {
+      "seconds": 47.085837938124314,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11814305792
+    },
+    {
+      "seconds": 48.14404953410849,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11673796608
+    },
+    {
+      "seconds": 49.22620062017813,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12110004224
+    },
+    {
+      "seconds": 50.31955993617885,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11975786496
+    },
+    {
+      "seconds": 51.378239188110456,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11959009280
+    },
+    {
+      "seconds": 52.52083749207668,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11805917184
+    },
+    {
+      "seconds": 53.613625813042745,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11824791552
+    },
+    {
+      "seconds": 54.75346860312857,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 55.814396096160635,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12269387776
+    },
+    {
+      "seconds": 56.85705604404211,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12411994112
+    },
+    {
+      "seconds": 57.94795633503236,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11808014336
+    },
+    {
+      "seconds": 59.01243789610453,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11816402944
+    },
+    {
+      "seconds": 60.052589382976294,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12126781440
+    },
+    {
+      "seconds": 61.10455967113376,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12260999168
+    },
+    {
+      "seconds": 62.27256373409182,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12269387776
+    },
+    {
+      "seconds": 63.32182181417011,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12414091264
+    },
+    {
+      "seconds": 64.40789388795383,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12716081152
+    },
+    {
+      "seconds": 65.444673769176,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12732858368
+    },
+    {
+      "seconds": 66.50918914214708,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12867076096
+    },
+    {
+      "seconds": 67.6719828529749,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12877561856
+    },
+    {
+      "seconds": 68.7604011259973,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 69.92924824706279,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13036945408
+    },
+    {
+      "seconds": 71.02905656211078,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13475250176
+    },
+    {
+      "seconds": 72.11123930709437,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13492027392
+    },
+    {
+      "seconds": 73.16694848495536,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13626245120
+    },
+    {
+      "seconds": 74.32914460916072,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11977883648
+    },
+    {
+      "seconds": 75.37317597004585,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12112101376
+    },
+    {
+      "seconds": 76.42585169500671,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12414091264
+    },
+    {
+      "seconds": 77.45809421711601,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12430868480
+    },
+    {
+      "seconds": 78.49299139110371,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12414091264
+    },
+    {
+      "seconds": 79.6532767249737,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12279873536
+    },
+    {
+      "seconds": 80.77838416607119,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12271484928
+    },
+    {
+      "seconds": 81.95180249912664,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12716081152
+    },
+    {
+      "seconds": 83.02624507900327,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12414091264
+    },
+    {
+      "seconds": 84.12140493211336,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12279873536
+    },
+    {
+      "seconds": 85.20716897910461,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12716081152
+    },
+    {
+      "seconds": 86.30497559299693,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12581863424
+    },
+    {
+      "seconds": 87.36846705107018,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12565086208
+    },
+    {
+      "seconds": 88.52988179703243,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12430868480
+    },
+    {
+      "seconds": 89.60557276103646,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12565086208
+    },
+    {
+      "seconds": 90.77315254905261,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 11969495040
+    },
+    {
+      "seconds": 91.90848573110998,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12414091264
+    },
+    {
+      "seconds": 92.98752851597965,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12430868480
+    },
+    {
+      "seconds": 94.0494211120531,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12565086208
+    },
+    {
+      "seconds": 95.21007896098308,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12581863424
+    },
+    {
+      "seconds": 96.28132343501784,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12716081152
+    },
+    {
+      "seconds": 97.44783105398528,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 98.56572589697316,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13171163136
+    },
+    {
+      "seconds": 99.64674263703637,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13036945408
+    },
+    {
+      "seconds": 100.69011718314141,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 101.78834520303644,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12877561856
+    },
+    {
+      "seconds": 102.93358397413976,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13187940352
+    },
+    {
+      "seconds": 104.00080301216803,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13022265344
+    },
+    {
+      "seconds": 105.16981098405086,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12879659008
+    },
+    {
+      "seconds": 106.21342374105006,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13324255232
+    },
+    {
+      "seconds": 107.36685520107858,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13181648896
+    },
+    {
+      "seconds": 108.40812338609248,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12281970688
+    },
+    {
+      "seconds": 109.50964350416325,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12416188416
+    },
+    {
+      "seconds": 110.59652756107971,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 111.66496385913342,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 112.75170311215334,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12885950464
+    },
+    {
+      "seconds": 113.82353845611215,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 114.98355801799335,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13028556800
+    },
+    {
+      "seconds": 116.07108014496043,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13171163136
+    },
+    {
+      "seconds": 117.23165367310867,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13190037504
+    },
+    {
+      "seconds": 118.31471156305633,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13626245120
+    },
+    {
+      "seconds": 119.37076269416139,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13492027392
+    },
+    {
+      "seconds": 120.42756855115294,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13475250176
+    },
+    {
+      "seconds": 121.59342157305218,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13341032448
+    },
+    {
+      "seconds": 122.68273115716875,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13777240064
+    },
+    {
+      "seconds": 123.81719621899538,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13643022336
+    },
+    {
+      "seconds": 124.8840291290544,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12418285568
+    },
+    {
+      "seconds": 125.96837123204023,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12281970688
+    },
+    {
+      "seconds": 127.06053555617109,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 128.19498837017454,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 129.28174541005865,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12416188416
+    },
+    {
+      "seconds": 130.37591659207828,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12281970688
+    },
+    {
+      "seconds": 131.44323782017455,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 132.54190353909507,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 133.64888294995762,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 134.75480642914772,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 135.84969735704362,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 136.92397863417864,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 137.98900157003663,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 139.0904654811602,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13036945408
+    },
+    {
+      "seconds": 140.18146619014442,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13171163136
+    },
+    {
+      "seconds": 141.2641761789564,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 142.2900923411362,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 143.44660569704138,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 144.52771562011912,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 145.61747764516622,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 146.64538858016022,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 147.8050343231298,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 148.88717906200327,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 149.94849446997978,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12885950464
+    },
+    {
+      "seconds": 151.00678751897067,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 152.16475719609298,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 153.20826428197324,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 154.370358139975,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 155.45819319109432,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 13020168192
+    },
+    {
+      "seconds": 156.56763405399397,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12885950464
+    },
+    {
+      "seconds": 157.66810072609223,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 158.75988413696177,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 159.8024114370346,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 160.96365385502577,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 162.0689841560088,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 163.16347191296518,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 164.29152244515717,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 165.37629437004216,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 166.48468684614636,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 167.5763899241574,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 168.62866601417772,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 169.7214107341133,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 170.84589700610377,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 171.92921061604284,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 173.03309643012471,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 174.1244223760441,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 175.19114169012755,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 176.28237413195893,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 177.35988597711548,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 178.44811317510903,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 179.52794718695804,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 180.61021177703515,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 181.67545541399159,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 182.71564003103413,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 183.78515245113522,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 184.87342512910254,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 185.9561529729981,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 187.04568122816272,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 188.08083667699248,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 189.17661748710088,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 190.25876309117302,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 191.35080014099367,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 192.43585624312982,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 193.53088364610448,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 194.60396406706423,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 195.6534747441765,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 196.73667613696307,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 197.82975087012164,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 198.93379702116363,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 200.02948179817759,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 201.10246716905385,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 202.14177697710693,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 203.22197108413093,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 204.3015784341842,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 205.37967891804874,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 206.46219464112073,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 207.5270823230967,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 208.5640567590017,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 209.62895995518193,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 210.711093142163,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 211.78214054298587,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 212.8628009511158,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 213.9327438881155,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 214.96649188408628,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 216.03454465209506,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 217.11404937598854,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 218.1886678650044,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 219.276300705038,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 220.30388190806843,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 221.38941184501164,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 222.43967816303484,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 223.51848480501212,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 224.5816449681297,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 225.66439231601544,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 226.72083203308284,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 227.76296312897466,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 228.83239370398223,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 229.91308745113201,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 230.97762207500637,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 232.0647273720242,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 233.10366825410165,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 234.189364280086,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 235.27805872517638,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 236.35682974010706,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 237.45921535696834,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 238.5455766080413,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 239.6038321510423,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 240.68966778717004,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 241.79259914299473,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 242.87117269216105,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 243.96212247898802,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 245.0409506871365,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 246.06935241818428,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 247.15452469303273,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 248.2170254571829,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 249.28671942907386,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 250.35145030799322,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 251.43636342696846,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 252.49450262798928,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 253.5186580880545,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 254.58018581406213,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 255.64830799796619,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 256.7153873031493,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 257.78586041904055,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 258.85662367008626,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 259.88053987314925,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 260.9322950001806,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 262.01280713197775,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 263.0673215780407,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 264.12172478507273,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 265.16072256909683,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 266.248855649028,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 267.29768878105097,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 268.3761185000185,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 269.42711090599187,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 270.5149326049723,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 271.56870560813695,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 272.60591148398817,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 273.6470876119565,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 274.70230267499574,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 275.8028859850019,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 276.8829736059997,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 277.94490696210414,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 278.9813044241164,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 280.03656919510104,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 281.1129601909779,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 282.20694666402414,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 283.2873777160421,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 284.3329239420127,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 285.3581670150161,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 286.4208291731775,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 287.49853520910256,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 288.5564948101528,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 289.6250056170393,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 290.66781519004144,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 291.7300981411245,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 292.80574050801806,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 293.884240380954,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 294.91554707917385,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 295.98716244101524,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 297.0395196629688,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 298.12209813902155,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 299.1646598360967,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 300.2420622240752,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 301.27141461498104,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 302.3492825990543,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 303.37901417701505,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 304.4154997000005,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 305.4659224289935,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 306.54375457111746,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 307.59268730995245,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 308.6723120980896,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 309.71467889402993,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 310.7511125141755,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 311.7929567641113,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 312.86966279009357,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 313.907540518092,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 314.98481738218106,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 316.0385683521163,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 317.0753278071061,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 318.14075127616525,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 319.1715558581054,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 320.2292939960025,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 321.3081726410892,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 322.3507462081034,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 323.387634431012,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 324.4482503931504,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 325.47856379905716,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 326.5239548070822,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 327.6022677370347,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 328.64096489106305,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 329.6770012259949,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 330.74563655396923,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 331.76852535200305,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 332.8206218711566,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 333.8976220751647,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 334.91808107914403,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 335.94479399500415,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 336.9995376849547,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 338.02262422512285,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 339.0710145391058,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 340.14217220805585,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 341.18258608412,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 342.2191662210971,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 343.2623682869598,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 344.3392775929533,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 345.4235126890708,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 346.5027460800484,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 347.53234222414903,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 348.61574096698314,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 349.64408360398374,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 350.72702896711417,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 351.790715679992,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 352.84467384405434,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 353.8928965961095,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 354.97298358217813,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 356.0303851349745,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 357.09467796911485,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 358.15342212701216,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 359.2318044491112,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 360.28968231612816,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 361.32704488397576,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 362.3897219290957,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 363.41244796616957,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 364.4533010770101,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 365.52441445714794,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 366.579684027005,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 367.61580841010436,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 368.64161207317375,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 369.71934635099024,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 370.75507326517254,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 371.82105961302295,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 372.87386018713005,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 373.897210360039,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 374.92630331311375,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 376.0041557350196,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 377.0334743971471,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 378.0894087450579,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 379.1401816830039,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 380.1762045409996,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 381.21281615900807,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 382.26920915814117,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 383.3253643400967,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 384.40197162516415,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 385.4349924409762,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 386.4715460720472,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 387.5015638349578,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 388.55573747097515,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 389.61603639810346,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 390.6958563171793,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 391.72419118508697,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 392.7601686080452,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 393.8310771579854,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 394.8617678550072,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 395.9135090201162,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 396.99163826415315,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 398.026091304142,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 399.0627670499962,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 400.0936381430365,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 401.15462986705825,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 402.181390844984,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 403.3356092830654,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 404.3958617220633,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 405.43379344115965,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 406.49536536308005,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 407.5712392530404,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 408.6556047410704,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 409.7349337639753,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12432965632
+    },
+    {
+      "seconds": 410.8019758500159,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12869173248
+    },
+    {
+      "seconds": 411.8429352659732,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12734955520
+    },
+    {
+      "seconds": 412.9289469961077,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12718178304
+    },
+    {
+      "seconds": 414.01361150317825,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12583960576
+    },
+    {
+      "seconds": 415.1136190951802,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12567183360
+    },
+    {
+      "seconds": 416.19000592501834,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12378439680
+    },
+    {
+      "seconds": 417.209185868036,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12378439680
+    },
+    {
+      "seconds": 418.231473620981,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12378439680
+    },
+    {
+      "seconds": 419.25137572712265,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12378439680
+    },
+    {
+      "seconds": 420.27386637497693,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 421.29690275201574,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 422.318642975064,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 423.33951672911644,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 424.36011809296906,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 425.3811692080926,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 426.40342065808363,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 427.42341356305405,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 428.44431700906716,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 429.4662835530471,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 430.4868056541309,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 431.5085726780817,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    },
+    {
+      "seconds": 432.52991961408406,
+      "name": "NVIDIA GeForce RTX 5070 Ti",
+      "uuid": "GPU-97370a6e-b6d8-b903-98a1-c5558101acf0",
+      "driver": "595.84",
+      "total_bytes": 17094934528,
+      "used_bytes": 12273582080
+    }
+  ],
+  "gpu_monitor_errors": [],
+  "profile": {
+    "exclusive_host_seconds": {
+      "topology_read_decode_validate": 71.98386437818408,
+      "host_pack_and_H2D": 74.93819167232141,
+      "field_mmap_gather": 74.27028599148616,
+      "host_buffer_copy": 140.21512009156868,
+      "realize_compile_submit_wait": 8.738552781986073,
+      "D2H_and_host_copy": 1.8530679061077535,
+      "other_host_setup_assembly": 42.81114842137322
+    },
+    "calls": {
+      "topology_read_decode_validate": 954,
+      "host_pack_and_H2D": 4770,
+      "field_mmap_gather": 954,
+      "host_buffer_copy": 954,
+      "realize_compile_submit_wait": 1909,
+      "D2H_and_host_copy": 954
+    },
+    "bytes": {
+      "host_pack_and_H2D": 144500011448,
+      "field_mmap_gather": 128000000000,
+      "host_buffer_copy": 128000000000,
+      "D2H_and_host_copy": 8000000000
+    },
+    "forward_seconds": 414.8102312430274,
+    "fixture_eviction_hint": true,
+    "cuda_profiler_capture": true,
+    "benchmark_sha256": "3b54b875feacfbb33845d17c3d892432c6e27e6878596504075148e93b9c3f21",
+    "scope": "instrumented forward at recorded edge count; nested exclusive host intervals; mmap gather includes page-fault IO; no extrapolation"
+  }
+}

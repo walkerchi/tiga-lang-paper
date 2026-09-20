@@ -1,0 +1,8 @@
+{
+  "rank": 1,
+  "hostname": "walkerchi-PC",
+  "status": "passed",
+  "correct": true,
+  "nccl_version": 22809,
+  "seconds": 0.0987727399999585
+}
