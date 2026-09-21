@@ -1,0 +1,51 @@
+\section{Introduction}
+Message passing describes computation through entities, interactions, local
+functions and reductions. In machine learning, this pattern includes graph
+neural networks, point-cloud neighborhoods and attention; numerical simulation
+uses related structures for particles and mesh operators. The same high-level
+pattern can require very different execution strategies. A stored sparse graph
+needs indexed traversal, a radius relation can exploit spatial locality, and
+a dense relation need not have an explicit edge array at all.
+
+Tensor-oriented implementations often build connectivity first, gather fields
+for every edge, compute messages, and finally reduce them. For edge count
+and feature width denoted by $E$ and $F$, a materialized message array uses
+storage proportional to $EF$, even when its sole consumer produces $NF$
+output values for $N$ destinations. Dynamic coordinates can make the cost of
+constructing these intermediates recur at every call. When the input graph
+itself exceeds device memory, fusion alone is insufficient: execution must
+also control which topology and field pages reside on the accelerator.
+
+Tiga, short for \emph{Target-Independent Graph Acceleration}, separates the
+meaning of a message-passing program from its traversal, hardware mapping and
+storage residence. Target independence describes this separation, not equal
+backend coverage: current executable routes target CPUs and NVIDIA GPUs.
+The central design choice is to retain relation and reducer information before
+lowering to tensor and device operations. This enables two complementary
+mechanisms: consuming generated neighbors directly, and streaming stored
+graphs with a bounded temporary working set.
+
+This paper contributes a relation-aware compilation interface and lowering
+strategy, a destination-page execution contract for graphs exceeding device
+memory, and an evaluation of their forward latency, allocation and capacity.
+The results establish useful execution paths rather than a universal framework
+ranking. In particular, the evaluation does not isolate every compiler
+optimization or establish end-to-end training throughput. Differentiation and
+distributed execution are supported on specific paths, with their boundaries
+stated separately from the central performance claims.
+
+\paragraph{Relation to prior systems.}
+PyTorch Geometric exposes message passing to graph-learning applications
+\citep{pyg,pyg2}. Graphiler retains graph-related dataflow to eliminate redundant
+work and storage \citep{graphiler}; FeatGraph composes sparse traversal and
+feature schedules \citep{featgraph}; Seastar generates fused forward/backward
+kernels \citep{seastar}; and GALA composes graph-training transformations
+\citep{gala}. Tiga likewise exploits message semantics, but additionally retains
+generated relation constructors and explicit storage residence in its execution
+model. These design differences are not comparative performance claims against
+those compilers. GraphIt separates algorithms from schedules \citep{graphit},
+while TACO and SparseTIR separate sparse iteration and storage choices
+\citep{taco,sparsetir}. GraphChi and X-Stream establish that partitioned streaming
+can make large graphs executable on a single machine \citep{graphchi,xstream}.
+Tiga builds on these principles for differentiable numerical field programs;
+neither fusion nor offloading is claimed as a new idea in isolation.

@@ -1,4 +1,4 @@
-# Tiga technical report
+# Tiga manuscripts
 
 ![Tiga](figures/tiga-logo.svg)
 
@@ -14,7 +14,8 @@ supports paged and distributed execution within a common programming model.
 Differentiable computations integrate with ordinary PyTorch tensors and autograd;
 the report describes both forward execution and reverse-mode differentiation.
 
-[Read the PDF](tiga-lang.pdf) ·
+[Technical report PDF](tiga-lang.pdf) ·
+[ICLR 2027 workshop draft PDF](tiga-lang-iclr2027.pdf) ·
 [Download PDF](https://github.com/walkerchi/tiga-lang-paper/raw/refs/heads/main/tiga-lang.pdf) ·
 [Compiler project](https://github.com/walkerchi/TIGA-lang) ·
 [Report source](https://github.com/walkerchi/tiga-lang-paper)
@@ -24,9 +25,21 @@ Contact: [walker.chi.000@gmail.com](mailto:walker.chi.000@gmail.com).
 
 ## Read and build
 
-The manuscript is `main.tex`; [tiga-lang.pdf](tiga-lang.pdf) is the compiled
-report checked into the repository root alongside this README. Local builds
-write `build/main.pdf`; `make pdf` refreshes the checked-in copy.
+Two separately written manuscripts share references and benchmark figures:
+
+| Version | Source | PDF | Purpose |
+|---|---|---|---|
+| Technical report | `main.tex`, `sections/` | [tiga-lang.pdf](tiga-lang.pdf) | Full design, IR, runtime, evaluation and executable appendices |
+| ICLR 2027 workshop draft | `iclr2027.tex`, `workshop/` | [tiga-lang-iclr2027.pdf](tiga-lang-iclr2027.pdf) | Focused, anonymous-format paper on relation-aware execution and memory capacity |
+
+The workshop manuscript is **not submitted** and is not an ICLR main-conference
+paper. A specific workshop and its requirements remain to be selected. Its
+[preparation notes](workshop/README.md) distinguish existing evidence from planned
+experiments and explain the limits of the anonymous-format draft.
+
+Local report builds write `build/main.pdf`; `make pdf` refreshes the checked-in
+technical report. Workshop builds write `build/iclr2027/iclr2027.pdf`;
+`make pdf-iclr` refreshes the separate workshop PDF. `make pdf-all` builds both.
 Background includes related work. Appendix A contains a runnable
 [EdgeNN example](examples/edge_nn.py) with Torch forward and gradient checks.
 Appendix B adds [causal attention](examples/causal_attention.py): a triangular
@@ -41,6 +54,7 @@ semantics only.
 
 ```bash
 make pdf TECTONIC=/path/to/tectonic
+make pdf-iclr TECTONIC=/path/to/tectonic
 make check PYTHON=/path/to/python PROJECT=/path/to/tiga-lang
 ```
 
@@ -88,6 +102,8 @@ measurements; replotting alone uses the stored samples.
 ## Source layout
 
 - `sections/`: manuscript sections; `sections/archive/` is excluded from the build.
+- `workshop/`: focused ICLR 2027 workshop draft and submission preparation notes.
+- `styles/iclr2027/`: unmodified official template files and provenance.
 - `figures/`: diagrams and generated plots.
 - `generated/ir/`: compiler-checked fixtures and outputs.
 - `examples/`: executable EdgeNN and causal-attention appendices.

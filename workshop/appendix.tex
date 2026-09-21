@@ -1,0 +1,69 @@
+\section{Experimental protocol and interpretation}
+\label{ws:protocol}
+\paragraph{Stored and dynamic comparisons.}
+Stored CSR excludes relation construction from timing. PyG's COO representation
+is included in its allocation; Torch sparse provides a peer that does not
+materialize COO messages. Radius nominal degree is 32, with a cap of 128
+verified not to truncate either coordinate snapshot. kNN excludes self-edges
+and uses direct squared differences in the reference, avoiding a matrix-product
+distance identity at close separations. Every timed output is checked outside
+the measurement window. Sample ranges describe variation within the retained
+calls, not cross-process confidence intervals. The dynamically generated cases
+have one feature; the stored CSR and capacity cases have 32.
+
+\paragraph{Capacity accounting.}
+Topology and source files occupy 16.50 GB (15.37 GiB). The 1B graph's
+two-billion-scalar output is checked exactly after each retained run. Native
+device counters do not include unrelated allocations; process RSS is not total
+machine RAM consumption; and disk footprint is not a simultaneous resident
+allocation. The profiled outer call takes 417.05 s including profiler start/stop,
+whereas the inner window takes 414.81 s. Exclusive host intervals sum to the
+inner window. Device kernel/copy activity lies within these intervals and must
+not be added again. mmap gathering includes page-fault IO, so it is not a
+pure disk-service timer. The graph fits host RAM. Measured H2D traffic is
+144.50 GB and D2H traffic is 8 GB; repeated source gathers explain why transfer
+volume exceeds the stored input size.
+
+\section{Differentiation checks}
+\label{ws:gradients}
+The EdgeNN check constructs a radius graph on 128 three-dimensional positions.
+Each message concatenates source features of width eight and the displacement
+from destination to source, applies an 11--16--4 ReLU MLP, and sums at the
+destination. The loss is the mean squared output. An explicit Torch gather,
+the same MLP parameters and destination \code{index\_add} provide a reference.
+Output, source-feature, position and parameter gradients are compared; the
+position derivative acts on displacements for the selected edges, not radius
+membership. Using the same resolved graph isolates message and gradient
+semantics rather than independently validating the neighbor search.
+
+The attention check uses the exact triangular relation, two heads of width 64,
+and an online-softmax reducer. CUDA streaming output is compared with explicit
+FP32 Torch scores, causal masking, softmax and value multiplication. A separate
+\code{program.reference} call checks query/key/value gradients against independent
+Torch leaf tensors under a random output cotangent. This reference materializes
+edges and messages. It is not a streaming backward kernel. Checks cover sequence
+lengths 1, 7 and 65 on CPU, and 1, 7, 65 and 128 on CUDA, including singleton
+and partial-tile cases. These tests establish first-order agreement, not
+training throughput or universal higher-order differentiation.
+
+\section{Distributed negative result}
+\label{ws:distributed}
+Nonperiodic hexahedral meshes of side lengths 32, 64 and 96 connect nodes
+sharing an element in both directions without self-edges: 797,816, 6,596,856
+and 22,508,920 directed edges. A 16-feature neighbor sum is evaluated, not a
+complete FEM solve. Equal destination partitions exchange one interface layer
+across a spatial plane; the boundary-row fraction falls from 6.25\% to 2.083\%.
+
+Both hosts run matching compiler/runtime sources and NCCL 2.28.9 Socket
+transport. Two warmups precede five changed-input calls; the median is taken
+over paired-rank maximum durations. Timing includes exchange, scheduling,
+computation and synchronization, but excludes topology setup, the control
+barrier and checking. Replicated topology setup does not demonstrate
+distributed topology capacity beyond one GPU.
+
+At the largest size, full-graph medians are 89.75 ms and 23.00 ms on the two
+cards, versus 44.22 ms distributed. Existing services occupy roughly 3 GiB on
+the main host and 12 GiB on the Ubuntu/WSL second host. Hardware, environment
+and contention are not independently controlled; the gap cannot be attributed
+solely to GPU compute throughput. This is a deployment-specific result, not a
+universal limit of graph partitioning.
