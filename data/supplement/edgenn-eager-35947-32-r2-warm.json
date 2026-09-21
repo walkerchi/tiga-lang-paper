@@ -1,0 +1,489 @@
+{
+  "schema": "tiga.paper.supplement.v1",
+  "workload": "edgenn",
+  "provider": "eager",
+  "nodes": 35947,
+  "edges": 356260,
+  "width": 32,
+  "seed": 20260923,
+  "trial": 2,
+  "phase": "warm",
+  "cutoff": 0.015,
+  "degree": {
+    "mean": 9.910701751708984,
+    "maximum": 19
+  },
+  "topology_sha256": "070110166c5132a573885ef72c0256a661eaf6581218f232764d6bb2f7d329b7",
+  "first_call": {
+    "forward_ms": 0.9222568478435278,
+    "backward_ms": 2.4416460655629635,
+    "total_ms": 3.3639029134064913,
+    "peak_allocated_bytes": 219379712
+  },
+  "warmup": 4,
+  "samples": [
+    {
+      "forward_ms": 1.1400780640542507,
+      "backward_ms": 2.580433851107955,
+      "total_ms": 3.7205119151622057,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9410309139639139,
+      "backward_ms": 2.440664917230606,
+      "total_ms": 3.38169583119452,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9338781237602234,
+      "backward_ms": 2.3868049029260874,
+      "total_ms": 3.3206830266863108,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.940751051530242,
+      "backward_ms": 2.44905985891819,
+      "total_ms": 3.389810910448432,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9528729133307934,
+      "backward_ms": 2.43560504168272,
+      "total_ms": 3.3884779550135136,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9431340731680393,
+      "backward_ms": 2.396373078227043,
+      "total_ms": 3.3395071513950825,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9351798798888922,
+      "backward_ms": 2.3922650143504143,
+      "total_ms": 3.3274448942393064,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.942072132602334,
+      "backward_ms": 2.3853029124438763,
+      "total_ms": 3.3273750450462103,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.949998153373599,
+      "backward_ms": 2.32568196952343,
+      "total_ms": 3.275680122897029,
+      "peak_allocated_bytes": 219379712
+    },
+    {
+      "forward_ms": 0.9461210574954748,
+      "backward_ms": 2.450281986966729,
+      "total_ms": 3.396403044462204,
+      "peak_allocated_bytes": 219379712
+    }
+  ],
+  "medians": {
+    "forward_ms": 0.9426031028851867,
+    "backward_ms": 2.4159890599548817,
+    "total_ms": 3.3606014912948012
+  },
+  "peak_allocated_bytes": 219379712,
+  "common_topology_setup_ms": 199.04455612413585,
+  "numerical_checks": [
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.2732925824820995e-11,
+        2.2351741790771484e-08,
+        2.9802322387695312e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.921905727428566e-08,
+        9.00036596362952e-08,
+        5.582384687841113e-08,
+        1.4735538123034075e-08,
+        3.651157953754591e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        7.450580596923828e-09,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.9897511900098834e-08,
+        9.138855716628314e-08,
+        6.240151151359896e-08,
+        3.547900861988751e-09,
+        3.282659477576999e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.840754641577405e-08,
+        8.824265762541472e-08,
+        6.406299490890888e-08,
+        4.3697362173134024e-08,
+        3.5451414248655055e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.4551915228366852e-11,
+        2.2351741790771484e-08,
+        2.9802322387695312e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.928392982606056e-08,
+        9.046861748629453e-08,
+        6.176833977633578e-08,
+        1.505246771671409e-08,
+        3.770899326127619e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.739444392498626e-08,
+        8.539482365677031e-08,
+        5.972442806978506e-08,
+        3.594552211438895e-08,
+        3.3100967300470074e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.2732925824820995e-11,
+        1.4901161193847656e-08,
+        1.4901161193847656e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.979560230822244e-08,
+        9.106032194949876e-08,
+        6.269744545761569e-08,
+        8.869752043949575e-09,
+        4.268368414273027e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.7313669426785054e-08,
+        8.627940673022749e-08,
+        5.771660838149728e-08,
+        3.246951862934111e-08,
+        3.605232734571473e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.2732925824820995e-11,
+        2.9802322387695312e-08,
+        2.9802322387695312e-08,
+        1.7881393432617188e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.995731472945408e-08,
+        9.085825070087594e-08,
+        5.955887871778032e-08,
+        1.4191603447955004e-08,
+        4.3201080046628704e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.8464634971878695e-08,
+        8.769984560785815e-08,
+        5.973762284838813e-08,
+        4.300945377622156e-08,
+        3.722506747294574e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.2732925824820995e-11,
+        2.2351741790771484e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        5.004677561259996e-08,
+        9.260566713464868e-08,
+        6.261739571300495e-08,
+        2.947107624606815e-08,
+        3.770899326127619e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.8906954930316715e-08,
+        8.951550256597329e-08,
+        6.474518698951215e-08,
+        3.327077280346202e-08,
+        3.649651958426148e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        1.4901161193847656e-08,
+        7.450580596923828e-09,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.9847720617890445e-08,
+        9.117273691572336e-08,
+        6.254228424040775e-08,
+        3.547900861988751e-09,
+        3.3990428249808247e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        2.2351741790771484e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.815705878513654e-08,
+        8.716968835642547e-08,
+        5.890747800663121e-08,
+        3.2552907924809915e-08,
+        2.8759806980360736e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 7.152557373046875e-07,
+      "gradients_max_abs": [
+        1.4551915228366852e-11,
+        1.0913936421275139e-11,
+        1.4901161193847656e-08,
+        1.4901161193847656e-08,
+        1.7881393432617188e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.9669125701257144e-08,
+        9.115227328493347e-08,
+        5.411129677668214e-08,
+        8.129262596412445e-09,
+        3.886954047516156e-08,
+        0.0
+      ]
+    },
+    {
+      "output_max_abs": 4.76837158203125e-07,
+      "gradients_max_abs": [
+        2.1827872842550278e-11,
+        1.0913936421275139e-11,
+        2.9802322387695312e-08,
+        5.960464477539063e-08,
+        1.1920928955078125e-07,
+        0.0
+      ],
+      "gradients_relative_l2": [
+        4.821016474920725e-08,
+        8.645503868365267e-08,
+        6.024694698680833e-08,
+        3.265981618483238e-08,
+        3.850172447528166e-08,
+        0.0
+      ]
+    }
+  ],
+  "correct": true,
+  "explanation": null,
+  "timing": "synchronized host wall; fixed topology; feature copy and validation excluded; backward includes MSE loss, no optimizer",
+  "memory": "Torch allocated: live inputs/topology/cache plus outputs/tape/workspace; excludes reserve, CUDA context and other processes",
+  "cache": {
+    "TRITON_CACHE_DIR": null,
+    "TORCHINDUCTOR_CACHE_DIR": null,
+    "CUDA_CACHE_PATH": null
+  },
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0"
+  },
+  "gpu_before": "NVIDIA GeForce RTX 5070 Ti, GPU-97370a6e-b6d8-b903-98a1-c5558101acf0, 595.84, 3090 MiB, 16303 MiB",
+  "timestamp": "2026-09-21T10:52:51Z",
+  "source_commit": "a530580ea3d195f6e1fafa1050619f552b2d0f6e",
+  "source_sha256": {
+    "python/tiga/__init__.py": "7a83aa61749df1093af459b7d0a4091fdb534ad924467aad90199fbbfe2faa35",
+    "python/tiga/__main__.py": "f279911a25fc92f58fe40a1e9915038022dac345e4b784338e6620c4ae29be1e",
+    "python/tiga/_version.py": "a80c3a8e5c6936a7ae91a576cdf598691ec452c157e69a2c431c8aa3a5d2c487",
+    "python/tiga/autograd/__init__.py": "03a17ecc6738369a9800e5105f7717a5ab20717bc3dcaa75b7730d75d40eadd3",
+    "python/tiga/codegen/__init__.py": "1ebfa0d00dab321968853a9f42c3b10d0e673a8e10b41ec2576adfe971d1e9c9",
+    "python/tiga/codegen/compile_worker.py": "71cde2ea70fb8f0bdc2e15dbf1cbad90b150d318c9c0dfef49de15b88fac6bbf",
+    "python/tiga/codegen/provider.py": "00b651cd486ec0c5004ba4cd588ef263601f11176224f17733d4e28ae391ace0",
+    "python/tiga/codegen/registry.py": "7982cd7bd1d789f0d1d8f8347faeb0ded36dc8702c2c3a5cf8905028621477bd",
+    "python/tiga/codegen/ttir.py": "e0cb55d618b3ac0e8b84c32292d7c51d1e836166d394f004450631cc059bd65f",
+    "python/tiga/compiler/__init__.py": "0120b607bdc959fb4a74ee21935ae3de616c0ecdcd8dcef35bce5183d4a0f688",
+    "python/tiga/compiler/bundle_plan.py": "6d7583f2ed518f4b6c80652b6829d96cddad7df1ce0426f2c9e2b4e87d3b76b1",
+    "python/tiga/compiler/capture.py": "4367e1b05f120318c74d3c09e720931841f415e8dd34708997782ff1fe9d2f7d",
+    "python/tiga/compiler/cpu_tensor.py": "16d2e1375b0ddf1fa249900b4be471d1d5af87e52dbd91a6fc4984b56f9974b1",
+    "python/tiga/compiler/domain_capture.py": "6e9530d5cd04a9b1b053ed5dd89e9bff01dd63a7313af53232415f78dea80482",
+    "python/tiga/compiler/edge_nn_attention.py": "3d4722493ea838ef4c3c0f67b1984878279b4abceb4fc33de3ddab95aa2013db",
+    "python/tiga/compiler/edge_nn_tile.py": "48a539a25394ac436256f69f5711e72a0dd177be37d00bacddccd5d0e54aaadd",
+    "python/tiga/compiler/edge_nn_vjp.py": "1d2fc806e8adf9246be804d612cd174289970e74c6f44f461a6bf53dbd3c9331",
+    "python/tiga/compiler/gpu_tensor.py": "3ef4348eb00d934a40a58ec63e713dcb11ac51ec8a837e39c51946d471b6ea82",
+    "python/tiga/compiler/native.py": "4cb118a0b7c532aff4d2ba84f2382d9e47f094968a986c1f78cc464279d83c5a",
+    "python/tiga/compiler/nn_capture.py": "30e3c11ac7030031e36556adcb08a874c866984bf48e1b1a3c3fc74f783eec43",
+    "python/tiga/compiler/reducer_capture.py": "3f4692882eaa7f7b93fe7d2c79833cd254ec707fafc296673c71ade273347f6b",
+    "python/tiga/compiler/relation_vjp.py": "def9cd93bc18b3e2ee1304d1778cf53f41a1445038af677d5bc2b6c8dc0e7b2d",
+    "python/tiga/compiler/schedule.py": "bf144631c61c30fbe75fd1ccdb0e4ccf79d89c79f4cd0be7ac70c3e08a28bfff",
+    "python/tiga/compiler/shapes.py": "37f676981365409e4c0e91641d098d6ad9e0a78bb6cf2d876c8cbcb6a6536273",
+    "python/tiga/compiler/tensor_mlir.py": "25090798dc3e4ea54d8452a0ce97bb28a439fad74f0d62ef1da80477b8e37c13",
+    "python/tiga/compiler/toolchain.py": "fcaf4105357afeb573395af224269a02b2184d9a9947f513e8e0790e72ef7776",
+    "python/tiga/control/__init__.py": "73e45fb5526fb63df4d3be1de3d93543aba75d206576e2d9dc2ba1429bacdb30",
+    "python/tiga/distributed/__init__.py": "b15d15a8b915f796075da89b110dac2220140f96642b640f5d16f8cfea5582ac",
+    "python/tiga/distributed/model.py": "aac0fa5e120299767ef76430c8185f919e4919cf15b458060ab15895b9b429d3",
+    "python/tiga/distributed/mpi.py": "e53b25d60abdcfa1804aaa4e68507732af15e7e4fa6f54e0a792fbb7a5630340",
+    "python/tiga/distributed/nccl.py": "40601d6ef5e34cebed41365c3d560e28fdcbcc4e23d5fcf521f42589f11f3c1e",
+    "python/tiga/distributed/registry.py": "75a76a163b7ef26dda7679a67f08a7e99cf51f6855a8a1035d4c84a335b1a942",
+    "python/tiga/distributed/tcp.py": "8156f1e269aef5fd4712b72a1c016d8e068594aaa23247c8cec0e62f84db49fb",
+    "python/tiga/distributed/transport.py": "5bf921905019d4481bb87034efa53c64d8b9957e6964c40fff4d978502fbd8ba",
+    "python/tiga/graph/__init__.py": "48e6f6bdd523e6f34e3921f3c1395d6cdf12422ca6d73b72e27ad818518ba0b9",
+    "python/tiga/graph/core.py": "0a1cbba3aa23c4d36f7e41784ee21f5c1da5ac2a98983bd460e0b55469c837b3",
+    "python/tiga/graph/dynamic.py": "13f0993eb7a011cee880a46fbbf8de6bc16f45ee2e5812c2bb30565baa050c80",
+    "python/tiga/graph/offload.py": "9a9803869a7822bd85123da987216c7cbfe30e1d5ba2002ea4a2168c22cf0a2b",
+    "python/tiga/graph/storage.py": "a8d7033f6a7cf93438dff42d5901417573c996b350c6fb984dae5ca7f5cd096c",
+    "python/tiga/interop/__init__.py": "770db3cd77b08931127f77fc8df3cd2ce854c5e7a6dcb2dc161312e64531780c",
+    "python/tiga/interop/torch/__init__.py": "99918a18435c1dfcea689ce8bfea549f1a124d6f84d4adf2ca6d0e2db83d9b5a",
+    "python/tiga/interop/torch/compiler_bridge.py": "7846c301986889bbd198b700ee302e861d1894f3f53b1610eb01d57f2bda458e",
+    "python/tiga/interop/torch/graph.py": "025b1d9968aa6da45c88cea4eb72268faced004110233aa2cd085a5a1d2a18e8",
+    "python/tiga/interop/torch/library.py": "4c3cf2d0c2a095d9ddbf198f3bd1d9d414511042e65ea8002e7d871bed8b46d0",
+    "python/tiga/interop/torch/message_passing.py": "6c07b98ecc17eac522ca9c17699dcfca905e4516f4feb93aa532047187da4551",
+    "python/tiga/interop/torch/provider.py": "bbeff2bd6c472fda199d3f13afd99f39b0c359f67d4964359b56a4506df0fc6d",
+    "python/tiga/interop/torch/radius_grid.py": "8ee7483aa385b2ef268f445990f8574e17d7f0550c35d73415552fcb02dfe25d",
+    "python/tiga/interop/torch/reducer_oracle.py": "1b780d52938f3101a9e7cb0e7b9b3f2011a27c127321778103fc0da2ec41baa1",
+    "python/tiga/interop/torch/relation_vjp.py": "8bed2d5914ad6615ab80f413628d00be1721c25806a432c1123a384ada079f77",
+    "python/tiga/interop/torch/state.py": "b94633911c376b095ab637f28f9f037823323b4ef0831bb579d2b949e22b32d0",
+    "python/tiga/interop/torch/tensor.py": "685cefddfc78f796576a9edbf269bdabddd8c7e8e3ddb49d8508e1ee7c670544",
+    "python/tiga/jit.py": "22d08337031a8ae98c1a2b8b6b040a55230b99a68694a187212d385677a45d8a",
+    "python/tiga/kernel/__init__.py": "2f353ad80547a9f2e2693a49e16b618eb4c0571563c9a90bce0558e880692a9a",
+    "python/tiga/kernel/model.py": "9b35b5638dc583f971ab8d19ca8a911af8cd2929e7137cd83357c71b73a317b7",
+    "python/tiga/math/__init__.py": "a55b1dfb7b91ad467367a3afdfb277631378c39598b704ebfab285fc8d50741e",
+    "python/tiga/message_passing/__init__.py": "56635e9ddeff0b12ce79530acdf05692d9c08f20f659fa5cd0c570dd9588623d",
+    "python/tiga/message_passing/core.py": "10bade0d1f3af83986681883dcccdf48274a721c5179db842012d9c2a29ab68a",
+    "python/tiga/message_passing/paged.py": "cc48b7aec5c026e57f817d902d57706a45390ba26f67007e3f4dccc6c77525bc",
+    "python/tiga/nn/__init__.py": "77e47c228d439c7d1d284dc968d2990b42bcd38bcb504f1e265772cfad1713e4",
+    "python/tiga/program/__init__.py": "fef28902f6645ae4fbad61509009d93cf6cce0357681f64d4dcdfbd9281ada7d",
+    "python/tiga/program/core.py": "820fc08466d519c9edd4e79d447557e3d91b2d045fde0b7d3df5ac5f96b822a5",
+    "python/tiga/reducer/__init__.py": "80c33281292ebfa7ff050f02dade2e79e78d17d567ab7fd67b31caca5df7fb83",
+    "python/tiga/reducer/core.py": "d941a05f665dbd77e0594a0efddbb9c313dfb32a26662e2889dbbc417180228f",
+    "python/tiga/runtime/__init__.py": "574c0d8d17835331f5414fa68441314b4049a303c5c7a96d06aa9348ba8bd1b6",
+    "python/tiga/runtime/bundle.py": "c31bcd05152b7b30fec9dbe3792e4a7c5508e4bfa27ef33664e847baafdc5182",
+    "python/tiga/runtime/cuda_blas.py": "98643e73e48f98491dacb6f30561ea6ae337969fbf996b061911af0d4a6a3cd0",
+    "python/tiga/runtime/hierarchy.py": "4151efed9528bed59c2193105a548740110553cc42417180f0d218cb658c8114",
+    "python/tiga/runtime/memory.py": "cd8f3a945de2c5cb035e8ca1262a8fb6482af4ffa5429342e8c7e2d044be4dac",
+    "python/tiga/runtime/plan.py": "009cf8ac62850e8169bcbfaca1cd0ac0e75f313b78d6fed0102c2f227474b733",
+    "python/tiga/runtime/storage_io.py": "9b7c16897d463b5cb722350618cb02bcac817bdc991a44c208a154676e20ba71",
+    "python/tiga/stencil.py": "7b050d1e07b7e26dd297269cd9b3c7b68927dd37d0eb707d37df6c6fea02d513",
+    "python/tiga/tensor/__init__.py": "7b5c6cd46f1e08420676f15b80e8fe83c2ada5a5d3a9514aa855b778efe59b8d",
+    "python/tiga/tensor/core.py": "c2076b93258495632912cd120c6ba80c8e025d7d6f38e6fde49250d74a2e8146",
+    "python/tiga/tensor/spill.py": "2eddef49cd3de70c91a94d3d699cbf354473b97c68187f453899c29f8a37e322",
+    "python/tiga/visualize/__init__.py": "39d8206990c7e3b375650f3fda3275c23d11497d683195dc6935cb4a585b2340",
+    "python/tiga/visualize/camera.py": "03a4919f78aca8ec931beabdac74b9c8868076db5470628b0597120fefed3736",
+    "python/tiga/visualize/exchange.py": "a41db1c886fc2b525b0794e4c982aae82cbf4fc5e16a77cf732ea497ced43100",
+    "python/tiga/visualize/geometry.py": "d257d090eedf1f986eef614a72a701c082a4031074a6d13a16856d97a3219319",
+    "python/tiga/visualize/splats.py": "ed43e64a0782327a74f6c59ff4e38d0a2d8ddf7fc9cfb8942aa9c332d241b505",
+    "python/tiga/visualize/video.py": "1577f7c50b4bf7d918012fab9460998fd8ae1fffcdfcc80653b359d6b8e9e1a6",
+    "python/tiga/visualize/volume.py": "55212736669edc3d32b22addc5eaf5f0b74ee58669d1d13849f6bfabac2a29d0"
+  },
+  "compiler_sha256": {
+    "TIGA_OPT": "0fdae720a71eb506ede11db6aa13cb6783a1450e63bbab6bf5764430843d61fa",
+    "TIGA_TRANSLATE": "bbc4f061266dd5133f1f52b7e897d0d11e3f393299dfc21b97cb66f9063b6d99"
+  },
+  "benchmark_sha256": "514b9177e7f2258a76888ea5250839486c88f612478870f2fc23005244e9cd2b",
+  "dataset": {
+    "url": "https://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz",
+    "archive_sha256": "a5720bd96d158df403d153381b8411a727a1d73cff2f33dc9b212d6f75455b84",
+    "member": "bunny/reconstruction/bun_zipper.ply"
+  }
+}

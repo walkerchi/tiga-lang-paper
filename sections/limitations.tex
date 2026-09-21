@@ -10,8 +10,9 @@ scratch, general metric lowering and generated backward require further work.
 and additional vendor backends remain incomplete.
 \item Distributed execution uses fixed ownership. Compute-aware partitioning,
 partition-local topology capacity, RCCL and failure recovery remain open.
-\item Performance evaluation measures FP32 forward workloads; supported backward
-paths have separate numerical checks. Sustained out-of-core training
+\item Performance evaluation covers FP32 forward workloads and a fixed-topology
+EdgeNN forward/backward step, not end-to-end model training. The latter shows a
+memory reduction but a wide-feature backward slowdown. Sustained out-of-core training
 and beyond-host-RAM graphs require additional measurement.
 \end{itemize}
 
@@ -23,7 +24,9 @@ on supported paths, and explicit control over storage residence and distributed
 ownership. Generated relations reduce intermediate storage and improve runtime
 on the measured workloads; paging enables billion-edge forward computation on
 a memory-limited GPU. Distributed measurements show that a small halo alone is
-insufficient for speedup when rank workloads are imbalanced.
+insufficient for speedup in the measured heterogeneous deployment. Device speed,
+host environment and competing services are not independently controlled, so
+the observed gap does not isolate their individual effects.
 
 The design links a local programming abstraction to the physical choices that
 govern large-graph execution. Further work can build on the same representation

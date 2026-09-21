@@ -1,0 +1,179 @@
+[
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--build"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"built\", \"path\": \"/tmp/tiga-page-sensitivity-g5ae18r9/ring-10000000.gfg\", \"edges\": 10000000, \"nodes\": 625000, \"degree\": 16, \"features\": 32, \"seconds\": 0.29243529704399407, \"chunk_rows\": 65536, \"peak_rss_bytes\": 66256896, \"payload_sha256\": {\"row_ptr.bin\": \"7bfe4e20f9e115fe7b354ac2e391951647b56c1fd25efbe0e580db08bddb3154\", \"col_idx.bin\": \"5a32ce98e4dae63666952a6e2808ca97d5b93668cc712f2ca4424eae8992f9f6\", \"x.bin\": \"e424db8198e6beb1dd9e035562dc9c9a19997c54d115bca283cf550d058dfedb\"}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "65536",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-65536-r1.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0006531460676342249}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 65536, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.00040573393926024437, \"forward_s\": 4.808363540098071, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 10, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 615884656, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451658, \"wchar\": 32189, \"syscr\": 1281, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 1674121216, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.188831107923761, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 1674121216, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "16384",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-16384-r2.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0005872799083590508}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 16384, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.0003993019927293062, \"forward_s\": 4.958485915092751, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 39, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 383038560, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 456701048, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451750, \"wchar\": 32157, \"syscr\": 1341, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 686866432, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16616135882213712, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 456701048, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 686866432, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "262144",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-262144-r2.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0005134199745953083}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 262144, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.00040509295649826527, \"forward_s\": 5.46435915492475, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 3, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 918923096, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451893, \"wchar\": 32223, \"syscr\": 1268, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 2835107840, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16801827517338097, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 2835107840, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "262144",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-262144-r0.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.000597609905526042}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 262144, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.00045729195699095726, \"forward_s\": 5.346014684066176, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 3, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 918923096, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451940, \"wchar\": 32222, \"syscr\": 1270, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 2834403328, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16621434316039085, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 2834403328, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "65536",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-65536-r2.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0006989720277488232}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 65536, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.0004228160250931978, \"forward_s\": 4.865260733989999, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 10, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 615884656, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451756, \"wchar\": 32189, \"syscr\": 1282, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 1807429632, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16565754497423768, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 1807429632, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "262144",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-262144-r1.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0005571218207478523}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 262144, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.000387498177587986, \"forward_s\": 5.410142414970323, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 3, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 918923096, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451988, \"wchar\": 32223, \"syscr\": 1270, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 2835435520, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16620156983844936, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 1512108896, \"host-pinned\": 0, \"ram\": 536870912, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 2835435520, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "16384",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-16384-r1.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0004956340417265892}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 16384, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.0003675201442092657, \"forward_s\": 4.950308147119358, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 39, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 383038560, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 456701048, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451650, \"wchar\": 32157, \"syscr\": 1340, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 688824320, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16254184022545815, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 456701048, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 688824320, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "16384",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-16384-r0.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0005837620701640844}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 16384, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.0003504978958517313, \"forward_s\": 4.939404929056764, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 39, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 123447128, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 305181768, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451796, \"wchar\": 32157, \"syscr\": 1339, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 625553408, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16264551412314177, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 305181768, \"host-pinned\": 0, \"ram\": 33554432, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 625553408, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/tmp/tiga-v011-release.MjAT4w/gpu-venv/bin/python",
+      "-m",
+      "benchmarks.memory_hierarchy.billion_edges",
+      "--edges",
+      "10000000",
+      "--cache-dir",
+      "/tmp/tiga-page-sensitivity-g5ae18r9",
+      "--page-rows",
+      "65536",
+      "--output",
+      "/home/walkerchi/Code/tiga-lang-paper/data/page-sensitivity/page-65536-r0.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"event\": \"page\", \"begin\": 0, \"nodes\": 625000, \"seconds\": 0.0006617000326514244}\n{\"schema\": \"tiga.billion-edges.v1\", \"status\": \"ok\", \"edges\": 10000000, \"nodes\": 625000, \"features\": 32, \"degree\": 16, \"mode\": \"paged\", \"page_rows\": 65536, \"gpu_before\": {\"name\": \"NVIDIA GeForce RTX 5070 Ti\", \"uuid\": \"GPU-97370a6e-b6d8-b903-98a1-c5558101acf0\", \"driver\": \"595.84\", \"total_bytes\": 17094934528, \"used_bytes\": 3240099840}, \"topology_bytes\": 85000008, \"source_bytes\": 80000000, \"output_bytes\": 80000000, \"stored_bytes\": 165000008, \"resident_lower_bound_bytes\": 245000008, \"budget_bytes\": 12884901888, \"load_s\": 0.0003577608149498701, \"forward_s\": 4.896651695948094, \"execution\": {\"backend\": \"paged-message-passing\", \"page_backends\": [\"cuda-ttir-triton\"], \"pages\": 10, \"storage_path\": \"host-staged\"}, \"forward_memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 615884656, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"forward_io_delta\": {\"rchar\": 503451756, \"wchar\": 32189, \"syscr\": 1281, \"syscw\": 82, \"read_bytes\": 0, \"write_bytes\": 20480, \"cancelled_write_bytes\": 20480}, \"forward_peak_rss_bytes\": 1806602240, \"max_abs_error\": 0.0, \"checked_values\": 20000000, \"check_s\": 0.16335946205072105, \"memory\": {\"scope\": \"allocations-created-in-this-execution\", \"excludes\": [\"external buffers\", \"earlier allocations\", \"Python/compiler memory\", \"OS page cache\", \"I/O staging bytes\"], \"live_bytes\": {\"device\": 0, \"host-pinned\": 0, \"ram\": 0, \"nvme\": 0}, \"peak_bytes\": {\"device\": 980726852, \"host-pinned\": 0, \"ram\": 134217728, \"nvme\": 0}, \"budget_bytes\": {\"device\": 12884901888}, \"automatic_tensor_eviction\": false, \"eviction_policy\": \"error\", \"evictions\": 0, \"restores\": 0}, \"peak_rss_bytes\": 1806602240, \"gpu_monitor_errors\": []}\n",
+    "stderr": ""
+  }
+]

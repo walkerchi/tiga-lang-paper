@@ -21,8 +21,9 @@ GPUs use GDDR. Distributed communication uses NCCL 2.28.9 with its Socket
 transport across the two hosts. The reproduction archive specifies the network configuration.
 
 Inputs, dimensions, precision, outputs and graph semantics are matched within
-each comparison. All measurements are FP32 forward evaluations, not training
-iterations. Performance comparisons use ordinary Torch tensors and public Tiga
+each comparison. The primary comparisons are FP32 forward evaluations;
+Section~\ref{sec:supplement} additionally measures differentiated EdgeNN steps.
+Performance comparisons use ordinary Torch tensors and public Tiga
 calls; paging and distributed experiments use native tensors. Timers cover synchronized host wall
 time through completed output, with numerical validation outside the timer.
 First compilation, warm execution and profiling have separate scopes. Speedup is
@@ -177,6 +178,27 @@ runtime/compiler file reads. mmap gathering includes page-fault IO, not an
 isolated disk-service timer. The graph fits host RAM; this is not evidence for
 a graph beyond RAM capacity. CUDA paged backward, 1B recurrence and output
 offload remain outside the demonstrated result.
+
+\paragraph{Page-size sensitivity.}
+A supplementary 10M-edge sweep holds the graph, 32-feature operation and 12 GiB
+budget constant while varying destination rows per page. Nine fresh processes
+(three per setting, randomized order) run the same public paged path with
+prefetch disabled. Each checks all 20 million output scalars exactly.
+Forward includes JIT as encountered; ingestion and validation are excluded.
+The OS page cache is not flushed, so this is not a cold-NVMe measurement.
+\begin{table}[htbp]
+\centering\small
+\input{generated/page-sensitivity}
+\caption{Page-size sensitivity at 10M edges. Forward shows median and range of
+three complete calls; native peak is the maximum scoped device allocation.
+It excludes CUDA context, external services and OS page cache.}
+\label{tab:page-sensitivity}
+\end{table}
+Larger pages increase peak allocation without monotonically improving time:
+65,536 rows are slightly faster here than either alternative. Fixed setup and
+host-staging costs limit gains from reducing page count. This small-graph study
+does not identify an optimal 1B schedule, establish capacity beyond host RAM,
+or compare against another bounded-memory implementation.
 \FloatBarrier
 
 \subsection{Distributed execution and communication overhead}
@@ -234,6 +256,8 @@ runtime scheduling, computation and synchronization. Each rank owns half the des
 \input{generated/q3-findings}
 \FloatBarrier
 
+\input{sections/evaluation-supplement}
+
 \subsection{Reproduction and scope}
 \path{data/comparison-v3/} stores the 36 comparison records, source snapshot
 and allocation audits. \path{data/billion/} contains the nine capacity trials;
@@ -243,11 +267,17 @@ and interface-size checks for the spatial-mesh experiment.
 \path{tools/build_three_questions.py} validates the archived configurations and
 numerical checks before plotting. Rerunning hardware measurements uses the commands
 and environments provided with each dataset.
+\path{data/supplement/} adds the controlled execution and first-call records,
+with \path{tools/run_supplement.py} and \path{tools/build_supplement.py} for
+measurement and validation. The Stanford archive URL and checksum identify the
+external geometry input; its model is not required to compile this report.
+\path{data/page-sensitivity/} retains the nine page-size trials and commands;
+\path{tools/build_page_sensitivity.py} validates and summarizes them.
 
 The measurements support three conclusions: generated relations can reduce
 runtime and intermediate storage; paging permits billion-edge execution beyond
 device-memory capacity; and communication plus heterogeneous load balance
 determines the cost of distributed execution. Gradient correctness is covered
 separately by the differentiable examples and path-specific checks.
-Training throughput, capacity beyond the measured edge count, and scaling to
+End-to-end model-training throughput, capacity beyond the measured edge count, and scaling to
 larger device meshes remain subjects for further evaluation.

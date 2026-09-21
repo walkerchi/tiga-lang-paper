@@ -41,7 +41,11 @@ root as the working directory; no GPU or benchmark execution is required.
 2. Prioritize a same-search materialized/fused ablation and a real-data EdgeNN
    forward/backward application. Add first-call JIT and amortization measurements.
    A matched bounded-memory baseline is needed for comparative offload claims.
-   These are planned measurements, not results in the current manuscript.
+   The full technical report now contains a fixed-topology consumer comparison,
+   a differentiated Bunny-geometry operator, first-call/cache measurements and
+   a page-size sweep. They are not yet incorporated in this short manuscript;
+   generated-search ablation, an end-to-end learning application and a matched
+   bounded-memory peer remain distinct evidence requirements.
 3. Review the AI use statement with the human author. It reflects assistance in
    implementation, experiments, literature work and writing; it does not assert
    that a human has already independently reviewed every generated artifact.

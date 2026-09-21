@@ -1,0 +1,10 @@
+\begin{tabular}{lrr}
+\toprule
+Path & First result (ms) & Warm call (ms) \\
+\midrule
+Tiga, empty isolated caches & 1105.5 (1095.5--1113.8) & 0.214 \\
+Tiga, reused disk caches & 635.1 (621.9--651.4) & 0.216 \\
+Torch sparse, fresh process & 17.0 (16.9--17.5) & 0.213 \\
+Torch gather/scatter, fresh process & 1.3 (1.2--1.3) & 1.301 \\
+\bottomrule
+\end{tabular}
