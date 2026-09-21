@@ -2,13 +2,12 @@
 
 ![Tiga](figures/tiga-logo.svg)
 
-**Tiga: High-Performance, Cross-Platform Graph Message Passing with
-Multi-Backend Compilation, Hierarchical Memory, and Distributed Execution**
+**Tiga: Compiling Graph Message Passing at Scale**
 
-A technical report on a common message-passing programming model across CPU and
-GPU backends, memory tiers, and distributed deployments. It covers multi-level
-IR, automatic differentiation, and billion-edge computation beyond device-memory
-capacity.
+A technical report on compiling local message-passing computations into efficient
+graph execution beyond device-memory capacity. Tiga retains interaction structure
+to specialize traversal and fuse computation, targets CPU and GPU backends, and
+supports paged and distributed execution within a common programming model.
 
 [Read the PDF](tiga-lang.pdf) ·
 [Download PDF](https://github.com/walkerchi/tiga-lang-paper/raw/refs/heads/main/tiga-lang.pdf) ·

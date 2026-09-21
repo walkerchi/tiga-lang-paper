@@ -12,40 +12,33 @@
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \setlength{\emergencystretch}{2em}
 \title{\includegraphics[width=38mm]{figures/tiga-logo.pdf}\\[6pt]
-Tiga: High-Performance, Cross-Platform\\
-Graph Message Passing with Multi-Backend\\
-Compilation, Hierarchical Memory,\\
-and Distributed Execution}
+Tiga: Compiling Graph Message Passing at Scale}
 \author{walkerchi\\Independent Developer\\\href{mailto:walker.chi.000@gmail.com}{\texttt{walker.chi.000@gmail.com}}}
 \date{Technical report --- September 21, 2026}
-\hypersetup{pdfauthor={walkerchi},pdftitle={Tiga: High-Performance, Cross-Platform Graph Message Passing with Multi-Backend Compilation, Hierarchical Memory, and Distributed Execution}}
+\hypersetup{pdfauthor={walkerchi},pdftitle={Tiga: Compiling Graph Message Passing at Scale}}
 \begin{document}
 \maketitle
 \begin{abstract}
-Message passing provides a common programming abstraction for dense, sparse,
-and dynamically generated numerical computation beyond graph neural networks.
-Achieving high performance requires preserving interaction structure while
-adapting execution to hardware, memory capacity, and communication costs.
-We present Tiga, a cross-platform, multi-backend just-in-time compiler that
-separates graph message-passing semantics from traversal, kernel generation,
-storage placement, and distributed execution. Its multi-level intermediate
-representations retain relations and reducer algebra for fusion and
-differentiation, while backend-specific lowering targets CPUs through LLVM
-and NVIDIA GPUs through Triton. A Python interface interoperates with ordinary
-PyTorch tensors, alongside a Torch-independent native runtime.
-Memory-constrained systems, including laptops, motivate a hierarchical storage
-design that stages graph partitions across disk, host memory, and device memory
-with a bounded GPU working set. This enables billion-edge graph computation
-on a memory-limited single GPU without requiring the complete graph and its
-fields to reside in device memory. Distributed execution partitions ownership
-and exchanges halo values across devices and hosts under the same
-message-passing model. Evaluation against Torch sparse and PyTorch Geometric
-demonstrates runtime and device-memory improvements for generated relations,
-validates billion-edge forward execution beyond device-memory capacity, and
-characterizes communication and load-balance costs on heterogeneous devices.
-Together, these mechanisms establish a common compiler foundation for
-high-performance graph computation across backends, memory tiers, and
-distributed deployments.
+Graph message passing offers a common way to express learning algorithms,
+physical simulations, and numerical solvers. Efficient execution depends on
+interaction structure and data movement, which can be obscured when a program
+is expressed as a sequence of tensor operations. On memory-constrained systems
+such as laptops, materializing connectivity and intermediate messages can also
+exhaust device memory. We present Tiga, a just-in-time compiler that separates
+the definition of a message-passing program from how its interactions are
+traversed, computed, and stored. Tiga preserves graph relations and reducer
+algebra in a multi-level intermediate representation, enabling traversal
+specialization, fusion of relation generation with aggregation, and lowering
+to CPU and GPU backends. Its runtime extends execution beyond device-memory
+capacity by streaming graph partitions from disk through host memory with
+page-sized device staging buffers; partition ownership and halo exchange extend the
+same programming model to distributed execution. A Python interface
+interoperates with ordinary PyTorch tensors. Evaluation against matched Torch
+and PyTorch Geometric baselines demonstrates reduced runtime and device-memory
+use for generated-relation workloads, while offloaded forward execution
+processes billion-edge graphs on a single memory-limited GPU. Measurements on
+heterogeneous devices further characterize the communication and load-balance
+costs of distributed execution.
 \end{abstract}
 \input{sections/model}
 \input{sections/compiler}
