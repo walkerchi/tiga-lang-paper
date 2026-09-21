@@ -157,4 +157,16 @@ Legion~\cite{legion} & Logical regions and physical placement & Storage instance
 \end{tabularx}
 \caption{Prior work and its relationship to Tiga's design.}
 \end{table}
+\paragraph{Scope of the distinction.}
+Tiga does not introduce message passing, kernel fusion, sparse traversal or
+offloading individually. Its design contribution is their integration around
+explicit relation semantics: a generated relation can feed a reduction without
+a stored edge list, while a stored relation can retain the same local program
+under a bounded-residency runtime. Field roles and reducer contracts constrain
+legal transformations, and differentiation is attached to the supported
+execution route. The distinction from a library of operators is the retained
+program representation; the distinction from existing compilers is the
+particular combination of relation constructors and storage/ownership contracts,
+not a claim of uniformly broader coverage or faster execution. Measurements
+below compare implemented paths, not every cited system.
 \FloatBarrier

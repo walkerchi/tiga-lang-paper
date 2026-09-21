@@ -44,6 +44,18 @@ enclosing Domain operation is omitted:
 The block arguments represent one logical edge invocation. The region itself
 does not say which CPU core, CUDA thread or memory tier executes it.
 
+This representation makes the materialization decision explicit. An eager
+implementation gathers a source row for every edge, writes its weighted
+message and then reduces those messages. A fused row traversal reads the same
+source and weight, forms a tile-local message and immediately updates reducer
+state. For feature width $F$, the former can allocate an edge-message array
+with $EF$ entries; the latter needs only tile state in addition to graph,
+inputs and the $NF$ output. The edge set and message arithmetic are unchanged.
+The fixed-topology study in Section~\ref{sec:supplement} holds that edge set
+constant to examine execution-path differences. Generated radius traversal
+additionally avoids accepted-edge storage, but that distinct benefit is not
+isolated by a stored-CSR comparison.
+
 \subsection{Iter: coordinates before threads}
 The Domain-to-Iter pass replaces the application with \code{gf\_iter.traverse}
 and preserves the reducer and edge region. In the checked CSR fixture, the

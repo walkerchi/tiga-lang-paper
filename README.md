@@ -64,6 +64,11 @@ The full evidence check also reads the compiler project's archived benchmark
 inputs; set `PROJECT` to a checkout of the linked compiler repository.
 Building the PDF alone does not require that checkout or a GPU.
 
+`make arxiv` prepares `build/arxiv/tiga-lang-source.zip` from only the technical
+report's dependencies, plus a separate checksum manifest. See the
+[submission checklist](arxiv/README.md); packaging does not submit the paper
+or choose a distribution license.
+
 ## Evaluation
 
 - **Performance and memory:** stored CSR and changing radius/kNN relations,
@@ -73,7 +78,12 @@ Building the PDF alone does not require that checkout or a GPU.
 - **Distributed execution:** spatial mesh partitions, interface-sized halo
   exchange and completed-call latency on heterogeneous GPUs.
 
-The measurements cover FP32 forward workloads. Training throughput,
+The primary measurements cover FP32 forward workloads. Supplementary studies
+compare fixed-topology consumers, measure an EdgeNN forward/backward step on
+Stanford Bunny geometry, distinguish cold/disk-cache/warm calls, and vary graph
+page size. The wider EdgeNN case reduces allocated memory but is slower than
+Torch, and stored-topology Tiga does not uniformly beat Torch sparse.
+End-to-end model-training throughput,
 larger-than-host-RAM capacity and compute-aware repartitioning are outside
 this evaluation. Full conditions and source snapshots accompany each dataset.
 
@@ -94,6 +104,8 @@ The generated figures are `q1-performance-memory`, `q2-capacity-cost` and
 | Single-GPU capacity | `data/billion/`; validate with `python tools/build_billion_results.py --check` |
 | Billion-edge profiling | [paging-1b protocol](data/paging-1b/REPRODUCE.md), Nsight trace and host intervals |
 | Distributed spatial mesh | [distributed-spatial protocol](data/distributed-spatial/REPRODUCE.md), both rank records and interface counts |
+| Controlled execution and JIT | [supplement protocol](data/supplement/REPRODUCE.md), 54 fresh-process configurations/trials |
+| Page-size sensitivity | [page-size protocol](data/page-sensitivity/REPRODUCE.md), nine checked 10M-edge calls |
 
 The [reproduction overview](data/three-questions/REPRODUCE.md) describes accounting
 definitions and environments. Run each dataset's commands to collect new hardware
