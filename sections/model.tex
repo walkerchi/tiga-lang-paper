@@ -25,16 +25,24 @@ relation needs an indexed traversal; a dense relation may need no edge array;
 a generated radius relation may profit from a spatial directory. Feature width,
 degree skew, gradient requirements and data residency change the suitable plan.
 
-Tiga addresses this implementation diversity through cross-platform,
-multi-backend compilation, hierarchical memory, and distributed execution.
-Backend-specific lowering maps a common representation to CPU and GPU execution;
-hierarchical storage decouples graph capacity from device-memory capacity; and
-partition ownership with halo exchange extends execution across devices and
-hosts. Memory-constrained personal systems, including laptops, motivate the
-capacity goal: large graphs should not inherently require a large-memory
-accelerator. The evaluation demonstrates billion-edge forward computation on
-a memory-limited GPU using this capacity mechanism. Current executable backends
-and extension boundaries are distinguished in Table~\ref{tab:backends}.
+Three practical costs motivate this design. First, explicitly expanding a
+radius or nearest-neighbor relation can create indices, geometry and messages
+that are consumed only once. Second, a graph larger than GPU memory requires
+bounded storage movement even when its arithmetic is simple. Third, dividing
+a graph across devices introduces halo traffic and rank imbalance; doubling
+the GPU count need not reduce completion time.
+
+The central idea in Tiga is to separate logical interactions from their physical
+execution. Keeping relations visible to the compiler allows generated neighbors
+to be consumed directly by aggregation instead of first being stored as a full
+edge list. Separating logical values from their residence allows a large graph
+to be processed in pages, while ownership and halo exchange define its
+distributed execution. Backend-specific lowering then maps the computation to
+CPU or GPU kernels. These are complementary ways to control the cost of the
+same program, rather than separate application models. For memory-constrained
+systems such as laptops, paging is particularly important: graph capacity need
+not be limited to accelerator memory. Current executable backends and extension
+boundaries are distinguished in Table~\ref{tab:backends}.
 
 Tiga retains relations and reducer algebra as compiler-visible information.
 It is not a model library, optimizer package or replacement for PyTorch.
@@ -44,13 +52,6 @@ computation, message passing and gradients without it. Native tensors also
 expose compiler/storage functionality not uniformly available through Torch.
 This split is an explicit interoperability boundary, not a claim that both
 interfaces support all operations identically.
-
-Three practical costs motivate this design. First, explicitly expanding a
-radius or nearest-neighbor relation can create indices, geometry and messages
-that are consumed only once. Second, a graph larger than GPU memory requires
-bounded storage movement even when its arithmetic is simple. Third, dividing
-a graph across devices introduces halo traffic and rank imbalance; doubling
-the GPU count need not reduce completion time.
 
 The report develops a compiler representation that retains relation and reducer
 semantics until traversal/kernel selection, a runtime that separates values
