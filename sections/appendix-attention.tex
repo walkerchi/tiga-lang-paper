@@ -1,0 +1,74 @@
+\section{Causal attention as message passing}
+\label{app:attention}
+Causal attention uses the same interface as sparse aggregation: the graph
+selects admissible interactions, the edge function computes a score and value,
+and the reducer normalizes their weighted sum. No attention-specific graph
+operator is required. For each head, the computation is
+$$
+\mathcal{N}(i)=\{0,\ldots,i\},\qquad
+s_{ij}=\frac{q_i^{\mathsf{T}}k_j}{\sqrt{D}},\qquad
+y_i=\frac{\sum_{j\in\mathcal{N}(i)}e^{s_{ij}}v_j}
+               {\sum_{j\in\mathcal{N}(i)}e^{s_{ij}}}.
+$$
+The destination supplies a query; each source supplies a key and value.
+The triangular relation includes the diagonal: token zero reads only
+itself; token one reads tokens zero and one. Causality therefore belongs to
+the relation, not to an extra condition inside the edge function.
+
+\subsection{Define and execute the program}
+\code{tg.online\_softmax()} declares the reducer once. Calling
+\code{self.reducer(score, value)} packages its two inputs; it does not run a
+separate softmax for each edge. The compiler combines these messages over each
+destination's neighbors using the stable state in
+Section~\ref{sec:differentiation}. Pruning is disabled by default, so this
+example evaluates the full causal relation, subject to floating-point rounding.
+\lstinputlisting[language=Python,firstline=4,lastline=13]{examples/causal_attention.py}
+
+Inputs and outputs are ordinary Torch tensors with logical shape
+\code{(N, H, D)}: sequence length, number of heads and head width. The CUDA
+streaming implementation currently expects head-major storage, obtained by
+viewing a contiguous \code{(H, N, D)} allocation through \code{permute}.
+This changes strides, not the public dimension order, and does not copy the data.
+The runnable check defaults to \code{device="cuda"} and \code{nodes=65}, with
+two heads of width 64. The sequence length exercises a partial tile.
+\lstinputlisting[language=Python,firstline=27,lastline=38]{examples/causal_attention.py}
+
+On CUDA, the script checks the lowering reported by \code{program.explain()}.
+It requires the compiled dense streaming path. This forward
+traverses the implicit triangular relation without allocating a global
+pairwise score or probability tensor. Changing the constructor to
+\code{tg.Graph.dense(N)} expresses unmasked attention with the same edge
+function and reducer.
+
+\subsection{Validate outputs and query/key/value gradients}
+An independent Torch implementation explicitly forms scores, masks future
+positions, applies softmax and multiplies by values. This dense implementation
+is a small correctness oracle, not the memory-efficient execution path.
+\lstinputlisting[language=Python,firstline=16,lastline=23]{examples/causal_attention.py}
+
+The script compares the FP16 CUDA streaming output with this FP32 oracle.
+The current streaming kernel is forward-only; setting
+\code{requires\_grad} does not supply a compiled attention backward.
+For a separate first-order derivative check, \code{program.reference}
+explicitly executes the differentiable Torch semantics in FP32. Independent
+leaf tensors and a random output cotangent test all three input gradients,
+rather than just a summed-output loss.
+\lstinputlisting[language=Python,firstline=47,lastline=62]{examples/causal_attention.py}
+
+The checks establish compiled-forward agreement and semantic gradient
+agreement separately. The reference path materializes the selected edges and
+their messages; it is intended here for small validation problems and does
+not establish streaming training memory or throughput. A fused attention VJP
+is a separate implementation requirement from the EdgeNN VJP in
+Appendix~\ref{app:edge-nn}.
+
+The complete file, including imports and assertions, is
+\href{https://github.com/walkerchi/tiga-lang-paper/blob/main/examples/causal_attention.py}{\code{examples/causal\_attention.py}}.
+With Tiga, its native compiler tools, Torch and the CUDA provider installed,
+execute it from the paper directory:
+\begin{lstlisting}[language=TigaShell]
+python examples/causal_attention.py --device cuda
+\end{lstlisting}
+The optional \code{--device cpu} runs semantic checks only;
+\code{--nodes} changes the sequence length. The CUDA check fails if the
+streaming lowering is unavailable instead of accepting a reference fallback.

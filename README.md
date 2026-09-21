@@ -27,8 +27,17 @@ Contact: [walker.chi.000@gmail.com](mailto:walker.chi.000@gmail.com).
 The manuscript is `main.tex`; [tiga-lang.pdf](tiga-lang.pdf) is the compiled
 report checked into the repository root alongside this README. Local builds
 write `build/main.pdf`; `make pdf` refreshes the checked-in copy.
-Background includes related work, and Appendix A contains a runnable EdgeNN
-example with Torch forward and gradient checks.
+Background includes related work. Appendix A contains a runnable
+[EdgeNN example](examples/edge_nn.py) with Torch forward and gradient checks.
+Appendix B adds [causal attention](examples/causal_attention.py): a triangular
+graph, an online-softmax reducer, a compiled CUDA forward check and separate
+Q/K/V gradient checks through the explicit Torch reference path. The streaming
+attention kernel currently has no backward implementation.
+
+Run `python examples/causal_attention.py --device cuda` from the paper directory
+with Tiga, its native compiler tools, Torch and the CUDA provider installed.
+The CUDA check requires the compiled streaming path; `--device cpu` checks
+semantics only.
 
 ```bash
 make pdf TECTONIC=/path/to/tectonic
@@ -81,7 +90,7 @@ measurements; replotting alone uses the stored samples.
 - `sections/`: manuscript sections; `sections/archive/` is excluded from the build.
 - `figures/`: diagrams and generated plots.
 - `generated/ir/`: compiler-checked fixtures and outputs.
-- `examples/edge_nn.py`: executable appendix.
+- `examples/`: executable EdgeNN and causal-attention appendices.
 - `references.bib`: bibliography.
 - `tests/`: numerical, provenance and manuscript checks.
 
