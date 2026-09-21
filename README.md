@@ -2,8 +2,13 @@
 
 ![Tiga](figures/tiga-logo.svg)
 
-A technical report on graph message-passing compilation: the programming model,
-multi-level IR, automatic differentiation, memory hierarchy and distributed execution.
+**Tiga: High-Performance, Cross-Platform Graph Message Passing with
+Multi-Backend Compilation, Hierarchical Memory, and Distributed Execution**
+
+A technical report on a common message-passing programming model across CPU and
+GPU backends, memory tiers, and distributed deployments. It covers multi-level
+IR, automatic differentiation, and billion-edge computation beyond device-memory
+capacity.
 
 [Read the PDF](tiga-lang.pdf) ·
 [Download PDF](https://github.com/walkerchi/tiga-lang-paper/raw/refs/heads/main/tiga-lang.pdf) ·

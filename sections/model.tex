@@ -25,6 +25,17 @@ relation needs an indexed traversal; a dense relation may need no edge array;
 a generated radius relation may profit from a spatial directory. Feature width,
 degree skew, gradient requirements and data residency change the suitable plan.
 
+Tiga addresses this implementation diversity through cross-platform,
+multi-backend compilation, hierarchical memory, and distributed execution.
+Backend-specific lowering maps a common representation to CPU and GPU execution;
+hierarchical storage decouples graph capacity from device-memory capacity; and
+partition ownership with halo exchange extends execution across devices and
+hosts. Memory-constrained personal systems, including laptops, motivate the
+capacity goal: large graphs should not inherently require a large-memory
+accelerator. The evaluation demonstrates billion-edge forward computation on
+a memory-limited GPU using this capacity mechanism. Current executable backends
+and extension boundaries are distinguished in Table~\ref{tab:backends}.
+
 Tiga retains relations and reducer algebra as compiler-visible information.
 It is not a model library, optimizer package or replacement for PyTorch.
 Ordinary applications retain \code{torch.Tensor} and Torch autograd. Torch is
