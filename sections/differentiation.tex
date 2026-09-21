@@ -49,6 +49,7 @@ Execution path & Forward & Backward \\
 \midrule
 Torch CSR & Compiled or adapter execution & Torch autograd; some routes replay fixed-topology Torch operations \\
 CUDA EdgeNN & Fused edge evaluation and reduction & Symbolic VJP with activation recomputation; input, position and parameter gradients \\
+CUDA streaming attention & Implicit dense or triangular relation; tiled online softmax & No streaming backward; explicit Torch reference supports semantic gradient checks \\
 Native CPU CSR and paging & Supported native operations and paged reducers & Native VJP, including supported disk-backed fields \\
 CUDA paged CSR & FP32 paged execution with resident output & Not implemented on this path \\
 Generated exact kNN & Fused selection and aggregation & No generated backward on this optimized path \\
@@ -85,6 +86,8 @@ handling must avoid undefined subtraction of infinities and follow the
 implementation's reducer convention. This numerical structure is related to
 IO-aware attention algorithms~\cite{flashattention}; it does not imply that every
 Tiga path achieves their performance or full feature coverage.
+Appendix~\ref{app:attention} gives an executable causal-attention example and
+separately checks its compiled forward and Torch semantic gradients.
 
 An optional positive pruning threshold enables an approximate dense-attention
 forward path. Scores and key reads are still needed for the pruning decision;

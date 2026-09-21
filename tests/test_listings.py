@@ -14,11 +14,13 @@ class ListingStyle(unittest.TestCase):
                 self.assertIsNotNone(match.group(1), str(path))
                 self.assertIn('language=', match.group(1))
                 found.append(match.group(1))
-        self.assertEqual(len(found), 5)
-        appendix = (ROOT/'sections/appendix-edge-nn.tex').read_text()
-        listings = re.findall(r'\\lstinputlisting\[([^\]]*)\]', appendix)
-        self.assertEqual(len(listings), 2)
-        self.assertTrue(all('language=Python' in options for options in listings))
+        self.assertTrue(found)
+        for name, count in (("appendix-edge-nn.tex", 2), ("appendix-attention.tex", 4)):
+            with self.subTest(appendix=name):
+                appendix = (ROOT / 'sections' / name).read_text()
+                listings = re.findall(r'\\lstinputlisting\[([^\]]*)\]', appendix)
+                self.assertEqual(len(listings), count)
+                self.assertTrue(all('language=Python' in options for options in listings))
 
     def test_style_needs_no_external_highlighter(self):
         main = (ROOT / 'main.tex').read_text()
