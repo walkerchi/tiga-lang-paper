@@ -1,4 +1,16 @@
 \section{Differentiation and numerical contracts}
+\label{sec:differentiation}
+Forward execution computes outputs from input fields and parameters. Reverse-mode
+automatic differentiation propagates an output cotangent back through that
+computation~\cite{autodiff}. For a program with Jacobian $J_F$, the VJP is
+$$
+y=F(x),\qquad \bar{x}=J_F(x)^{\mathsf{T}}\bar{y}.
+$$
+The bar denotes a loss derivative: for a scalar loss, the output cotangent is
+the derivative of that loss with respect to $y$. The full Jacobian need not be
+materialized. Tiga implements this operation for supported native computations
+and integrates differentiable Torch-facing calls with PyTorch autograd.
+
 For fixed relation indices, weighted sum has a simple adjoint. With output
 cotangent denoted by a bar, source and edge derivatives are
 $$
@@ -8,6 +20,9 @@ $$
 Repeated source indices require accumulation, not assignment. Empty destination
 rows contribute no source/edge derivative. The example in Section~\ref{sec:programming-model} provides
 an independently checkable forward and backward value contract.
+For its summed-output loss, the output cotangents are all one. A source that
+appears on multiple edges receives the sum of their weighted contributions;
+each edge weight receives the feature value from its own source.
 
 \subsection{Native and Torch paths}
 Native reverse-mode transforms construct derivative expressions from supported
@@ -25,6 +40,36 @@ attributes with double-precision finite differences. These checks establish the
 tested first-order envelope, not arbitrary Python capture or universal
 higher-order differentiation. ReLU-like nondifferentiabilities need appropriate
 test points, rather than unqualified finite-difference equality at a kink.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth} Y Y}
+\toprule
+Execution path & Forward & Backward \\
+\midrule
+Torch CSR & Compiled or adapter execution & Torch autograd; some routes replay fixed-topology Torch operations \\
+CUDA EdgeNN & Fused edge evaluation and reduction & Symbolic VJP with activation recomputation; input, position and parameter gradients \\
+Native CPU CSR and paging & Supported native operations and paged reducers & Native VJP, including supported disk-backed fields \\
+CUDA paged CSR & FP32 paged execution with resident output & Not implemented on this path \\
+Generated exact kNN & Fused selection and aggregation & No generated backward on this optimized path \\
+Distributed native programs & Local computation after halo exchange & Local VJP plus reverse halo accumulation on supported CPU/CUDA paths \\
+\bottomrule
+\end{tabularx}
+\caption{Differentiation follows the selected execution path, not just the graph
+constructor. These are capability boundaries; the performance experiments in
+Section~\ref{sec:evaluation} measure forward execution.}
+\label{tab:gradients}
+\end{table}
+
+For application code, set \code{requires\_grad} before evaluation and call
+\code{torch.autograd.grad} or \code{loss.backward()} on ordinary Torch outputs.
+Native tensors use \code{tg.autograd.grad}. Gradients are taken with respect to
+values on the selected topology: radius cutoff membership and kNN index
+selection are discrete and are not themselves differentiated. The EdgeNN
+example in Appendix~\ref{app:edge-nn} checks feature, position and parameter
+gradients against an explicit reference. The billion-edge capacity measurement
+uses CUDA paging and therefore establishes forward capacity, not billion-edge
+training capacity.
 
 \subsection{Online softmax and approximation}
 For messages consisting of a score and value, the streaming state tracks the

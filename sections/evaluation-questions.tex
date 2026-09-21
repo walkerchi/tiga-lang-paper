@@ -1,10 +1,12 @@
 \section{Evaluation: speed, capacity, and distributed execution}
 \label{sec:evaluation}
 The evaluation measures runtime performance and allocated memory against matched
-Torch/PyG implementations, single-GPU capacity with storage offload, and the
+PyTorch~\cite{pytorch} and PyTorch Geometric (PyG)~\cite{pyg,pyg2} implementations,
+single-GPU capacity with storage offload, and the
 latency of distributed graph execution.
 Appendix~\ref{app:edge-nn} provides a differentiable EdgeNN example and a
-Torch forward/gradient reference.
+Torch forward/gradient reference. Numerical gradient validation is distinct from
+the forward-performance measurements reported here.
 
 \subsection{Setup and comparison boundaries}
 \label{sec:experimental-setup}
@@ -242,7 +244,10 @@ and interface-size checks for the spatial-mesh experiment.
 numerical checks before plotting. Rerunning hardware measurements uses the commands
 and environments provided with each dataset.
 
-The results establish path-specific speed/memory improvements, 1B single-GPU
-capacity and measured two-host overhead. They do not establish universal PyG
-superiority, an absolute maximum edge count, distributed speedup, full-training
-throughput or isolated NVMe service time.
+The measurements support three conclusions: generated relations can reduce
+runtime and intermediate storage; paging permits billion-edge execution beyond
+device-memory capacity; and communication plus heterogeneous load balance
+determines the cost of distributed execution. Gradient correctness is covered
+separately by the differentiable examples and path-specific checks.
+Training throughput, capacity beyond the measured edge count, and scaling to
+larger device meshes remain subjects for further evaluation.

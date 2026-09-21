@@ -31,6 +31,13 @@ paging defaults; they do not migrate preexisting values. Memory reports count
 scope-created allocations, not process RSS or Torch-owned storage. Limits are
 budgets, not reservations of physical capacity.
 
+Ordinary Torch storage remains under Torch's allocator. Applications that need
+Tiga-managed paging or distributed ownership use native \code{tg.Tensor}
+fields for those paths, keeping the same message/reducer definition. The
+\href{https://walkerchi.github.io/TIGA-lang/memory/}{memory API} and
+\href{https://walkerchi.github.io/TIGA-lang/examples/distributed-memory/}{paged and distributed examples}
+show the allocation scopes, graph snapshots and rank setup used by this runtime.
+
 Temporary spill releases the tensor's resident-buffer reference while retaining
 shape, dtype, logical device, version and same-process gradient history.
 Observation restores the value. Other views or launches may still own storage,
@@ -69,13 +76,19 @@ Consequently prefetch depth is not a guarantee of disk/PCIe/kernel overlap;
 the capacity experiment reports the explicit serialized configuration.
 
 \subsection{Ownership, halos and progress}
-A logical device mesh and destination partition assign output ownership.
-Remote source values become ghosts, and a halo map specifies transfers between
-ranks. The public schedule completes halo exchange before computing all owned
+A rank is a cooperating worker process. A logical device mesh and destination
+partition assign output ownership to ranks. Remote source values needed by local
+destinations are held as ghost copies; the halo map specifies which values must
+cross rank boundaries. The public schedule completes halo exchange before computing all owned
 destination rows in one local call, without split-output assembly.
 Reverse-mode execution accumulates ghost contributions back
 to owners. Event ordering is a correctness requirement independently of whether
 communication and computation actually overlap in time.
+For example, if a destination on rank 0 reads a source owned by rank 1, the
+forward exchange copies that source value to rank 0. Backward sends the source's
+gradient contribution in the opposite direction and adds it to the gradient on
+rank 1. This is why ownership must be retained through differentiation, not
+treated solely as a forward communication detail.
 
 The runtime supports CPU rank-local execution, MPI transport, and two-host CUDA
 forward/VJP through TCP and NCCL. Deployment supplies worker processes, rank

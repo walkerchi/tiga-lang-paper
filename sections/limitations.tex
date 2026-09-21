@@ -10,18 +10,22 @@ scratch, general metric lowering and generated backward require further work.
 and additional vendor backends remain incomplete.
 \item Distributed execution uses fixed ownership. Compute-aware partitioning,
 partition-local topology capacity, RCCL and failure recovery remain open.
-\item Gaussian and volume rendering use host geometry work and are not differentiable.
-\item Evaluation measures FP32 forward workloads. Sustained out-of-core training
+\item Performance evaluation measures FP32 forward workloads; supported backward
+paths have separate numerical checks. Sustained out-of-core training
 and beyond-host-RAM graphs require additional measurement.
 \end{itemize}
 
 \section{Conclusion}
-Tiga retains relations, reducer algebra, gradients and execution constraints as
-a compiler-level contract. Generated relations can avoid costly materialization;
-this improves radius and exact kNN latency and allocation on the measured
-workloads. Paging permits a fully checked billion-edge
-forward evaluation on one 16 GiB GPU, while profiling exposes substantial host
-staging cost. Two-host execution works but does not beat the faster single GPU
-under the measured equal-row schedule. The resulting priorities are concrete:
-reduce dynamic dispatch cost, reduce staging copies, and make distributed
-scheduling sensitive to compute imbalance and halo traffic.
+Tiga compiles graph message-passing programs while retaining the relations,
+reducer algebra and derivative requirements that determine their execution.
+This separation supports CPU and GPU lowering, forward and backward computation
+on supported paths, and explicit control over storage residence and distributed
+ownership. Generated relations reduce intermediate storage and improve runtime
+on the measured workloads; paging enables billion-edge forward computation on
+a memory-limited GPU. Distributed measurements show that a small halo alone is
+insufficient for speedup when rank workloads are imbalanced.
+
+The design links a local programming abstraction to the physical choices that
+govern large-graph execution. Further work can build on the same representation
+to extend backward coverage, reduce staging traffic and balance computation
+across heterogeneous devices.
