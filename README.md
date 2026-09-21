@@ -5,6 +5,8 @@
 A technical report on graph message-passing compilation: the programming model,
 multi-level IR, automatic differentiation, memory hierarchy and distributed execution.
 
+[Read the PDF](tiga-lang.pdf) ·
+[Download PDF](https://github.com/walkerchi/tiga-lang-paper/raw/refs/heads/main/tiga-lang.pdf) ·
 [Compiler project](https://github.com/walkerchi/TIGA-lang) ·
 [Report source](https://github.com/walkerchi/tiga-lang-paper)
 
@@ -13,12 +15,14 @@ Contact: [walker.chi.000@gmail.com](mailto:walker.chi.000@gmail.com).
 
 ## Read and build
 
-The manuscript is `main.tex`; the compiled document is `build/main.pdf`.
+The manuscript is `main.tex`; [tiga-lang.pdf](tiga-lang.pdf) is the compiled
+report checked into the repository root alongside this README. Local builds
+write `build/main.pdf`; `make pdf` refreshes the checked-in copy.
 Background includes related work, and Appendix A contains a runnable EdgeNN
 example with Torch forward and gradient checks.
 
 ```bash
-make tectonic TECTONIC=/path/to/tectonic
+make pdf TECTONIC=/path/to/tectonic
 make check PYTHON=/path/to/python PROJECT=/path/to/tiga-lang
 ```
 
