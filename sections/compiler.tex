@@ -1,9 +1,12 @@
 \section{Compiler organization}
-Tiga uses extensible MLIR infrastructure~\cite{mlir}. Its representations separate
+\label{sec:compiler}
+Tiga uses the extensible Multi-Level Intermediate Representation (MLIR)
+infrastructure~\cite{mlir}. An intermediate representation (IR) records a program
+in a form that compiler passes can analyze and transform. Tiga's representations separate
 the mathematical computation from traversal and execution decisions.
-The historical dialect prefix \code{gf} remains in actual IR despite the Python
-package rename. Architectural names such as ``Domain IR'' are not literal
-operation names, and are not APIs ordinary applications must write.
+Applications use the Python interface; the \code{gf.*} dialect operations below
+are its compiler-facing representation. Domain, Iter, Kernel and Task/Storage
+name semantic layers, each containing several operations.
 
 \begin{table}[ht]
 \centering\small
@@ -18,17 +21,17 @@ Task/Storage & \code{gf\_task.launch} & Dependency, transfer and readiness order
 Tensor & \code{gf\_tensor.mul} & Tensor expressions, views and gradient computation \\
 \bottomrule
 \end{tabularx}
-\caption{IR layers answer different questions; the table is not an unconditional
-five-stage execution trace.}
+\caption{Compiler representations and the decisions they preserve. Execution
+paths use the layers needed by the selected operation and backend.}
 \end{table}
 
 \input{sections/ir-design}
 
 \subsection{Implemented routes through the layers}
-The checked \code{tests/mlir/distributed-plan.mlir} fixture and
-\code{tools/render\_ir\_docs.py} reproduce the documentation's progression
-through Domain, Iter, Kernel and Task IR. It is a hand-authored compiler fixture
-with placement metadata, not a purported dump of every Python call.
+The source example \code{generated/ir/distributed-plan.mlir} contains explicit
+placement metadata and follows the Domain, Iter, Kernel and Task progression.
+It is supplied as a compiler-level input so that each lowering decision can be
+reproduced independently of Python capture.
 
 Native Tensor programs, including native CSR message passing, can lower through
 Tensor IR to Vector/SCF/MemRef and LLVM execution. Relation-oriented CUDA paths
@@ -37,31 +40,16 @@ operations appear where needed for dependencies and movement; a simple call does
 not necessarily materialize each architectural layer as an inspectable artifact.
 
 \subsection{Providers and inspectability}
-The NVIDIA provider hands serialized Triton IR to Triton~\cite{triton}, which
+A backend is an execution target and its lowering route; a provider is the
+integration component that invokes a target toolchain and exposes its executable
+to the runtime. A transport moves data between ranks and does not generate
+compute kernels.
+
+The NVIDIA provider hands serialized Triton IR (TTIR) to Triton~\cite{triton}, which
 continues to device code. Serialization avoids requiring the provider and Tiga
 to share one in-process MLIR ABI. Target capability information still influences
 earlier scheduling. CPU execution uses LLVM and an ExecutionEngine binding.
-Other device names and provider interfaces do not establish tested hardware support.
-
-\paragraph{Exact ranked selection and executable reuse.}
-For generated kNN, one program scans candidate tiles for a destination query,
-retains a power-of-two padded top-k state, and consumes selected source features
-without materializing adjacency. A candidate's ordering key contains its squared
-distance and source index, so distance ties have a stable order. Before sorting
-a tile, the kernel compares its minimum key with the largest retained key.
-If the tile cannot improve the retained state, sorting and merging are skipped
-exactly; distance evaluation is not skipped. Otherwise, local sorting and the
-retained-state merge execute normally. For non-power-of-two k, the padded state
-makes the test conservative. The search still examines all query--candidate
-pairs and is not a spatial-index algorithm.
-
-Repeated public calls can bind coordinates from a new Graph descriptor with
-equivalent relation semantics. The executable guard checks query/source counts,
-k, self-exclusion and domain identity semantics, coordinate and field
-shape/dtype/device/stride, field names, and the absence of gradient-bearing
-inputs. Coordinates and feature values remain live operands, not cached graph
-results. This separates changing data from changing programs and removes
-repeated capture/lowering/provider preparation for compatible dynamic calls.
+Table~\ref{tab:backends} distinguishes executable routes from extension interfaces.
 
 \begin{table}[ht]
 \centering\small
@@ -88,6 +76,44 @@ realization. Available artifacts depend on the selected provider.
 Small native expressions under an automatic policy may use a
 Python reference evaluator. Strict native validation explicitly requires the
 native policy and checks the reported backend.
+
+For a new target, the implementation work lies in capability checks, legal
+lowering, provider compilation/loading, and runtime buffer and event handling.
+The common IR preserves the computation, while those components account for
+target-specific layouts and resource limits. The
+\href{https://github.com/walkerchi/TIGA-lang/blob/main/python/tiga/codegen/registry.py}{provider interface}
+and \href{https://walkerchi.github.io/TIGA-lang/development/}{development guide}
+provide implementation entry points. Forward and VJP conformance must be checked
+separately; adding a device name alone does not supply either executable path.
+
+\subsection{Generated relations and executable reuse}
+Generated relations allow a consumer to evaluate candidate neighbors and
+accumulate messages without storing the accepted edges or messages globally.
+For low-dimensional Euclidean radius relations, a cell directory restricts
+candidate traversal to nearby spatial cells. An exact distance predicate then
+selects the accepted neighbors. The benefit depends on cell occupancy and
+geometry; a custom distance function requires a compatible spatial bound before
+this traversal is legal. Section~\ref{sec:performance} evaluates a radius workload
+that uses this build-and-consume strategy.
+
+For generated kNN, one program scans candidate tiles for a destination query,
+retains a power-of-two padded top-k state, and consumes selected source features
+without materializing adjacency. A candidate's ordering key contains its squared
+distance and source index, so distance ties have a stable order. Before sorting
+a tile, the kernel compares its minimum key with the largest retained key.
+If the tile cannot improve the retained state, sorting and merging are skipped
+exactly; distance evaluation is not skipped. Otherwise, local sorting and the
+retained-state merge execute normally. For non-power-of-two k, the padded state
+makes the test conservative. The search still examines all query--candidate
+pairs and is not a spatial-index algorithm.
+
+Repeated public kNN calls can bind coordinates from a new Graph descriptor with
+equivalent relation semantics. The executable guard checks query/source counts,
+k, self-exclusion and domain identity semantics, coordinate and field
+shape/dtype/device/stride, field names, and the absence of gradient-bearing
+inputs. Coordinates and feature values remain live operands, not cached graph
+results. This separates changing data from changing programs and removes
+repeated capture/lowering/provider preparation for compatible dynamic calls.
 
 \subsection{Programs and bounded control}
 Straight-line message-passing calls can be captured as a typed acyclic

@@ -119,8 +119,8 @@ that a cost model automatically supplies an out-of-core schedule for any kernel.
 For a paged graph, correctness requires that the page's topology and field
 version agree, transfer completes before consumption, and storage is not reused
 until the last consumer finishes. The current public CPU/CUDA paged-CSR executor
-has host-side orchestration; its memory experiment must not be labeled an
-end-to-end compiled GPU Storage-IR scheduler. Whole-Tensor LRU eviction is a
+uses host-side orchestration for these dependencies. Whole-Tensor
+least-recently-used (LRU) eviction is a
 separate policy from partitioning one oversized active working set.
 
 \subsection{Transformations, verification and differentiation}
@@ -150,13 +150,14 @@ management. For current Torch CSR replay, that semantic bridge is implemented
 through Torch autograd rather than a generated TTIR backward kernel; dedicated
 edge-NN and native VJP paths have different contracts.
 
-Reproduce the checked architectural example with
+From the report repository, reproduce the architectural example with an
+installed \code{gf-opt} compiler executable:
 \begin{lstlisting}[language=TigaShell]
-gf-opt distributed-plan.mlir -gf-lower-domain-to-iter \
+gf-opt generated/ir/distributed-plan.mlir \
+  -gf-lower-domain-to-iter \
   -gf-lower-iter-to-kernel -gf-select-kernel-schedule \
   -gf-plan-distributed-tasks
 \end{lstlisting}
-The paper's artifact exporter reruns each stage and rejects a mismatch against
-the documentation snapshot before copying the outputs. This validates that the
-walkthrough is real compiler output; it does not prove that every ordinary
-Python program traverses all these stages.
+The \path{generated/ir/} directory contains the individual stages in
+\code{domain.mlir}, \code{iter.mlir}, \code{kernel.mlir} and \code{task.mlir}.
+The artifact exporter checks them against compiler output before copying them.

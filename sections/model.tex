@@ -6,8 +6,14 @@ state updates. The graph need not be the input problem: it can represent the
 structure of the computation itself. Tensor contractions, convolutions, particle
 interactions, iterative solvers, attention and graph algorithms can all be viewed
 through this lens. General message-passing models have a long history, including
-the actor formalism~\cite{actors}; Tiga explores a compiler-oriented realization
-of this idea for numerical and parallel programs.
+the actor formalism~\cite{actors}.
+
+We present Tiga (\emph{Target-Independent Graph Acceleration}), a just-in-time
+(JIT) compiler for graph message-passing programs. Target independence refers to
+the separation of program semantics from hardware-specific lowering: a message
+function describes an interaction, while traversal, kernel mapping and data
+placement determine its execution. The implementation targets CPU and NVIDIA
+GPU backends, with an extensible backend integration interface for additional targets.
 
 The long-term goal is a common programming substrate for dense, sparse and
 dynamically generated computation, rather than a collection of unrelated
@@ -20,8 +26,8 @@ admits an efficient parallel encoding or that every encoding is supported by the
 current implementation. Section~\ref{sec:general-message-passing} makes this
 distinction precise.
 
-This common form does not imply a common optimal implementation. A sparse CSR
-relation needs an indexed traversal; a dense relation may need no edge array;
+This common form does not imply a common optimal implementation. A relation in
+compressed sparse row (CSR) storage needs an indexed traversal; a dense relation may need no edge array;
 a generated radius relation may profit from a spatial directory. Feature width,
 degree skew, gradient requirements and data residency change the suitable plan.
 
@@ -46,16 +52,31 @@ boundaries are distinguished in Table~\ref{tab:backends}.
 
 Tiga retains relations and reducer algebra as compiler-visible information.
 It is not a model library, optimizer package or replacement for PyTorch.
-Ordinary applications retain \code{torch.Tensor} and Torch autograd. Torch is
+Ordinary applications retain \code{torch.Tensor} and PyTorch
+autograd~\cite{pytorch}. Reverse-mode automatic differentiation computes
+vector--Jacobian products (VJPs), propagating an output loss gradient back to
+input fields and model parameters~\cite{autodiff}. Torch is
 not a base installation dependency: a standalone native path supplies CPU
 computation, message passing and gradients without it. Native tensors also
 expose compiler/storage functionality not uniformly available through Torch.
 This split is an explicit interoperability boundary, not a claim that both
 interfaces support all operations identically.
 
-The report develops a compiler representation that retains relation and reducer
-semantics until traversal/kernel selection, a runtime that separates values
-from residence and rank ownership, and an evaluation of the resulting execution paths.
+The report makes the following contributions:
+\begin{itemize}
+\item A relation-aware compiler design that carries field roles, reducer algebra
+and derivative requirements from the programming interface to traversal and
+kernel selection.
+\item A runtime model that separates logical values from storage residence and
+rank ownership, enabling paged and distributed execution with explicit data
+movement contracts.
+\item An evaluation of runtime and memory efficiency, billion-edge capacity,
+and heterogeneous distributed execution, accompanied by numerical checks,
+reproducible measurements, and a differentiable EdgeNN example.
+\end{itemize}
+The contribution is the integration of these mechanisms around a shared
+message-passing representation; Section~\ref{sec:background} relates the
+individual ideas to prior work.
 The experiments compare time and allocation with matched Torch/PyG paths,
 execute one billion explicit edges on a 16 GiB GPU, and measure the cost of
 two-host NCCL graph partitioning. The results show that
@@ -64,6 +85,18 @@ measured workloads; paging extends executable capacity; and the current
 equal-row two-GPU schedule is slower than the faster GPU alone. This connects
 each mechanism to a measured benefit or cost rather than assuming that one
 execution strategy is efficient for every relation and interconnect.
+
+\paragraph{Reading and using the system.}
+Application development starts with the programming model in
+Section~\ref{sec:programming-model} and the complete forward/backward example in
+Appendix~\ref{app:edge-nn}. Compiler and runtime development is covered in
+Sections~\ref{sec:compiler}--\ref{sec:runtime}; reproduction details appear in
+Section~\ref{sec:evaluation}. The
+\href{https://github.com/walkerchi/TIGA-lang}{implementation},
+\href{https://walkerchi.github.io/TIGA-lang/}{API documentation}, and
+\href{https://github.com/walkerchi/tiga-lang-paper}{report artifacts}
+are available separately so that implementation details and experiments can
+be inspected alongside the design.
 
 \input{sections/background}
 
@@ -78,6 +111,9 @@ $$
  y_i = g\!\left(z_i,\operatorname{finalize}\left(
        \bigoplus_{e:d(e)=i}\operatorname{lift}(m_e)\right);\theta\right).
 $$
+Here source fields, destination fields, edge attributes and shared parameters
+are denoted by $x$, $z$, $a$ and $\theta$, respectively. The edge function $f$
+forms a message; $g$ optionally updates destination state from the aggregate.
 The reducer supplies its identity, lift, combine and finalize behavior.
 An empty row starts from the identity; finalization determines the resulting
 empty-row convention. This convention is reducer-specific. Declaring a reducer

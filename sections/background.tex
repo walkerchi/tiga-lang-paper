@@ -2,7 +2,8 @@
 \label{sec:background}
 \subsection{Message passing as a general computational model}
 \label{sec:general-message-passing}
-Message passing is broader than neighborhood aggregation in a fixed-depth GNN.
+Message passing is broader than neighborhood aggregation in a fixed-depth
+graph neural network (GNN).
 In the general model, stateful entities perform local computation, communicate
 values or control information, and continue through repeated transitions.
 The actor formalism treats communication as an organizing principle for data,
@@ -10,6 +11,10 @@ procedures and control~\cite{actors}. Pregel gives a graph-oriented, iterative
 realization through vertex programs and messages~\cite{pregel}. Tiga uses
 structured relations and reducers rather than implementing arbitrary actor
 mailboxes or adopting Pregel's execution protocol.
+In graph learning, Message Passing Neural Networks (MPNNs) formalize learned
+messages and aggregation across repeated node updates~\cite{mpnn}. Tiga uses
+this local-computation interface as a compiler input, while also supporting
+non-neural message functions such as stencil updates and weighted sums.
 
 \paragraph{Universality and its conditions.}
 With sufficiently expressive local transitions, repeatable control and
@@ -52,7 +57,7 @@ compiler question is which semantic information remains available when each
 decision is made, not whether a system uses the phrase ``message passing.''
 
 PyTorch Geometric supplies a graph-learning programming model with gather--scatter
-and optimized sparse execution paths~\cite{pyg}. Graphiler makes the compiler connection explicit:
+and optimized sparse execution paths~\cite{pyg,pyg2}. Graphiler makes the compiler connection explicit:
 its message-passing data-flow graph annotates graph-related tensor residency and
 movement, enabling reductions in redundant computation and intermediate
 storage~\cite{graphiler}. Tiga likewise retains source-, edge- and
@@ -64,8 +69,8 @@ FeatGraph composes sparse traversal templates with feature-dimension UDFs and
 schedules~\cite{featgraph}. It shows why graph traversal and within-feature
 computation should be optimized together. Seastar offers vertex-centric Python
 programming and generates fused forward and backward GPU kernels~\cite{seastar}.
-Tiga extends this compiler-oriented programming model with explicit relation
-constructors and storage/ownership representations.
+Tiga shares the goal of fusing local computations, and combines it with
+explicit relation constructors and storage/ownership representations.
 
 GALA is especially relevant to a multi-level design. It separates data and
 compute representations, composes intra-operator and inter-operator
@@ -139,15 +144,15 @@ this report concern graph aggregation and do not claim attention-library parity.
 \toprule
 Prior work & Relevant mechanism & Connection to Tiga \\
 \midrule
-Graphiler & Graph-aware dataflow/residency & Source, edge and destination field roles \\
-FeatGraph & Sparse traversal + feature schedules & Joint graph/feature traversal selection \\
-Seastar & Vertex-centric fused forward/backward & Message fusion and derivative generation \\
-GALA & Composed data/compute and training transforms & Layered representation and transformation scope \\
-Ebb / Simit & Relational simulation / hypergraph algebra & Numerical programs beyond GNNs \\
-GraphIt & Algorithm/schedule separation & Separate meaning from execution mapping \\
-TACO / SparseTIR & Sparse iteration, formats, transformations & Relation traversal separate from storage \\
-GraphChi / X-Stream & Disk-oriented partitioned execution & Bounded graph pages and storage traffic \\
-Legion & Logical regions and physical placement & Storage instances, ownership and dependencies \\
+Graphiler~\cite{graphiler} & Graph-aware dataflow/residency & Source, edge and destination field roles \\
+FeatGraph~\cite{featgraph} & Sparse traversal + feature schedules & Joint graph/feature traversal selection \\
+Seastar~\cite{seastar} & Vertex-centric fused forward/backward & Message fusion and derivative generation \\
+GALA~\cite{gala} & Composed data/compute and training transforms & Layered representation and transformation scope \\
+Ebb / Simit~\cite{ebb,simit} & Relational simulation / hypergraph algebra & Numerical programs beyond GNNs \\
+GraphIt~\cite{graphit} & Algorithm/schedule separation & Separate meaning from execution mapping \\
+TACO / SparseTIR~\cite{taco,sparsetir} & Sparse iteration, formats, transformations & Relation traversal separate from storage \\
+GraphChi / X-Stream~\cite{graphchi,xstream} & Disk-oriented partitioned execution & Bounded graph pages and storage traffic \\
+Legion~\cite{legion} & Logical regions and physical placement & Storage instances, ownership and dependencies \\
 \bottomrule
 \end{tabularx}
 \caption{Prior work and its relationship to Tiga's design.}

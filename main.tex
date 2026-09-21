@@ -28,12 +28,15 @@ exhaust device memory. We present Tiga, a just-in-time compiler that separates
 the definition of a message-passing program from how its interactions are
 traversed, computed, and stored. Tiga preserves graph relations and reducer
 algebra in a multi-level intermediate representation, enabling traversal
-specialization, fusion of relation generation with aggregation, and lowering
-to CPU and GPU backends. Its runtime extends execution beyond device-memory
+specialization, fusion of relation generation with aggregation, and reverse-mode
+automatic differentiation. Backend-specific lowering targets CPUs and GPUs.
+Its runtime extends execution beyond device-memory
 capacity by streaming graph partitions from disk through host memory with
 page-sized device staging buffers; partition ownership and halo exchange extend the
 same programming model to distributed execution. A Python interface
-interoperates with ordinary PyTorch tensors. Evaluation against matched Torch
+interoperates with ordinary PyTorch tensors and autograd for forward and backward
+computation. Numerical checks validate outputs and gradients for differentiable
+workloads. Evaluation against matched Torch
 and PyTorch Geometric baselines demonstrates reduced runtime and device-memory
 use for generated-relation workloads, while offloaded forward execution
 processes billion-edge graphs on a single memory-limited GPU. Measurements on
@@ -52,7 +55,7 @@ costs of distributed execution.
 \input{sections/appendix-edge-nn}
 \bibliographystyle{plain}
 \begingroup
-\small
+\footnotesize\raggedright
 \bibliography{references}
 \endgroup
 \end{document}

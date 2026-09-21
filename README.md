@@ -4,10 +4,15 @@
 
 **Tiga: Compiling Graph Message Passing at Scale**
 
+Tiga stands for **Target-Independent Graph Acceleration**: message-passing semantics
+are separated from hardware-specific lowering and execution.
+
 A technical report on compiling local message-passing computations into efficient
 graph execution beyond device-memory capacity. Tiga retains interaction structure
 to specialize traversal and fuse computation, targets CPU and GPU backends, and
 supports paged and distributed execution within a common programming model.
+Differentiable computations integrate with ordinary PyTorch tensors and autograd;
+the report describes both forward execution and reverse-mode differentiation.
 
 [Read the PDF](tiga-lang.pdf) ·
 [Download PDF](https://github.com/walkerchi/tiga-lang-paper/raw/refs/heads/main/tiga-lang.pdf) ·
@@ -81,3 +86,8 @@ measurements; replotting alone uses the stored samples.
 - `tests/`: numerical, provenance and manuscript checks.
 
 The report has not been submitted to arXiv.
+
+For software citations, use the compiler project's
+[CITATION.cff](https://github.com/walkerchi/TIGA-lang/blob/main/CITATION.cff).
+To reference this technical report before archival publication, cite walkerchi,
+the title above, the report date, and a commit-specific URL from this repository.

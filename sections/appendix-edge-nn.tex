@@ -43,7 +43,8 @@ into tiled execution and recomputes local activations in the VJP, avoiding
 a global edge-by-hidden-feature activation tensor. CPU execution remains
 useful for functional checking but does not establish that CUDA performance
 property. Unsupported module operations are outside this example's capture
-contract. The complete runnable file is \code{examples/edge\_nn.py}; execute it
+contract. The complete runnable file is
+\href{https://github.com/walkerchi/tiga-lang-paper/blob/main/examples/edge_nn.py}{\code{examples/edge\_nn.py}}; execute it
 from the paper directory with Tiga and the appropriate Torch installation:
 \begin{lstlisting}[language=TigaShell]
 python examples/edge_nn.py
