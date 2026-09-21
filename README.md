@@ -19,7 +19,7 @@ the report describes both forward execution and reverse-mode differentiation.
 [Compiler project](https://github.com/walkerchi/TIGA-lang) ·
 [Report source](https://github.com/walkerchi/tiga-lang-paper)
 
-Author: **walkerchi**, Independent Developer.
+Author: **Mingyuan Chi**, Independent Researcher.
 Contact: [walker.chi.000@gmail.com](mailto:walker.chi.000@gmail.com).
 
 ## Read and build
@@ -98,5 +98,5 @@ The report has not been submitted to arXiv.
 
 For software citations, use the compiler project's
 [CITATION.cff](https://github.com/walkerchi/TIGA-lang/blob/main/CITATION.cff).
-To reference this technical report before archival publication, cite walkerchi,
+To reference this technical report before archival publication, cite Mingyuan Chi,
 the title above, the report date, and a commit-specific URL from this repository.
