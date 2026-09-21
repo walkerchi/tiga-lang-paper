@@ -5,7 +5,7 @@ PROJECT ?= ../tiga-lang
 RUN ?= $(PROJECT)/output/paper-20260919
 GF_OPT ?= gf-opt
 
-.PHONY: all tectonic pdf evidence figures check
+.PHONY: all tectonic pdf iclr pdf-iclr pdf-all evidence figures check
 all:
 	latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex
 
@@ -15,6 +15,16 @@ tectonic:
 
 pdf: tectonic
 	cp build/main.pdf tiga-lang.pdf
+
+iclr:
+	latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build/iclr2027 iclr2027.tex
+
+pdf-iclr:
+	mkdir -p build/iclr2027
+	$(TECTONIC) --bundle $(TECTONIC_BUNDLE) --keep-logs --keep-intermediates --outdir build/iclr2027 iclr2027.tex
+	cp build/iclr2027/iclr2027.pdf tiga-lang-iclr2027.pdf
+
+pdf-all: pdf pdf-iclr
 
 evidence:
 	$(PYTHON) tools/export_evidence.py --project $(PROJECT)

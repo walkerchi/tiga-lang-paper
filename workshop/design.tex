@@ -1,0 +1,109 @@
+\section{Relation-aware compilation and bounded execution}
+\label{ws:design}
+\subsection{The program retains interactions, not edge arrays}
+A graph maps each edge to a source and a destination. A message function reads
+source, destination and edge fields; a reducer combines messages for each
+destination. The result is
+$$
+y_i=\operatorname{finalize}\!\left(
+\bigoplus_{e:d(e)=i}\operatorname{lift}
+\big(f(x_{s(e)},z_i,a_e;\theta)\big)\right).
+$$
+The reducer declares an identity, state update and finalization. Duplicate
+edges are separate contributions; empty rows follow the reducer's identity
+and finalization convention. An optional node function consumes the reduced
+value. The edge function determines what is computed, while the graph determines
+which interactions exist.
+
+For example, this program sums source features over a coordinate-dependent
+radius relation. Positions and features are ordinary Torch tensors on the same
+device; rows denote destinations and columns denote sources.
+\begin{lstlisting}[language=Python]
+import tiga as tg
+
+class NeighborSum(tg.MessagePassing):
+    reducer = tg.sum()
+    def edge(self, src, dst, edge):
+        return src.x
+
+graph = tg.Graph.radius(positions, cutoff=0.1)
+y = NeighborSum()(graph=graph, src={"x": x}, dst={})
+\end{lstlisting}
+The interface does not require an edge list, although a consumer may select an
+explicit representation. Dense and triangular graphs similarly describe an
+interaction domain. For causal attention, the destination supplies a query,
+the source supplies a key/value, and an online-softmax reducer combines score
+and value messages. Preserving the reducer state admits streaming evaluation
+without a global score matrix, following the IO-aware principle exemplified by
+FlashAttention \citep{flashattention}.
+
+\subsection{Lowering preserves legality before choosing a schedule}
+Tiga uses MLIR for its compiler representations \citep{mlir}. Domain IR retains
+field roles, graph construction and message/reducer regions. Iter IR introduces
+relation-coordinate traversal. Kernel IR assigns tiles and reduction work to
+execution resources. Task/Storage IR describes dependencies, physical copies
+and ownership where the selected path needs them. Tensor IR carries numerical
+expressions alongside these layers; it is not a mandatory final stage.
+
+Three properties constrain the transformations. First, field roles distinguish
+a source ID from an edge position, even when both index floating-point arrays.
+Second, reducer associativity permits regrouping and commutativity permits
+reordering; arbitrary Python functions do not automatically satisfy either
+property. Third, shape, dtype, layout and topology guards determine whether an
+executable remains legal. Floating-point reduction changes require numerical
+tolerances even when real-arithmetic semantics agree. NVIDIA lowering emits
+serialized Triton IR for provider compilation \citep{triton}; native CPU paths
+lower through LLVM. A provider interface alone does not establish a working
+backend on another vendor's hardware.
+
+\paragraph{Generated relations.}
+For supported low-dimensional Euclidean radius workloads, a cell directory
+limits traversal to neighboring cells. An exact distance predicate selects
+accepted sources, whose fields can be consumed immediately by the reduction.
+This avoids storing accepted-edge indices, distances and messages globally.
+A custom metric needs a compatible spatial bound before that traversal is legal.
+
+For exact kNN, a destination program scans candidate tiles and keeps a padded
+top-k state, ordered by squared distance and source ID. If the smallest key
+in a candidate tile cannot improve the retained state, sorting and merging
+that tile are skipped; its distances are still computed. This is exact
+selection pruning, not approximate neighbor search or a subquadratic algorithm.
+Compatible new coordinates can rebind an existing executable without capture
+and lowering. Coordinates remain live inputs: executable reuse never implies
+reuse of previously selected neighbors.
+
+\subsection{Paging separates capacity from kernel speed}
+\label{ws:paging}
+Explicit graphs larger than device memory use a native storage path. Topology
+and source fields remain in a persistent store. The runtime loads a bounded
+destination-row page, gathers its source fields on the host, stages the page
+to CUDA and runs its reduction. It assembles the final output in a resident
+device tensor. The capacity constraint is therefore
+$$
+M_{\mathrm{output}}+M_{\mathrm{active\ topology}}
++M_{\mathrm{staged\ fields}}+M_{\mathrm{temporary}}
+\le B_{\mathrm{device}},
+$$
+where the budget applies to Tiga-managed device buffers, not other processes
+or the full CUDA context. The output must still fit the device. Page topology
+and field versions must agree; transfer must finish before consumption; and
+storage cannot be recycled until its consumers finish.
+
+The current implementation gathers features in page-edge order, potentially
+repeating a source value many times. It also returns completed output pages
+through host bytes before writing the resident result. These choices bound
+temporary memory but can dominate runtime. The measured configuration is
+serialized, without prefetch. Optional read-ahead does not implement a complete
+disk--host--device overlap pipeline. Ordinary Torch tensors remain under Torch's
+allocator; Tiga-managed paging uses native tensors rather than silently taking
+ownership of arbitrary Torch storage.
+
+\paragraph{Differentiation boundary.}
+Supported Torch-facing programs interoperate with Torch autograd. CUDA EdgeNN
+paths recompute local activations in a symbolic vector--Jacobian product (VJP);
+some other compiled forwards replay Torch operations during backward. CPU
+paging has a supported native VJP, but CUDA paged execution and the dense
+streaming attention path evaluated here have no compiled backward. Derivatives
+act on the selected relation, not discrete radius membership or kNN selection.
+Appendix~\ref{ws:gradients} distinguishes the numerical checks from training
+performance evidence.

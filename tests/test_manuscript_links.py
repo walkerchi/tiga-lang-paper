@@ -7,8 +7,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def active_sources():
-    pending = [ROOT / 'main.tex']
+def active_sources(entry='main.tex'):
+    pending = [ROOT / entry]
     seen = set()
     result = []
     while pending:
@@ -27,27 +27,29 @@ def active_sources():
 
 
 class ManuscriptLinks(unittest.TestCase):
+    entry = 'main.tex'
+
     def test_citations_resolve_to_unique_bibliography_entries(self):
         bibliography = (ROOT / 'references.bib').read_text()
         keys = re.findall(r'^@\w+\{([^,]+),', bibliography, re.MULTILINE)
         self.assertEqual(len(keys), len(set(keys)), 'Duplicate bibliography keys')
         citations = {
             key.strip()
-            for group in re.findall(r'\\cite\{([^}]+)\}', active_sources())
+            for group in re.findall(r'\\cite[pt]?\{([^}]+)\}', active_sources(self.entry))
             for key in group.split(',')
         }
         self.assertTrue(citations)
         self.assertFalse(citations - set(keys), citations - set(keys))
 
     def test_section_figure_and_table_references_resolve(self):
-        source = active_sources()
+        source = active_sources(self.entry)
         labels = re.findall(r'\\label\{([^}]+)\}', source)
         self.assertEqual(len(labels), len(set(labels)), 'Duplicate labels')
         references = set(re.findall(r'\\(?:ref|eqref|pageref)\{([^}]+)\}', source))
         self.assertFalse(references - set(labels), references - set(labels))
 
     def test_included_code_and_figures_exist(self):
-        source = active_sources()
+        source = active_sources(self.entry)
         assets = re.findall(
             r'\\(?:lstinputlisting|includegraphics)(?:\[[^\]]*\])?\{([^}]+)\}',
             source,
@@ -56,6 +58,10 @@ class ManuscriptLinks(unittest.TestCase):
         for name in assets:
             with self.subTest(asset=name):
                 self.assertTrue((ROOT / name).is_file(), name)
+
+
+class WorkshopManuscriptLinks(ManuscriptLinks):
+    entry = 'iclr2027.tex'
 
 
 if __name__ == '__main__':

@@ -1,0 +1,26 @@
+\section{Discussion and conclusion}
+Relation-aware compilation can reduce work and storage that arise from
+prematurely expanding interactions. The performance measurements support this
+opportunity for selected generated-relation workloads. Paging addresses a
+different constraint: it makes an explicit billion-edge computation executable
+on a memory-limited GPU, while exposing substantial host-staging overhead.
+These mechanisms benefit from a shared separation of relation semantics,
+traversal and storage, but neither makes every graph program efficient.
+
+The present evidence leaves three important questions open. A same-search
+materialized-versus-fused ablation is needed to separate traversal gains from
+intermediate elimination. Real-data, wide-feature applications and complete
+forward/backward steps are needed to establish learning-workload benefits.
+Finally, first-call compilation costs and amortization need to be reported
+alongside warm execution. Capacity comparisons additionally need a matched
+bounded-memory baseline before claiming an advantage over manual chunking.
+These missing measurements limit attribution and generalization; the reported
+curves do not substitute for them.
+
+The implementation also has path-dependent differentiation and backend coverage.
+CUDA paging remains forward-only, output storage must fit the device, and
+distributed ownership is fixed. The current results motivate improving source
+staging and output assembly, and assessing load-aware partitioning rather than
+assuming that a small halo guarantees strong scaling. Tiga provides a concrete
+substrate for exploring these choices without changing the local message and
+reducer interface.

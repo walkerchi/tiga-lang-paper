@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{styles/iclr2027/iclr2027_conference,times}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,booktabs,tabularx,graphicx,placeins}
+\usepackage{xcolor,listings,etoolbox}
+\usepackage[hidelinks]{hyperref}
+\input{listings}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\title{Tiga: Compiling Graph\\Message Passing at Scale}
+\author{Anonymous authors}
+\hypersetup{pdfauthor={},pdftitle={Tiga: Compiling Graph Message Passing at Scale},
+pdfsubject={ICLR 2027 workshop manuscript draft; not submitted}}
+% Keep official layout and anonymous mode, but never imply an actual submission.
+\makeatletter
+\patchcmd{\@maketitle}{Paper under double-blind review}{Workshop manuscript draft}
+  {}{\PackageError{tiga}{Cannot replace template review status}{Check template version}}
+\makeatother
+\begin{document}
+\maketitle
+\lhead{ICLR 2027 workshop manuscript draft --- not submitted}
+\begin{abstract}
+Graph message passing is a common computational pattern in learning and
+numerical simulation, but explicit graph construction and edge-wise tensor
+operations can consume more memory than the final result. We present Tiga,
+a just-in-time compiler that keeps graph relations and reduction semantics
+visible until traversal and execution are selected. Generated relations can
+be consumed by aggregation without storing a complete edge list or message
+array. For explicit graphs that exceed device memory, a paged runtime streams
+topology and source fields through host memory while retaining a bounded
+temporary device working set. The interface accepts ordinary PyTorch tensors,
+with path-specific automatic differentiation and native storage controls for
+offloaded execution. Experiments compare forward latency and allocation with
+matched Torch and PyTorch Geometric implementations, and demonstrate billion-edge
+forward execution on a memory-limited GPU. The results motivate relation-aware
+compilation while exposing the host-staging costs of capacity-oriented paging.
+Gradient checks establish supported derivative semantics separately from the
+forward-performance measurements.
+\end{abstract}
+\input{workshop/introduction}
+\input{workshop/design}
+\input{workshop/evaluation}
+\input{workshop/discussion}
+\label{ws:main-end}
+\clearpage
+\input{workshop/statements}
+\bibliographystyle{styles/iclr2027/iclr2027_conference}
+\bibliography{references}
+\clearpage
+\appendix
+\input{workshop/appendix}
+\end{document}
